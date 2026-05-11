@@ -36,7 +36,7 @@
 .reveal h2 { font-size: 1.4em; font-weight: 700; margin-bottom: 0.45em; }
 .reveal h3 { font-size: 0.95em; font-weight: 700; color: #a78bfa; margin-bottom: 0.35em; }
 
-.reveal .slides section { text-align: left; padding: 0 52px; }
+.reveal .slides section { text-align: left; padding: 0 44px 54px; }
 .reveal .slides section.center-slide { text-align: center; }
 
 /* Progress bar */
@@ -478,125 +478,45 @@ kbd {
 ══════════════════════════════════════════════════════════ -->
 <section>
 
-  <!-- 3a — Overview -->
+  <!-- 3a — Overview (new order: Agents → CLAUDE.md → Plan Mode → Models → Context → Limits) -->
   <section>
     <span class="eyebrow">Section 3 · 15 min</span>
     <h2>Six Things to Know</h2>
     <div class="concept-grid">
       <div class="concept-item">
         <div class="concept-letter">A</div>
-        <div><div class="concept-name">Plan Limits</div><div class="concept-sub">Your subscription quota, not tokens</div></div>
+        <div><div class="concept-name">Tools &amp; Agents</div><div class="concept-sub">What is an agent, exactly?</div></div>
       </div>
       <div class="concept-item">
         <div class="concept-letter">B</div>
-        <div><div class="concept-name">Models &amp; Effort</div><div class="concept-sub">Pick the right model for the task</div></div>
+        <div><div class="concept-name">CLAUDE.md</div><div class="concept-sub">Giving the agent memory</div></div>
       </div>
       <div class="concept-item">
         <div class="concept-letter">C</div>
-        <div><div class="concept-name">Context Windows</div><div class="concept-sub">How much the agent can "see"</div></div>
-      </div>
-      <div class="concept-item">
-        <div class="concept-letter">D</div>
         <div><div class="concept-name">Plan Mode</div><div class="concept-sub">Preview steps before executing</div></div>
       </div>
       <div class="concept-item">
+        <div class="concept-letter">D</div>
+        <div><div class="concept-name">Models &amp; Effort</div><div class="concept-sub">Pick the right model for the task</div></div>
+      </div>
+      <div class="concept-item">
         <div class="concept-letter">E</div>
-        <div><div class="concept-name">Tools &amp; Agents</div><div class="concept-sub">Model + tools + loop</div></div>
+        <div><div class="concept-name">Context Windows</div><div class="concept-sub">How much the agent can "see"</div></div>
       </div>
       <div class="concept-item">
         <div class="concept-letter">F</div>
-        <div><div class="concept-name">CLAUDE.md</div><div class="concept-sub">Giving the agent memory</div></div>
+        <div><div class="concept-name">Plan Limits</div><div class="concept-sub">Your subscription quota, not tokens</div></div>
       </div>
     </div>
     <div class="down-hint">↓ scroll through each concept</div>
   </section>
 
-  <!-- 3b — A: Plan Limits -->
+  <!-- 3b — A: Tools & Agents -->
   <section class="detail">
-    <h3>A · Plan Limits &amp; Usage Quotas</h3>
-    <div class="plan-grid">
-      <div class="plan-pill">
-        <div class="pp-name">Claude Free</div>
-        <div class="pp-price">Free</div>
-        <div class="pp-desc">Limited messages per day. Haiku model only. Good for exploring.</div>
-      </div>
-      <div class="plan-pill star">
-        <div class="pp-name">Claude Pro ★ workshop default</div>
-        <div class="pp-price">~$20/month</div>
-        <div class="pp-desc">Sonnet + Opus access. Heavy use triggers cooldown (up to 5h).</div>
-      </div>
-      <div class="plan-pill">
-        <div class="pp-name">Claude Max</div>
-        <div class="pp-price">~$100/month</div>
-        <div class="pp-desc">5× the Pro quota. For long coding sessions and automated pipelines.</div>
-      </div>
-      <div class="plan-pill">
-        <div class="pp-name">API (pay-per-use)</div>
-        <div class="pp-price">Per token, no message caps</div>
-        <div class="pp-desc">Best for running scripts overnight. Set a spending limit first.</div>
-      </div>
-    </div>
-    <div class="callout warn" style="margin-top:0.4em;">
-      <span class="callout-icon">⚠️</span>
-      <span>Set a monthly spending cap in the Anthropic Console before using an API key. $5–10 covers this workshop.</span>
-    </div>
-  </section>
-
-  <!-- 3c — B: Models -->
-  <section class="detail">
-    <h3>B · Models &amp; Effort</h3>
-    <table>
-      <thead><tr><th>Model</th><th>Speed</th><th>Cost</th><th>Best for</th></tr></thead>
-      <tbody>
-        <tr><td>Claude Haiku</td><td>Fast</td><td>Cheap</td><td>Bulk formatting, quick lookups</td></tr>
-        <tr><td>Claude Sonnet</td><td>Balanced</td><td>Mid</td><td>Most research tasks — <strong>workshop default</strong></td></tr>
-        <tr><td>Claude Opus</td><td>Slow</td><td>High</td><td>Complex, ambiguous problems</td></tr>
-        <tr><td>GPT-4.1</td><td>Fast</td><td>Mid</td><td>General coding, chat</td></tr>
-        <tr><td>GPT-5.5</td><td>Balanced</td><td>Higher</td><td>Nuanced conversational reasoning &amp; coding</td></tr>
-      </tbody>
-    </table>
-    <div class="callout tip" style="margin-top:0.4em;">
-      <span class="callout-icon">🧠</span>
-      <span><strong>Extended thinking:</strong> Claude Opus can reason harder before answering. For a standard regression: unnecessary. For a novel identification strategy: worth the cost.</span>
-    </div>
-  </section>
-
-  <!-- 3d — C: Context Windows -->
-  <section class="detail">
-    <h3>C · Context Windows</h3>
-    <ul>
-      <li>The context window is how much the model holds in memory at once — like RAM, not storage.</li>
-      <li>Claude Sonnet: <strong>200K tokens</strong> ≈ a full PhD dissertation in one session.</li>
-      <li>Each conversation starts fresh. Use <code>CLAUDE.md</code> to carry over project knowledge.</li>
-    </ul>
-    <div class="callout warn" style="margin-top:0.5em;">
-      <span class="callout-icon">⚠️</span>
-      <span>Hit "context length exceeded"? Break the task into smaller steps, or summarise prior results into <code>CLAUDE.md</code> so the next session starts fully briefed.</span>
-    </div>
-  </section>
-
-  <!-- 3e — D: Plan Mode -->
-  <section class="detail">
-    <h3>D · Plan Mode</h3>
-    <ul>
-      <li>By default Claude acts immediately — reads your files, runs code, writes output.</li>
-      <li><code>--plan</code> shows its intended steps <em>before</em> executing anything. Think of it as pre-registering your analysis.</li>
-    </ul>
-    <div class="code-wrap">
-      <pre><code class="language-bash">claude --plan "Download Compustat, replicate Sloan 1996 Table 2, flag any deviations"</code></pre>
-      <button class="copy-btn" onclick="copyCode(this)">Copy</button>
-    </div>
-    <ul style="margin-top:0.4em;">
-      <li>Use plan mode before any operation touching shared files or running untrusted code.</li>
-    </ul>
-  </section>
-
-  <!-- 3f — E: Tools & Agents -->
-  <section class="detail">
-    <h3>E · Tools &amp; Agents</h3>
+    <h3>A · Tools &amp; Agents</h3>
     <ul>
       <li>Claude Code has <strong>tools</strong>: read file, write file, run shell command, search web.</li>
-      <li>An <strong>agent</strong> = model + tools + loop. It calls tools, reads results, decides the next step.</li>
+      <li>An <strong>agent</strong> = model + tools + loop. It calls tools, reads results, decides the next step — without you driving each step.</li>
     </ul>
     <div class="flow">
       <div class="fn">You</div>
@@ -614,14 +534,14 @@ kbd {
       <div class="fn">Result</div>
     </div>
     <ul style="margin-top:0.3em;">
-      <li><strong>Skills</strong> are pre-packaged instruction sets invoked with a slash: <code>/review</code>, <code>/init</code>, <code>/security-review</code>.</li>
-      <li>Three interfaces, one model — browser (claude.ai), Desktop app, CLI. Only the CLI can run code.</li>
+      <li>Three interfaces, one model — browser (claude.ai), Desktop app, CLI. <strong>Only the CLI runs code.</strong></li>
+      <li><strong>Skills</strong> are shareable instruction sets invoked with a slash: <code>/review</code>, <code>/init</code>. Anyone can author one.</li>
     </ul>
   </section>
 
-  <!-- 3g — F: CLAUDE.md -->
+  <!-- 3c — B: CLAUDE.md -->
   <section class="detail">
-    <h3>F · CLAUDE.md — Giving the Agent Memory</h3>
+    <h3>B · CLAUDE.md — Giving the Agent Memory</h3>
     <div class="mem-grid">
       <div class="mem-card">
         <div class="mem-head">CLAUDE.md → Claude Code</div>
@@ -654,6 +574,86 @@ kbd {
     </div>
   </section>
 
+  <!-- 3d — C: Plan Mode -->
+  <section class="detail">
+    <h3>C · Plan Mode</h3>
+    <ul>
+      <li>By default Claude acts immediately — reads your files, runs code, writes output.</li>
+      <li><code>--plan</code> shows its intended steps <em>before</em> executing anything. Think of it as pre-registering your analysis.</li>
+    </ul>
+    <div class="code-wrap">
+      <pre><code class="language-bash">claude --plan "Download Compustat, replicate Sloan 1996 Table 2, flag any deviations"</code></pre>
+      <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+    </div>
+    <ul style="margin-top:0.4em;">
+      <li>Use plan mode before any operation touching shared files or running code that modifies data.</li>
+    </ul>
+  </section>
+
+  <!-- 3e — D: Models & Effort -->
+  <section class="detail">
+    <h3>D · Models &amp; Effort</h3>
+    <table>
+      <thead><tr><th>Model</th><th>Speed</th><th>Cost</th><th>Best for</th></tr></thead>
+      <tbody>
+        <tr><td>Claude Haiku</td><td>Fast</td><td>Cheap</td><td>Bulk formatting, quick lookups</td></tr>
+        <tr><td>Claude Sonnet</td><td>Balanced</td><td>Mid</td><td>Most research tasks — <strong>workshop default</strong></td></tr>
+        <tr><td>Claude Opus</td><td>Slow</td><td>High</td><td>Complex, ambiguous problems</td></tr>
+        <tr><td>GPT-4.1</td><td>Fast</td><td>Mid</td><td>General coding, chat</td></tr>
+        <tr><td>GPT-5.5</td><td>Balanced</td><td>Higher</td><td>Nuanced conversational reasoning &amp; coding</td></tr>
+      </tbody>
+    </table>
+    <div class="callout tip" style="margin-top:0.4em;">
+      <span class="callout-icon">🧠</span>
+      <span><strong>Extended thinking:</strong> Claude Opus can reason harder before answering. For a standard regression: unnecessary. For a novel identification strategy: worth the cost.</span>
+    </div>
+  </section>
+
+  <!-- 3f — E: Context Windows -->
+  <section class="detail">
+    <h3>E · Context Windows</h3>
+    <ul>
+      <li>The context window is how much the model holds in memory at once — like RAM, not storage.</li>
+      <li>Claude Sonnet: <strong>200K tokens</strong> ≈ a full PhD dissertation in one session.</li>
+      <li>Each conversation starts fresh. Use <code>CLAUDE.md</code> to carry over project knowledge.</li>
+    </ul>
+    <div class="callout warn" style="margin-top:0.5em;">
+      <span class="callout-icon">⚠️</span>
+      <span>Hit "context length exceeded"? Break the task into smaller steps, or summarise prior results into <code>CLAUDE.md</code> so the next session starts fully briefed.</span>
+    </div>
+  </section>
+
+  <!-- 3g — F: Plan Limits -->
+  <section class="detail">
+    <h3>F · Plan Limits &amp; Usage Quotas</h3>
+    <div class="plan-grid">
+      <div class="plan-pill">
+        <div class="pp-name">Claude Free</div>
+        <div class="pp-price">Free</div>
+        <div class="pp-desc">Limited messages per day. Haiku model only. Good for exploring.</div>
+      </div>
+      <div class="plan-pill star">
+        <div class="pp-name">Claude Pro ★ workshop default</div>
+        <div class="pp-price">~$20/month</div>
+        <div class="pp-desc">Sonnet + Opus access. Heavy use triggers cooldown (up to 5h).</div>
+      </div>
+      <div class="plan-pill">
+        <div class="pp-name">Claude Max</div>
+        <div class="pp-price">~$100/month</div>
+        <div class="pp-desc">5× the Pro quota. For long coding sessions and automated pipelines.</div>
+      </div>
+      <div class="plan-pill">
+        <div class="pp-name">API (pay-per-use)</div>
+        <div class="pp-price">Per token, no message caps</div>
+        <div class="pp-desc">Best for running scripts overnight. Set a spending limit first.</div>
+      </div>
+    </div>
+    <div class="callout warn" style="margin-top:0.4em;">
+      <span class="callout-icon">⚠️</span>
+      <span>Set a monthly spending cap in the Anthropic Console before using an API key. $5–10 covers this workshop.</span>
+    </div>
+  </section>
+
 </section>
 
 <!-- ══════════════════════════════════════════════════════════
@@ -680,7 +680,7 @@ claude init                                 # 4 · creates CLAUDE.md</code></pre
     <div class="down-hint">↓ prerequisites &amp; spending limit</div>
   </section>
 
-  <!-- 4b — Detail -->
+  <!-- 4b — Detail: Prerequisites -->
   <section class="detail">
     <h3>Setup — Prerequisites &amp; Safety</h3>
     <ul class="checklist" id="prereq-list">
@@ -694,16 +694,85 @@ claude init                                 # 4 · creates CLAUDE.md</code></pre
     </div>
   </section>
 
+  <!-- 4c — Detail: Data retention -->
+  <section class="detail">
+    <h3>Setup — Data Retention &amp; Privacy</h3>
+    <table>
+      <thead><tr><th>Interface</th><th>Used to train AI?</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td>Claude.ai Free / Pro</td><td>Potentially yes</td><td>Consumer product; Anthropic may use conversations</td></tr>
+        <tr><td>Claude API (key)</td><td><strong style="color:#34d399">No</strong></td><td>API terms explicitly exclude training use</td></tr>
+        <tr><td>Claude for Work / Teams</td><td><strong style="color:#34d399">No</strong></td><td>Enterprise DPA available on request</td></tr>
+        <tr><td>ChatGPT (consumer)</td><td>Potentially yes</td><td>Can opt out in Settings → Data Controls</td></tr>
+        <tr><td>OpenAI API</td><td><strong style="color:#34d399">No</strong></td><td>API terms explicitly exclude training use</td></tr>
+      </tbody>
+    </table>
+    <div class="callout warn" style="margin-top:0.4em;">
+      <span class="callout-icon">🔒</span>
+      <span><strong>Rule of thumb:</strong> If your data is sensitive — patient records, proprietary trading data, embargoed results, NPI — use the <strong>API</strong>, not the consumer chat interface. Pay-per-token but zero training-data risk.</span>
+    </div>
+    <div class="callout tip">
+      <span class="callout-icon">🇪🇺</span>
+      <span><strong>GDPR note:</strong> If your institution is EU-based, check whether your DPO has approved the relevant DPA. Both Anthropic and OpenAI offer Data Processing Agreements for institutional accounts.</span>
+    </div>
+  </section>
+
 </section>
 
 <!-- ══════════════════════════════════════════════════════════
-     5 · LIVE DEMOS
+     5 · SKILLS — STANDING ON OTHERS' SHOULDERS
+══════════════════════════════════════════════════════════ -->
+<section>
+
+  <!-- 5a — Main -->
+  <section>
+    <span class="eyebrow">Section 5 · 5 min</span>
+    <h2>Skills: Standing on Others' Shoulders</h2>
+    <ul class="large">
+      <li>A <strong>skill</strong> is a markdown file with structured instructions — shareable, version-controlled, community-built.</li>
+      <li>Scott Cunningham (<em>Causal Inference: The Mixtape</em>) built a full economist toolkit: <a href="https://github.com/scunning1975/mixtapetools" target="_blank">mixtapetools</a></li>
+      <li>Pull any skill into your project. Invoke with <code>/skill-name</code>.</li>
+    </ul>
+    <div class="callout tip" style="margin-top:0.5em;">
+      <span class="callout-icon">🎨</span>
+      <span>Skills in mixtapetools: <strong>beautiful-deck</strong> (Beamer slides from your results), <strong>referee-2</strong> (structured 5-part code audit), <strong>blindspot</strong> (surfaces overlooked problems in your analysis).</span>
+    </div>
+    <div class="down-hint">↓ how to pull and invoke</div>
+  </section>
+
+  <!-- 5b — Detail: pull and invoke -->
+  <section class="detail">
+    <h3>Pulling a Skill from mixtapetools</h3>
+    <div class="code-wrap">
+      <pre><code class="language-bash"># 1 · Create the skills directory in your project
+mkdir -p .claude/skills
+
+# 2 · Pull the beautiful-deck skill from Scott Cunningham's repo
+curl -o .claude/skills/beautiful-deck.md \
+  https://raw.githubusercontent.com/scunning1975/mixtapetools/main/skills/beautiful-deck.md
+
+# 3 · Start Claude Code and invoke it
+claude
+> /beautiful-deck</code></pre>
+      <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+    </div>
+    <div class="demo-result">✓ The agent reads the skill instructions, inspects your results folder, and generates a Beamer (LaTeX) presentation — slides ready to compile with pdflatex. A skill is just a markdown file with structured prompts anyone can author and share.</div>
+    <div class="callout tip" style="margin-top:0.35em;">
+      <span class="callout-icon">🔗</span>
+      <span>Browse all skills: <a href="https://github.com/scunning1975/mixtapetools" target="_blank">github.com/scunning1975/mixtapetools</a> — and write your own for your team's recurring tasks (e.g., <code>/wrds-pull</code>, <code>/robustness-check</code>).</span>
+    </div>
+  </section>
+
+</section>
+
+<!-- ══════════════════════════════════════════════════════════
+     6 · LIVE DEMOS
 ══════════════════════════════════════════════════════════ -->
 <section>
 
   <!-- 5a — Overview -->
   <section>
-    <span class="eyebrow">Section 5 · 15 min</span>
+    <span class="eyebrow">Section 6 · 15 min</span>
     <h2>Live Demos</h2>
     <ul class="large">
       <li><strong>Demo 1</strong> — Clean &amp; explore financial data</li>
@@ -787,7 +856,7 @@ Save structured output to earnings_summary.md"</code></pre>
 
   <!-- 6a — Main -->
   <section>
-    <span class="eyebrow">Section 6 · 15 min</span>
+    <span class="eyebrow">Section 7 · 15 min</span>
     <h2>Your Turn</h2>
     <div class="prompt-grid">
       <div class="prompt-card">
@@ -881,7 +950,7 @@ Reveal.initialize({
   controlsTutorial: true,
   progress: true,
   slideNumber: 'c/t',
-  center: false,
+  center: true,
   transition: 'slide',
   transitionSpeed: 'fast',
   backgroundTransition: 'fade',
