@@ -36,7 +36,7 @@
 .reveal h2 { font-size: 1.4em; font-weight: 700; margin-bottom: 0.45em; }
 .reveal h3 { font-size: 0.95em; font-weight: 700; color: #a78bfa; margin-bottom: 0.35em; }
 
-.reveal .slides section { text-align: left; padding: 0 44px 54px; }
+.reveal .slides section { text-align: left; padding: 0 44px 54px; box-sizing: border-box; }
 .reveal .slides section.center-slide { text-align: center; }
 
 /* Progress bar */
@@ -295,6 +295,32 @@ em { color: #c4b5fd; font-style: normal; }
   gap: 0.5em;
 }
 
+/* ── AI Ladder ─────────────────────────────────────────────── */
+.ai-ladder { display: flex; flex-direction: column; gap: 6px; margin: 0.35em 0; font-size: 0.48em; }
+.ladder-rung {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.7em;
+  padding: 0.35em 0.6em;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  line-height: 1.4;
+}
+.ladder-rung.now { border-color: var(--accent); background: rgba(124,58,237,0.12); }
+.ladder-num {
+  width: 22px; height: 22px;
+  border-radius: 6px;
+  background: #2d2a4a;
+  color: #a78bfa;
+  font-weight: 700;
+  font-size: 1.1em;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.ladder-rung.now .ladder-num { background: var(--accent); color: #fff; }
+.ladder-label { font-weight: 700; color: #fff; }
+.ladder-desc  { color: var(--muted); font-size: 0.9em; }
+
 /* ── Prompt cards ──────────────────────────────────────────── */
 .prompt-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; font-size: 0.47em; }
 .prompt-card { border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
@@ -378,7 +404,7 @@ kbd {
 
   <!-- 1a — Main slide -->
   <section>
-    <span class="eyebrow">Section 1 · 5 min</span>
+    <span class="eyebrow">Section 1</span>
     <h2>The Translation Layer</h2>
     <ul class="large">
       <li>You have an idea. Between that idea and a result sits a barrier.</li>
@@ -388,7 +414,7 @@ kbd {
     </ul>
     <div class="callout tip" style="margin-top:0.6em;">
       <span class="callout-icon">💡</span>
-      <span>We are not claiming AI replaces your judgment as an economist. We are claiming it eliminates the <strong>translation layer</strong> between your idea and a working artifact.</span>
+      <span>We are not claiming AI replaces your judgment as a researcher. We are claiming it eliminates the <strong>translation layer</strong> between your idea and a working artifact — whether that's a merged WRDS dataset, a factor model table, a referee report, or a replication package.</span>
     </div>
     <div class="down-hint">↓ before &amp; after numbers</div>
   </section>
@@ -399,19 +425,19 @@ kbd {
     <div class="ba-grid">
       <div class="ba-col before">
         <div class="ba-head">⏱ Before</div>
-        <div class="ba-row"><span class="ba-dot"></span>Clean 10,000 rows of Compustat: <strong>3 hours</strong></div>
-        <div class="ba-row"><span class="ba-dot"></span>Debug a Stata regression: <strong>45 min on Stack Overflow</strong></div>
-        <div class="ba-row"><span class="ba-dot"></span>Interactive chart: <strong>hire an RA or learn D3</strong></div>
-        <div class="ba-row"><span class="ba-dot"></span>Transcribe 60-min interview: <strong>send out, wait 24h</strong></div>
-        <div class="ba-row"><span class="ba-dot"></span>Replicate Sloan (1996): <strong>1–2 weeks for an RA</strong></div>
+        <div class="ba-row"><span class="ba-dot"></span>Merge ESG rating changes (MSCI / Refinitiv) with European returns + analyst coverage from WRDS: <strong>4 hours</strong> of identifier matching</div>
+        <div class="ba-row"><span class="ba-dot"></span>Compute Fama-French 5-factor alphas for a European portfolio, produce a LaTeX table: <strong>3 hours</strong></div>
+        <div class="ba-row"><span class="ba-dot"></span>Write a structured referee report for JF / JFE / RFS: <strong>half a day</strong></div>
+        <div class="ba-row"><span class="ba-dot"></span>Summarize a 90-min PhD supervision session into action items: <strong>never done consistently</strong></div>
+        <div class="ba-row"><span class="ba-dot"></span>Add a new working paper to your homepage + update CV in LaTeX: <strong>30–45 minutes</strong> of copy-paste</div>
       </div>
       <div class="ba-col after">
         <div class="ba-head">⚡ Now</div>
-        <div class="ba-row"><span class="ba-dot"></span>Describe what you want: <strong>4 minutes</strong></div>
-        <div class="ba-row"><span class="ba-dot"></span>Paste the error, get a fix: <strong>30 seconds</strong></div>
-        <div class="ba-row"><span class="ba-dot"></span>"Make this chart interactive" → <strong>done</strong></div>
-        <div class="ba-row"><span class="ba-dot"></span>Run locally in the background: <strong>2 minutes</strong></div>
-        <div class="ba-row"><span class="ba-dot"></span>Describe the paper's method: <strong>4 minutes</strong></div>
+        <div class="ba-row"><span class="ba-dot"></span>Describe the merge logic: <strong>12 minutes</strong></div>
+        <div class="ba-row"><span class="ba-dot"></span>Describe the paper's method: <strong>6 minutes</strong>, compilable LaTeX output</div>
+        <div class="ba-row"><span class="ba-dot"></span>Upload the PDF, run <code>/referee-2</code>: <strong>20 minutes</strong> — you judge, Claude scaffolds</div>
+        <div class="ba-row"><span class="ba-dot"></span>Run <code>/transcribe-meeting</code>: <strong>3 minutes</strong> — decisions, action items, next agenda</div>
+        <div class="ba-row"><span class="ba-dot"></span>Paste the abstract + SSRN link: <strong>90 seconds</strong>, both files updated in sync</div>
       </div>
     </div>
   </section>
@@ -425,7 +451,7 @@ kbd {
 
   <!-- 2a — Three eras -->
   <section>
-    <span class="eyebrow">Section 2 · 5 min</span>
+    <span class="eyebrow">Section 2</span>
     <h2>Three Eras of AI</h2>
     <div class="timeline">
       <div class="tl-card">
@@ -448,26 +474,62 @@ kbd {
       <li>The 2024→2025 jump isn't incremental — the agent <em>acts</em>.</li>
       <li>Reads your files, runs code, checks output, fixes errors. In a loop. Unattended.</li>
     </ul>
-    <div class="down-hint">↓ Claude vs Codex comparison</div>
+    <div class="down-hint">↓ tool comparison &amp; AI ladder</div>
   </section>
 
   <!-- 2b — Comparison table -->
   <section class="detail">
-    <h3>Claude Code vs. OpenAI Codex</h3>
+    <h3>Claude Code vs. ChatGPT / GPT-4o</h3>
     <table>
-      <thead><tr><th></th><th>Claude Code</th><th>OpenAI Codex (CLI / cloud)</th></tr></thead>
+      <thead><tr><th></th><th>Claude Code (CLI)</th><th>ChatGPT + GPT-4o</th></tr></thead>
       <tbody>
         <tr><td>Made by</td><td>Anthropic</td><td>OpenAI</td></tr>
-        <tr><td>Models</td><td>Haiku / Sonnet / Opus</td><td>GPT-4.1, GPT-5.5</td></tr>
+        <tr><td>Models</td><td>Haiku 3.5 / Sonnet 4 / Opus 4</td><td>GPT-4o, GPT-4o mini</td></tr>
         <tr><td>Context window</td><td>200K tokens</td><td>128K tokens</td></tr>
-        <tr><td>Plan mode</td><td><code>--plan</code> flag</td><td><code>--approval-mode full</code></td></tr>
-        <tr><td>Cloud agent</td><td>Local only</td><td>Yes — async background tasks</td></tr>
-        <tr><td>Best for</td><td>Long files, nuanced reasoning</td><td>Rapid code generation</td></tr>
+        <tr><td>Runs code locally</td><td><strong style="color:#34d399">Yes</strong> — reads &amp; writes your files</td><td>Code Interpreter: sandboxed only</td></tr>
+        <tr><td>Plan mode</td><td><code>--plan</code> flag (no writes until approved)</td><td>No equivalent</td></tr>
+        <tr><td>Memory across sessions</td><td><code>CLAUDE.md</code> in project root</td><td>ChatGPT Memory (account-level)</td></tr>
+        <tr><td>Best for</td><td>Long files, local data, research pipelines</td><td>Quick Q&amp;A, writing, general coding</td></tr>
       </tbody>
     </table>
     <div class="callout tip" style="margin-top:0.45em;">
       <span class="callout-icon">📘</span>
-      <span>For this workshop: <strong>Claude Pro</strong> or <strong>ChatGPT Plus</strong> is sufficient. The commands below work with either tool.</span>
+      <span>For this workshop: <strong>Claude Pro</strong> ($20/month) gives full Claude Code access. <strong>ChatGPT Plus</strong> gives GPT-4o but no local file execution.</span>
+    </div>
+  </section>
+
+  <!-- 2c — AI Ladder -->
+  <section class="detail">
+    <h3>The AI Ladder — Where Are You?</h3>
+    <div class="ai-ladder">
+      <div class="ladder-rung">
+        <div class="ladder-num">0</div>
+        <div><div class="ladder-label">Copy-paste from ChatGPT</div><div class="ladder-desc">Read a response in the browser, manually copy code or text into your work.</div></div>
+      </div>
+      <div class="ladder-rung">
+        <div class="ladder-num">1</div>
+        <div><div class="ladder-label">Chat in Claude.ai or ChatGPT</div><div class="ladder-desc">Conversational Q&amp;A, iterating in the browser. No file access, no code execution.</div></div>
+      </div>
+      <div class="ladder-rung now">
+        <div class="ladder-num">2</div>
+        <div><div class="ladder-label">Single CLI skills — <em>this workshop</em></div><div class="ladder-desc">Claude Code runs a single goal: reads your files, executes code, saves output. You review.</div></div>
+      </div>
+      <div class="ladder-rung">
+        <div class="ladder-num">3</div>
+        <div><div class="ladder-label">Multi-step agents</div><div class="ladder-desc">Chain of tasks: pull WRDS data → clean → run regressions → write results → commit to Git. One instruction.</div></div>
+      </div>
+      <div class="ladder-rung">
+        <div class="ladder-num">4</div>
+        <div><div class="ladder-label">Multi-agent orchestration</div><div class="ladder-desc">Parallel specialists: one fetches Compustat, another reviews the code, a third drafts the paper section.</div></div>
+      </div>
+      <div class="ladder-rung">
+        <div class="ladder-num">5</div>
+        <div><div class="ladder-label">Autonomous pipelines</div><div class="ladder-desc">Scheduled, unattended agents: nightly ESG data pulls, automatic robustness checks, draft updates on new releases.</div></div>
+      </div>
+    </div>
+    <div class="callout tip" style="margin-top:0.3em;">
+      <span class="callout-icon">📍</span>
+      <span>Most researchers gain the most productivity at <strong>Level 2–3</strong>. Levels 4–5 require DevOps infrastructure — worth it for systematic literature reviews or ongoing data production.</span>
     </div>
   </section>
 
@@ -480,7 +542,7 @@ kbd {
 
   <!-- 3a — Overview (new order: Agents → CLAUDE.md → Plan Mode → Models → Context → Limits) -->
   <section>
-    <span class="eyebrow">Section 3 · 15 min</span>
+    <span class="eyebrow">Section 3</span>
     <h2>Six Things to Know</h2>
     <div class="concept-grid">
       <div class="concept-item">
@@ -533,7 +595,24 @@ kbd {
       <span class="fa">→</span>
       <div class="fn">Result</div>
     </div>
-    <ul style="margin-top:0.3em;">
+    <p style="font-size:0.45em; color:var(--muted); margin:0.3em 0 0.15em;">Under the hood — the <strong style="color:#fff;">ReAct loop</strong> (Reason + Act):</p>
+    <div class="flow">
+      <div class="fn agent">Think</div>
+      <span class="fa">→</span>
+      <div class="fn tool">Act</div>
+      <span class="fa">→</span>
+      <div class="fn tool">Observe</div>
+      <span class="fa">→</span>
+      <div class="fn agent">Respond</div>
+      <span class="fa" style="color:#a78bfa;">↺ loop</span>
+    </div>
+    <ul style="margin-top:0.25em;">
+      <li><strong>Think</strong>: model reasons about the goal and picks the next tool call.</li>
+      <li><strong>Act</strong>: executes the tool (read file, run shell, search web).</li>
+      <li><strong>Observe</strong>: reads the tool's output (file contents, stdout, error message).</li>
+      <li><strong>Respond</strong>: produces output or loops back to Think with new information.</li>
+    </ul>
+    <ul style="margin-top:0.2em;">
       <li>Three interfaces, one model — browser (claude.ai), Desktop app, CLI. <strong>Only the CLI runs code.</strong></li>
       <li><strong>Skills</strong> are shareable instruction sets invoked with a slash: <code>/review</code>, <code>/init</code>. Anyone can author one.</li>
     </ul>
@@ -548,8 +627,8 @@ kbd {
         <div class="mem-body">Created with <code>claude init</code>. Place in project root. Claude reads it automatically at the start of every session.</div>
       </div>
       <div class="mem-card">
-        <div class="mem-head">AGENTS.md → OpenAI Codex CLI</div>
-        <div class="mem-body">Same concept, different filename. Create manually. Codex reads it at the start of every task.</div>
+        <div class="mem-head">AGENTS.md → OpenAI Agents / Codex</div>
+        <div class="mem-body">Same concept, different filename. Used by OpenAI's agent-based tools. The approach is identical — put your project context here.</div>
       </div>
     </div>
     <div class="code-wrap">
@@ -599,8 +678,8 @@ kbd {
         <tr><td>Claude Haiku</td><td>Fast</td><td>Cheap</td><td>Bulk formatting, quick lookups</td></tr>
         <tr><td>Claude Sonnet</td><td>Balanced</td><td>Mid</td><td>Most research tasks — <strong>workshop default</strong></td></tr>
         <tr><td>Claude Opus</td><td>Slow</td><td>High</td><td>Complex, ambiguous problems</td></tr>
-        <tr><td>GPT-4.1</td><td>Fast</td><td>Mid</td><td>General coding, chat</td></tr>
-        <tr><td>GPT-5.5</td><td>Balanced</td><td>Higher</td><td>Nuanced conversational reasoning &amp; coding</td></tr>
+        <tr><td>GPT-4o</td><td>Fast</td><td>Mid</td><td>General coding, chat, quick Q&amp;A</td></tr>
+        <tr><td>GPT-4o mini</td><td>Very fast</td><td>Low</td><td>Bulk tasks, low-cost automation</td></tr>
       </tbody>
     </table>
     <div class="callout tip" style="margin-top:0.4em;">
@@ -663,7 +742,7 @@ kbd {
 
   <!-- 4a — Main -->
   <section>
-    <span class="eyebrow">Section 4 · 5 min</span>
+    <span class="eyebrow">Section 4</span>
     <h2>Setup</h2>
     <div class="code-wrap">
       <pre><code class="language-bash">npm install -g @anthropic-ai/claude-code   # 1 · install
@@ -726,7 +805,7 @@ claude init                                 # 4 · creates CLAUDE.md</code></pre
 
   <!-- 5a — Main -->
   <section>
-    <span class="eyebrow">Section 5 · 5 min</span>
+    <span class="eyebrow">Section 5</span>
     <h2>Skills: Standing on Others' Shoulders</h2>
     <ul class="large">
       <li>A <strong>skill</strong> is a markdown file with structured instructions — shareable, version-controlled, community-built.</li>
@@ -770,81 +849,134 @@ claude
 ══════════════════════════════════════════════════════════ -->
 <section>
 
-  <!-- 5a — Overview -->
+  <!-- 6a — Overview -->
   <section>
-    <span class="eyebrow">Section 6 · 15 min</span>
+    <span class="eyebrow">Section 6</span>
     <h2>Live Demos</h2>
     <ul class="large">
-      <li><strong>Demo 1</strong> — Clean &amp; explore financial data</li>
-      <li><strong>Demo 2</strong> — Replicate Sloan (1996): the accrual anomaly</li>
-      <li><strong>Demo 3</strong> — Build a shareable visualisation</li>
-      <li><strong>Demo 4</strong> — Transcribe &amp; structure an earnings call</li>
+      <li><strong>Demo 1</strong> — Write a referee report with <code>/referee-2</code> + references check</li>
+      <li><strong>Demo 2</strong> — Generate a slide deck from a paper with <code>/beautiful-deck</code></li>
+      <li><strong>Demo 3</strong> — Transcribe a student meeting with <code>/transcribe-meeting</code></li>
+      <li><strong>Demo 4</strong> — Build or update your academic homepage + CV</li>
+      <li><strong>Demo 5</strong> — Create a replication package or interactive appendix</li>
     </ul>
     <div class="callout tip" style="margin-top:0.5em;">
-      <span class="callout-icon">📊</span>
-      <span>Download <a href="assets/compustat_sample.csv">compustat_sample.csv</a> to follow along — 725 firm-year rows, 25 European firms, 1995–2023. Columns: <code>gvkey conm fyear ni at rect invt dpc oancf</code>.</span>
+      <span class="callout-icon">🛠</span>
+      <span>Skills used: <strong>referee-2</strong> and <strong>beautiful-deck</strong> from <a href="https://github.com/scunning1975/mixtapetools" target="_blank">mixtapetools</a>; <strong>transcribe-meeting</strong> is in this project. Pull any skill with one <code>curl</code> command.</span>
     </div>
     <div class="down-hint">↓ commands for each demo</div>
   </section>
 
-  <!-- 5b — Demo 1 -->
+  <!-- 6b — Demo 1: Referee Report -->
   <section class="detail">
-    <h3><span class="demo-badge">1</span> Clean &amp; Explore Financial Data</h3>
+    <h3><span class="demo-badge">1</span> Referee Report with <code>/referee-2</code></h3>
     <div class="code-wrap">
-      <pre><code class="language-bash">claude "Load compustat_sample.csv.
-Describe the data: number of firms, years covered, missing values by column.
-Calculate operating accruals = (change in rect + change in invt) - dpc.
-Normalise by lagged total assets. Flag top and bottom decile per year.
-Save a summary table to accruals_summary.md"</code></pre>
+      <pre><code class="language-bash"># Pull the skill once
+curl -o .claude/skills/referee-2.md \
+  https://raw.githubusercontent.com/scunning1975/mixtapetools/main/skills/referee-2.md
+
+# Run against the paper PDF
+claude "I need to review this paper: paper.pdf
+/referee-2
+After the structured report, also scan the bibliography:
+flag any references where the year or journal name looks incorrect,
+and list any key papers in this literature that are missing."</code></pre>
       <button class="copy-btn" onclick="copyCode(this)">Copy</button>
     </div>
-    <div class="demo-result">✓ Claude read the CSV, wrote Python, ran it, handled missing values, and saved structured output — without you opening a Python file.</div>
+    <div class="demo-result">
+      <span>✓</span>
+      <span>Claude produces a 5-part structured report (contribution, methodology, data, results, recommendation) plus a reference audit — what used to take a morning now takes 20 minutes. You judge; Claude scaffolds the structure.</span>
+    </div>
   </section>
 
-  <!-- 5c — Demo 2 -->
+  <!-- 6c — Demo 2: Slide Deck from Paper -->
   <section class="detail">
-    <h3><span class="demo-badge">2</span> Replicate Sloan (1996)</h3>
-    <div class="callout tip" style="margin-bottom:0.35em;">
-      <span class="callout-icon">📄</span>
-      <span>Sloan (1996) showed high-accrual firms earn lower future returns — one of the most replicated findings in accounting research.</span>
-    </div>
+    <h3><span class="demo-badge">2</span> Slide Deck from Paper with <code>/beautiful-deck</code></h3>
     <div class="code-wrap">
-      <pre><code class="language-bash">claude "Using compustat_sample.csv, replicate the core test from Sloan (1996).
-Sort firms into accrual deciles each year.
-Calculate mean next-year earnings (ni/at) for each decile.
-Test whether top and bottom decile differ (t-test).
-Write a paragraph in journal methods-section style."</code></pre>
+      <pre><code class="language-bash"># Pull the skill once
+curl -o .claude/skills/beautiful-deck.md \
+  https://raw.githubusercontent.com/scunning1975/mixtapetools/main/skills/beautiful-deck.md
+
+# Generate a conference presentation from a working paper
+claude "Here is my working paper: paper.pdf
+/beautiful-deck
+Target audience: finance conference (EFA / AFA style).
+12 slides maximum. Include motivation, data, key table, main figure, conclusion."</code></pre>
       <button class="copy-btn" onclick="copyCode(this)">Copy</button>
     </div>
-    <div class="demo-result">✓ A published finding reproduced from a plain-English description of the paper's methodology. The agent wrote the code, ran the test, and drafted the methods paragraph.</div>
+    <div class="demo-result">
+      <span>✓</span>
+      <span>Claude reads the paper, structures 12 Beamer slides with logical narrative flow, and writes compilable LaTeX — a <code>.tex</code> file ready for <code>pdflatex</code>. Replace copy-pasting from the paper with a single command.</span>
+    </div>
   </section>
 
-  <!-- 5d — Demo 3 -->
+  <!-- 6d — Demo 3: Meeting Transcript -->
   <section class="detail">
-    <h3><span class="demo-badge">3</span> Build a Shareable Visualisation</h3>
+    <h3><span class="demo-badge">3</span> Transcribe a Meeting &amp; Produce a Structured Summary</h3>
     <div class="code-wrap">
-      <pre><code class="language-bash">claude "Using the accrual decile results, create an HTML file with:
-- A bar chart of mean future earnings (ni/at) by accrual decile
-- A table showing the t-test result (t-stat, p-value, 95% CI)
-Use Chart.js from CDN. Make it clean and suitable for a conference slide."</code></pre>
+      <pre><code class="language-bash"># /transcribe-meeting is already in this project
+claude
+&gt; /transcribe-meeting meeting.m4a</code></pre>
       <button class="copy-btn" onclick="copyCode(this)">Copy</button>
     </div>
-    <div class="demo-result">✓ A shareable HTML artifact — open in a browser, drop into a presentation, or host on GitHub Pages. ChatGPT would have given you code to paste somewhere yourself.</div>
+    <p style="font-size:0.48em; color:var(--muted); margin:0.25em 0 0.2em;">The skill produces a structured summary with:</p>
+    <ul style="margin-top:0;">
+      <li>Key decisions made — numbered list</li>
+      <li>Action items: who is responsible, what, by when</li>
+      <li>Open questions that still need resolving</li>
+      <li>Suggested agenda items for the next meeting</li>
+    </ul>
+    <div class="demo-result">
+      <span>✓</span>
+      <span>A 90-minute PhD supervision session → a crisp action-item list in 3 minutes. Students and supervisors both get a written record without anyone taking notes during the conversation.</span>
+    </div>
   </section>
 
-  <!-- 5e — Demo 4 -->
+  <!-- 6e — Demo 4: Homepage + CV -->
   <section class="detail">
-    <h3><span class="demo-badge">4</span> Transcribe &amp; Structure an Earnings Call</h3>
+    <h3><span class="demo-badge">4</span> Build or Update Your Academic Homepage &amp; CV</h3>
     <div class="code-wrap">
-      <pre><code class="language-bash">claude "Transcribe earnings_call.m4a using the whisper command-line tool.
-Then extract:
-  (1) key forward-looking statements about revenue or margins
-  (2) any guidance revisions (up/down vs prior quarter)
-  (3) management sentiment score 1–10 with one-sentence justification
-Save structured output to earnings_summary.md"</code></pre>
+      <pre><code class="language-bash"># Option A — build a homepage from scratch
+claude "Create a clean academic homepage from cv.pdf.
+Sections: About, Research (working papers + publications), Teaching, Contact.
+Minimal HTML, no frameworks. Output: index.html"
+
+# Option B — add a new working paper to an existing site
+claude "Add this paper to index.html and cv.tex:
+Title: [Your title]  ·  Co-authors: [Names]  ·  SSRN: [URL]
+Abstract: [paste abstract]
+Keep the existing style and LaTeX formatting conventions."</code></pre>
       <button class="copy-btn" onclick="copyCode(this)">Copy</button>
     </div>
-    <div class="demo-result">✓ Claude chained two tools — ran Whisper for transcription, then applied reasoning to structure the output. An RA task that used to take half a day.</div>
+    <div class="demo-result">
+      <span>✓</span>
+      <span>Claude reads your CV PDF, extracts structured data, writes a deployable <code>index.html</code>, and patches <code>cv.tex</code> — keeping both in sync. 90 seconds vs 30–45 minutes of copy-paste.</span>
+    </div>
+  </section>
+
+  <!-- 6f — Demo 5: Replication Package -->
+  <section class="detail">
+    <h3><span class="demo-badge">5</span> Replication Package &amp; Interactive Appendix</h3>
+    <div class="code-wrap">
+      <pre><code class="language-bash"># Build a replication package (JF / JFE / RFS now require this)
+claude "I have a completed paper (paper.pdf) and analysis scripts (analysis/).
+Create a replication package:
+  (1) README.md: data sources, how to run, expected outputs, software versions
+  (2) Run the scripts end-to-end and verify all tables and figures reproduce
+  (3) Flag any data that cannot be shared (WRDS, Compustat, Bloomberg)
+      and write download instructions for each
+  (4) Write a data availability statement in journal-submission format"
+
+# Interactive appendix variant
+claude "Convert my results tables and figures (tables/ figures/) into
+an interactive HTML appendix — sortable tables, zoomable Chart.js figures.
+Suitable for hosting on the journal website or my homepage."</code></pre>
+      <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+    </div>
+    <div class="demo-result">
+      <span>✓</span>
+      <span>Claude traces which table in the paper maps to which script, writes the README, and flags proprietary data — the AEA Data Editor checklist, automated. The interactive appendix gives readers an explorable version of every result.</span>
+    </div>
   </section>
 
 </section>
@@ -856,7 +988,7 @@ Save structured output to earnings_summary.md"</code></pre>
 
   <!-- 6a — Main -->
   <section>
-    <span class="eyebrow">Section 7 · 15 min</span>
+    <span class="eyebrow">Section 7</span>
     <h2>Your Turn</h2>
     <div class="prompt-grid">
       <div class="prompt-card">
@@ -956,7 +1088,7 @@ Reveal.initialize({
   backgroundTransition: 'fade',
   width: 1200,
   height: 700,
-  margin: 0.04,
+  margin: 0,
   minScale: 0.2,
   maxScale: 2.0,
 });
