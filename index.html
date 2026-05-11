@@ -386,7 +386,7 @@ kbd {
      TITLE
 ══════════════════════════════════════════════════════════ -->
 <section class="title-slide title-bg">
-  <span class="eyebrow">Utrecht School of Economics · Finance · 2025</span>
+  <span class="eyebrow">Utrecht School of Economics · Finance · 2026</span>
   <h1>Claude Code</h1>
   <div class="title-sub">AI Coding Agents for Finance Researchers</div>
   <div class="title-meta">
@@ -404,16 +404,15 @@ kbd {
   <!-- 1a — Main slide -->
   <section>
     <span class="eyebrow">Section 1</span>
-    <h2>The Translation Layer</h2>
+    <h2>Execution &amp; Supervision</h2>
     <ul class="large">
-      <li>You have an idea. Between that idea and a result sits a barrier.</li>
-      <li>Python, R, Stata — the syntax tax that slows everyone down.</li>
-      <li>For those who can't code: a dependency on RAs and wait times.</li>
-      <li><em>Agents eliminate that barrier entirely.</em></li>
+      <li><strong>Research execution</strong> — Python, R, factor models, data cleaning, regressions, replication packages</li>
+      <li><strong>Production tasks</strong> — Beamer slides, TikZ diagrams, LaTeX tables, CV updates, academic homepage</li>
+      <li><strong>Teaching &amp; communication</strong> — lecture slides, referee reports, meeting summaries, course materials</li>
     </ul>
     <div class="callout tip" style="margin-top:0.6em;">
       <span class="callout-icon">💡</span>
-      <span>We are not claiming AI replaces your judgment as a researcher. We are claiming it eliminates the <strong>translation layer</strong> between your idea and a working artifact — whether that's a merged WRDS dataset, a factor model table, a referee report, or a replication package.</span>
+      <span>You direct and supervise. Claude executes and iterates. Your judgment stays in the loop — Claude removes the friction between idea and artifact.</span>
     </div>
     <div class="down-hint">↓ before &amp; after numbers</div>
   </section>
@@ -426,7 +425,7 @@ kbd {
         <div class="ba-head">⏱ Before</div>
         <div class="ba-row"><span class="ba-dot"></span>Merge ESG rating changes (MSCI / Refinitiv) with European returns + analyst coverage from WRDS: <strong>4 hours</strong> of identifier matching</div>
         <div class="ba-row"><span class="ba-dot"></span>Compute Fama-French 5-factor alphas for a European portfolio, produce a LaTeX table: <strong>3 hours</strong></div>
-        <div class="ba-row"><span class="ba-dot"></span>Write a structured referee report for JF / JFE / RFS: <strong>half a day</strong></div>
+        <div class="ba-row"><span class="ba-dot"></span>Write a structured referee report for JF / JFE / RFS: <strong>1–2 days</strong></div>
         <div class="ba-row"><span class="ba-dot"></span>Summarize a 90-min PhD supervision session into action items: <strong>never done consistently</strong></div>
         <div class="ba-row"><span class="ba-dot"></span>Add a new working paper to your homepage + update CV in LaTeX: <strong>30–45 minutes</strong> of copy-paste</div>
       </div>
@@ -484,7 +483,7 @@ kbd {
       <tbody>
         <tr><td>Models</td><td>Haiku 4.5 / Sonnet 4.6 / Opus 4.7</td><td>GPT-4.1 / GPT-5.5</td></tr>
         <tr><td>Context window</td><td>200K tokens</td><td>128K tokens</td></tr>
-        <tr><td>Runs code locally</td><td><strong style="color:#34d399">Yes</strong> — reads &amp; writes your files</td><td>Cloud only (async background tasks)</td></tr>
+        <tr><td>Runs code locally</td><td><strong style="color:#34d399">Yes</strong> — reads &amp; writes your files</td><td><strong style="color:#34d399">Yes</strong> — CLI on your machine; cloud exec available for long parallel tasks</td></tr>
         <tr><td>Plan mode</td><td><code>--plan</code> (no writes until approved)</td><td><code>--approval-mode full</code></td></tr>
         <tr><td>Memory file</td><td><code>CLAUDE.md</code> in project root</td><td><code>AGENTS.md</code></td></tr>
         <tr><td>Plans</td><td>Pro $20 / Max $100 / Max <strong>$200</strong> (20×)</td><td>Plus $20 / Pro <strong>$200</strong></td></tr>
@@ -605,12 +604,6 @@ kbd {
       <div class="fn agent">Respond</div>
       <span class="fa" style="color:#a78bfa;">↺ loop</span>
     </div>
-    <ul style="margin-top:0.25em;">
-      <li><strong>Think</strong>: model reasons about the goal and picks the next tool call.</li>
-      <li><strong>Act</strong>: executes the tool (read file, run shell, search web).</li>
-      <li><strong>Observe</strong>: reads the tool's output (file contents, stdout, error message).</li>
-      <li><strong>Respond</strong>: produces output or loops back to Think with new information.</li>
-    </ul>
     <ul style="margin-top:0.2em;">
       <li>Three interfaces, one model — browser (claude.ai), Desktop app, CLI. <strong>Only the CLI runs code.</strong></li>
       <li><strong>Skills</strong> are shareable instruction sets invoked with a slash: <code>/review</code>, <code>/init</code>. Anyone can author one.</li>
@@ -636,11 +629,6 @@ kbd {
 ## Data
 - Source: WRDS / Compustat annual, 1990–2023
 - Key file: data/compustat_clean.csv
-- Columns: gvkey, fyear, ni, at, rect, invt, dpc, oancf
-
-## Methodology
-- Replicating Sloan (1996): balance-sheet accrual method
-- Winsorize at 1% and 99% before analysis
 
 ## Conventions
 - Python only · Save all tables to results/ · Always print N before/after filters</code></pre>
@@ -674,11 +662,11 @@ kbd {
     <table>
       <thead><tr><th>Model</th><th>Speed</th><th>Cost</th><th>Best for</th></tr></thead>
       <tbody>
-        <tr><td>Claude Haiku</td><td>Fast</td><td>Cheap</td><td>Bulk formatting, quick lookups</td></tr>
-        <tr><td>Claude Sonnet</td><td>Balanced</td><td>Mid</td><td>Most research tasks — <strong>workshop default</strong></td></tr>
-        <tr><td>Claude Opus</td><td>Slow</td><td>High</td><td>Complex, ambiguous problems</td></tr>
-        <tr><td>GPT-4o</td><td>Fast</td><td>Mid</td><td>General coding, chat, quick Q&amp;A</td></tr>
-        <tr><td>GPT-4o mini</td><td>Very fast</td><td>Low</td><td>Bulk tasks, low-cost automation</td></tr>
+        <tr><td>Claude Haiku 4.5</td><td>Fast</td><td>Cheap</td><td>Bulk formatting, quick lookups</td></tr>
+        <tr><td>Claude Sonnet 4.6</td><td>Balanced</td><td>Mid</td><td>Most research tasks — <strong>workshop default</strong></td></tr>
+        <tr><td>Claude Opus 4.7</td><td>Slow</td><td>High</td><td>Complex, ambiguous problems</td></tr>
+        <tr><td>GPT-5.5</td><td>Fast</td><td>Mid</td><td>Agentic coding, general tasks (Codex default)</td></tr>
+        <tr><td>codex-mini-latest</td><td>Very fast</td><td>Low</td><td>Rapid iteration, lighter coding tasks</td></tr>
       </tbody>
     </table>
     <div class="callout tip" style="margin-top:0.4em;">
@@ -692,12 +680,13 @@ kbd {
     <h3>E · Context Windows</h3>
     <ul>
       <li>The context window is how much the model holds in memory at once — like RAM, not storage.</li>
-      <li>Claude Sonnet: <strong>200K tokens</strong> ≈ a full PhD dissertation in one session.</li>
+      <li>Claude Sonnet 4.6: <strong>200K tokens</strong> ≈ a full PhD dissertation in one session.</li>
       <li>Each conversation starts fresh. Use <code>CLAUDE.md</code> to carry over project knowledge.</li>
+      <li>Run <code>/clear</code> inside a session to reset context without restarting — useful when the window fills mid-task.</li>
     </ul>
-    <div class="callout warn" style="margin-top:0.5em;">
+    <div class="callout warn" style="margin-top:0.4em;">
       <span class="callout-icon">⚠️</span>
-      <span>Hit "context length exceeded"? Break the task into smaller steps, or summarise prior results into <code>CLAUDE.md</code> so the next session starts fully briefed.</span>
+      <span>Hit "context length exceeded"? Break the task into smaller steps or run <code>/clear</code> and summarise prior results into <code>CLAUDE.md</code>. <strong>Claude Pro</strong> triggers a cooldown after heavy use (up to <strong>5 hours</strong>); quota resets on a <strong>7-day rolling window</strong>.</span>
     </div>
   </section>
 
@@ -748,19 +737,52 @@ kbd {
   <section>
     <span class="eyebrow">Section 4</span>
     <h2>Setup</h2>
+    <p style="font-size:0.44em; color:var(--muted); margin:0.1em 0 0.08em;">1 · Install Claude Code</p>
     <div class="code-wrap">
-      <pre><code class="language-bash">npm install -g @anthropic-ai/claude-code   # 1 · install
-claude                                      # 2 · first run: OAuth or API key
-claude --version                            # 3 · verify
-mkdir my-finance-project &amp;&amp; cd my-finance-project
-claude init                                 # 4 · creates CLAUDE.md</code></pre>
+      <pre><code class="language-bash">npm install -g @anthropic-ai/claude-code</code></pre>
       <button class="copy-btn" onclick="copyCode(this)">Copy</button>
     </div>
-    <div class="callout tip" style="margin-top:0.4em;">
+    <p style="font-size:0.44em; color:var(--muted); margin:0.2em 0 0.08em;">2 · First run (opens browser login) &amp; verify</p>
+    <div class="code-wrap">
+      <pre><code class="language-bash">claude
+claude --version</code></pre>
+      <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+    </div>
+    <p style="font-size:0.44em; color:var(--muted); margin:0.2em 0 0.08em;">3 · Create a project</p>
+    <div class="code-wrap">
+      <pre><code class="language-bash">mkdir my-research &amp;&amp; cd my-research &amp;&amp; claude init</code></pre>
+      <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+    </div>
+    <div class="callout tip" style="margin-top:0.3em; font-size:0.48em;">
+      <span class="callout-icon">📦</span>
+      <span><strong>No npm?</strong> Install Node.js first: <code>brew install node</code> (Mac) &nbsp;·&nbsp; <code>winget install OpenJS.NodeJS</code> (Windows)</span>
+    </div>
+    <div class="callout tip" style="margin-top:0.2em; font-size:0.48em;">
       <span class="callout-icon">🚀</span>
       <span><strong>No install?</strong> Open <strong>claude.ai → New Project</strong>, upload your file. Covers 90% of today's demos.</span>
     </div>
-    <div class="down-hint">↓ prerequisites &amp; spending limit</div>
+    <div class="down-hint">↓ Codex &amp; Gemini CLI · prerequisites</div>
+  </section>
+
+  <!-- 4a-2 — Also install Codex / Gemini -->
+  <section class="detail">
+    <h3>Setup — Also Install Codex or Gemini CLI</h3>
+    <p style="font-size:0.44em; color:var(--muted); margin:0.1em 0 0.08em;">OpenAI Codex CLI</p>
+    <div class="code-wrap">
+      <pre><code class="language-bash">npm install -g @openai/codex
+codex --version</code></pre>
+      <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+    </div>
+    <p style="font-size:0.44em; color:var(--muted); margin:0.2em 0 0.08em;">Google Gemini CLI</p>
+    <div class="code-wrap">
+      <pre><code class="language-bash">npm install -g @google/gemini-cli
+gemini --version</code></pre>
+      <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+    </div>
+    <div class="callout tip" style="margin-top:0.35em;">
+      <span class="callout-icon">💡</span>
+      <span>All three CLIs follow the same pattern: install via npm, authenticate via browser, run from your project folder. The commands on the demo slides work with any of them — just replace <code>claude</code> with <code>codex</code> or <code>gemini</code>.</span>
+    </div>
   </section>
 
   <!-- 4b — Detail: Prerequisites -->
@@ -790,13 +812,9 @@ claude init                                 # 4 · creates CLAUDE.md</code></pre
         <tr><td>OpenAI API</td><td><strong style="color:#34d399">No</strong></td><td>API terms explicitly exclude training use</td></tr>
       </tbody>
     </table>
-    <div class="callout warn" style="margin-top:0.4em;">
-      <span class="callout-icon">🔒</span>
-      <span><strong>Rule of thumb:</strong> If your data is sensitive — patient records, proprietary trading data, embargoed results, NPI — use the <strong>API</strong>, not the consumer chat interface. Pay-per-token but zero training-data risk.</span>
-    </div>
-    <div class="callout tip">
-      <span class="callout-icon">🇪🇺</span>
-      <span><strong>GDPR note:</strong> If your institution is EU-based, check whether your DPO has approved the relevant DPA. Both Anthropic and OpenAI offer Data Processing Agreements for institutional accounts.</span>
+    <div class="callout tip" style="margin-top:0.4em;">
+      <span class="callout-icon">🧠</span>
+      <span>Consumer interfaces (claude.ai, ChatGPT) may use conversations to improve the model. <strong>Before uploading any data, know what you're sharing.</strong> When in doubt, use the API — your conversations are not used for training.</span>
     </div>
   </section>
 
@@ -833,7 +851,7 @@ cdc "Pull ESG data from WRDS, clean, run all regressions, save results to result
     </div>
     <div class="callout warn" style="margin-top:0.3em;">
       <span class="callout-icon">⚠️</span>
-      <span>Never use <code>--dangerously-skip-permissions</code> on shared or production systems — it gives Claude unrestricted shell and filesystem access. Safe use: your own laptop, in a project you control, with a git backup.</span>
+      <span>Use this on your own laptop, in your own research project. With this flag, Claude can move files, run code, and write anywhere on disk without asking — same trust level as a capable colleague with full access to your machine. Keep a <strong>git backup</strong>.</span>
     </div>
   </section>
 
@@ -972,6 +990,10 @@ claude
       <li>Open questions that still need resolving</li>
       <li>Suggested agenda items for the next meeting</li>
     </ul>
+    <div class="callout tip" style="margin-top:0.3em;">
+      <span class="callout-icon">🔒</span>
+      <span><strong>Under the hood:</strong> the skill runs <strong>Whisper</strong> (OpenAI's open-source speech model) <em>locally on your machine</em> — the audio file is never sent to any server. The transcript text is then processed by Claude via the API. For a fully offline pipeline, the skill can be adapted to use <strong>Ollama</strong> (a local LLM) instead of Claude for the structuring step.</span>
+    </div>
     <div class="demo-result">
       <span>✓</span>
       <span>A 90-minute PhD supervision session → a crisp action-item list in 3 minutes. Students and supervisors both get a written record without anyone taking notes during the conversation.</span>
