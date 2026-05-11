@@ -498,7 +498,7 @@ body.light .ba-col.after   { background: rgba(52,211,153,0.08);  border-color: r
 <section class="title-slide title-bg">
   <img src="assets/images/Finance.png" class="title-logo" alt="Finance @ Utrecht University">
   <h1>Claude Code</h1>
-  <div class="title-sub">AI Coding Agents for Finance Researchers</div>
+  <div class="title-sub">AI Coding Agents for (Finance) Researchers</div>
   <div class="title-meta">
     60-minute hands-on workshop &nbsp;·&nbsp; No programming experience required<br><br>
     Navigate with <kbd>→</kbd> for next topic &nbsp;·&nbsp; <kbd>↓</kbd> for detail on any topic<br>
@@ -950,17 +950,9 @@ gemini --version</code></pre>
         </tr>
       </tbody>
     </table>
-    <div class="code-wrap" style="margin-top:0.3em;">
-      <pre><code class="language-bash"># Power-user alias — add to your shell profile
-alias cdc="claude --dangerously-skip-permissions"
-
-# Typical use: overnight pipeline with no babysitting
-cdc "Pull ESG data from WRDS, clean, run all regressions, save results to results/"</code></pre>
-      <button class="copy-btn" onclick="copyCode(this)">Copy</button>
-    </div>
-    <div class="callout warn" style="margin-top:0.3em;">
+    <div class="callout warn" style="margin-top:0.4em;">
       <span class="callout-icon">⚠️</span>
-      <span>Use this on your own laptop, in your own research project. With this flag, Claude can move files, run code, and write anywhere on disk without asking — same trust level as a capable colleague with full access to your machine. Keep a <strong>git backup</strong>.</span>
+      <span><strong>Only safe inside a sandbox.</strong> <code>--dangerously-skip-permissions</code> lets Claude write any file and run any command. Use it only in a <strong>Docker devcontainer</strong> (Anthropic ships a reference image with an outbound-firewall allowlist) or a <strong>fresh git worktree on a clean branch</strong>. Never on a bare host with access to your home directory.</span>
     </div>
   </section>
 
@@ -1025,17 +1017,22 @@ claude
   <section>
     <span class="eyebrow">Section 6</span>
     <h2>Live Demos</h2>
+    <p style="font-size:0.48em; color:var(--accent); font-weight:700; margin:0.3em 0 0.1em; letter-spacing:0.04em;">RESEARCH</p>
     <ul>
       <li><strong>Demo 1</strong> — Write a referee report with <code>/referee-2</code> + references check</li>
-      <li><strong>Demo 2</strong> — Generate a slide deck from a paper with <code>/beautiful-deck</code></li>
-      <li><strong>Demo 3</strong> — Transcribe a student meeting with <code>/transcribe-meeting</code></li>
-      <li><strong>Demo 4</strong> — Build or update your academic homepage + CV</li>
-      <li><strong>Demo 5</strong> — Create a replication package or interactive appendix</li>
-      <li><strong>Demo 6</strong> — Sort and reorganize a project folder</li>
+      <li><strong>Demo 2</strong> — Plan an R&amp;R response with <code>/strategic-revision</code></li>
+      <li><strong>Demo 3</strong> — Generate a conference slide deck with <code>/beautiful-deck</code></li>
+      <li><strong>Demo 4</strong> — Create a replication package or interactive appendix</li>
+    </ul>
+    <p style="font-size:0.48em; color:var(--accent); font-weight:700; margin:0.4em 0 0.1em; letter-spacing:0.04em;">TEACHING &amp; ADMIN</p>
+    <ul>
+      <li><strong>Demo 5</strong> — Transcribe a student meeting with <code>/transcribe-meeting</code></li>
+      <li><strong>Demo 6</strong> — Build or update your academic homepage + CV</li>
+      <li><strong>Demo 7</strong> — Sort and reorganize a messy project folder</li>
     </ul>
     <div class="callout tip" style="margin-top:0.5em;">
       <span class="callout-icon">🛠</span>
-      <span>Skills used: <strong>referee-2</strong> and <strong>beautiful-deck</strong> from <a href="https://github.com/scunning1975/mixtapetools" target="_blank">mixtapetools</a>; <strong>transcribe-meeting</strong> is in this project. Pull any skill with one <code>curl</code> command.</span>
+      <span>Skills used: <strong>referee-2</strong>, <strong>beautiful-deck</strong> (from <a href="https://github.com/scunning1975/mixtapetools" target="_blank">mixtapetools</a>); <strong>strategic-revision</strong> (from <a href="https://github.com/jusi-aalto/strategic-revision" target="_blank">jusi-aalto</a>); <strong>transcribe-meeting</strong> ships with this project.</span>
     </div>
     <div class="down-hint">↓ commands for each demo</div>
   </section>
@@ -1064,9 +1061,32 @@ and list any key papers in this literature that are missing."</code></pre>
     </div>
   </section>
 
-  <!-- 6c — Demo 2: Slide Deck from Paper -->
+  <!-- 6c — Demo 2: Strategic Revision -->
   <section class="detail">
-    <h3><span class="demo-badge">2</span> Slide Deck from Paper with <code>/beautiful-deck</code></h3>
+    <h3><span class="demo-badge">2</span> Plan Your R&amp;R Response with <code>/strategic-revision</code></h3>
+    <p style="font-size:0.44em; color:var(--muted); margin:0.15em 0 0.1em;">Step 1 — pull the skill once:</p>
+    <div class="code-wrap">
+      <pre><code class="language-bash">git clone https://github.com/jusi-aalto/strategic-revision \
+  .claude/skills/strategic-revision</code></pre>
+      <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+    </div>
+    <p style="font-size:0.44em; color:var(--muted); margin:0.25em 0 0.1em;">Step 2 — feed it the reviewer reports + your manuscript:</p>
+    <div class="code-wrap">
+      <pre><code class="language-bash">claude "Manuscript: paper.pdf
+Reviews: editor-and-reviewer-comments.pdf
+/strategic-revision
+Output the revision plan to output/."</code></pre>
+      <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+    </div>
+    <div class="demo-result">
+      <span>✓</span>
+      <span>Six phases: every reviewer comment → an atomic task with verbatim quote → classified (empirical / argumentative / structural) → dependency DAG → NetworkX validates acyclicity → parallelizable batches A–E with reviewer-conflict flags. The output is a checklist you can hand to a co-author.</span>
+    </div>
+  </section>
+
+  <!-- 6d — Demo 3: Slide Deck from Paper -->
+  <section class="detail">
+    <h3><span class="demo-badge">3</span> Slide Deck from Paper with <code>/beautiful-deck</code></h3>
     <p style="font-size:0.44em; color:var(--muted); margin:0.15em 0 0.1em;">Step 1 — pull the skill once:</p>
     <div class="code-wrap">
       <pre><code class="language-bash">curl -o .claude/skills/beautiful-deck.md \
@@ -1087,59 +1107,9 @@ Target audience: finance conference (EFA / AFA style).
     </div>
   </section>
 
-  <!-- 6d — Demo 3: Meeting Transcript -->
+  <!-- 6e — Demo 4: Replication Package -->
   <section class="detail">
-    <h3><span class="demo-badge">3</span> Transcribe a Meeting &amp; Produce a Structured Summary</h3>
-    <div class="code-wrap">
-      <pre><code class="language-bash"># /transcribe-meeting is already in this project
-claude
-&gt; /transcribe-meeting meeting.m4a</code></pre>
-      <button class="copy-btn" onclick="copyCode(this)">Copy</button>
-    </div>
-    <p style="font-size:0.48em; color:var(--muted); margin:0.25em 0 0.2em;">The skill produces a structured summary with:</p>
-    <ul style="margin-top:0;">
-      <li>Key decisions made — numbered list</li>
-      <li>Action items: who is responsible, what, by when</li>
-      <li>Open questions that still need resolving</li>
-      <li>Suggested agenda items for the next meeting</li>
-    </ul>
-    <div class="callout tip" style="margin-top:0.3em;">
-      <span class="callout-icon">🔒</span>
-      <span><strong>Under the hood:</strong> the skill runs <strong>Whisper</strong> (OpenAI's open-source speech model) <em>locally on your machine</em> — the audio file is never sent to any server. The transcript text is then processed by Claude via the API. For a fully offline pipeline, the skill can be adapted to use <strong>Ollama</strong> (a local LLM) instead of Claude for the structuring step.</span>
-    </div>
-    <div class="demo-result">
-      <span>✓</span>
-      <span>A 90-minute PhD supervision session → a crisp action-item list in 3 minutes. Students and supervisors both get a written record without anyone taking notes during the conversation.</span>
-    </div>
-  </section>
-
-  <!-- 6e — Demo 4: Homepage + CV -->
-  <section class="detail">
-    <h3><span class="demo-badge">4</span> Build or Update Your Academic Homepage &amp; CV</h3>
-    <p style="font-size:0.44em; color:var(--muted); margin:0.15em 0 0.1em;">Option A — build from scratch:</p>
-    <div class="code-wrap">
-      <pre><code class="language-bash">claude "Create a clean academic homepage from cv.pdf.
-Sections: About, Research (working papers + publications), Teaching, Contact.
-Minimal HTML, no frameworks. Output: index.html"</code></pre>
-      <button class="copy-btn" onclick="copyCode(this)">Copy</button>
-    </div>
-    <p style="font-size:0.44em; color:var(--muted); margin:0.25em 0 0.1em;">Option B — add a new paper to an existing site:</p>
-    <div class="code-wrap">
-      <pre><code class="language-bash">claude "Add this paper to index.html and cv.tex:
-Title: [Your title]  ·  Co-authors: [Names]  ·  SSRN: [URL]
-Abstract: [paste abstract]
-Keep the existing style and LaTeX formatting conventions."</code></pre>
-      <button class="copy-btn" onclick="copyCode(this)">Copy</button>
-    </div>
-    <div class="demo-result">
-      <span>✓</span>
-      <span>Claude reads your CV PDF, extracts structured data, writes a deployable <code>index.html</code>, and patches <code>cv.tex</code> — keeping both in sync. 90 seconds vs 30–45 minutes of copy-paste.</span>
-    </div>
-  </section>
-
-  <!-- 6f — Demo 5: Replication Package -->
-  <section class="detail">
-    <h3><span class="demo-badge">5</span> Replication Package &amp; Interactive Appendix</h3>
+    <h3><span class="demo-badge">4</span> Replication Package &amp; Interactive Appendix</h3>
     <p style="font-size:0.44em; color:var(--muted); margin:0.15em 0 0.1em;">Option A — replication package (JF / JFE / RFS now require this):</p>
     <div class="code-wrap">
       <pre><code class="language-bash">claude "I have a completed paper (paper.pdf) and analysis scripts (analysis/).
@@ -1163,9 +1133,55 @@ Suitable for hosting on the journal website or my homepage."</code></pre>
     </div>
   </section>
 
-  <!-- 6g — Demo 6: Sort a project -->
+  <!-- 6f — Demo 5: Meeting Transcript -->
   <section class="detail">
-    <h3><span class="demo-badge">6</span> Sort &amp; Reorganize a Project Folder</h3>
+    <h3><span class="demo-badge">5</span> Transcribe a Meeting &amp; Produce a Structured Summary</h3>
+    <div class="code-wrap">
+      <pre><code class="language-bash"># /transcribe-meeting is already in this project
+claude
+&gt; /transcribe-meeting meeting.m4a</code></pre>
+      <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+    </div>
+    <p style="font-size:0.48em; color:var(--muted); margin:0.25em 0 0.2em;">The skill produces a structured summary with:</p>
+    <ul style="margin-top:0;">
+      <li>Key decisions made — numbered list</li>
+      <li>Action items: who is responsible, what, by when</li>
+      <li>Open questions that still need resolving</li>
+      <li>Suggested agenda items for the next meeting</li>
+    </ul>
+    <div class="callout tip" style="margin-top:0.3em;">
+      <span class="callout-icon">🔒</span>
+      <span><strong>Fully local — no cloud.</strong> <strong>Whisper</strong> transcribes the audio, <strong>Ollama</strong> (local LLM) writes the summary. Your recording never leaves the machine.</span>
+    </div>
+  </section>
+
+  <!-- 6g — Demo 6: Homepage + CV -->
+  <section class="detail">
+    <h3><span class="demo-badge">6</span> Build or Update Your Academic Homepage &amp; CV</h3>
+    <p style="font-size:0.44em; color:var(--muted); margin:0.15em 0 0.1em;">Option A — build from scratch:</p>
+    <div class="code-wrap">
+      <pre><code class="language-bash">claude "Create a clean academic homepage from cv.pdf.
+Sections: About, Research (working papers + publications), Teaching, Contact.
+Minimal HTML, no frameworks. Output: index.html"</code></pre>
+      <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+    </div>
+    <p style="font-size:0.44em; color:var(--muted); margin:0.25em 0 0.1em;">Option B — add a new paper to an existing site:</p>
+    <div class="code-wrap">
+      <pre><code class="language-bash">claude "Add this paper to index.html and cv.tex:
+Title: [Your title]  ·  Co-authors: [Names]  ·  SSRN: [URL]
+Abstract: [paste abstract]
+Keep the existing style and LaTeX formatting conventions."</code></pre>
+      <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+    </div>
+    <div class="demo-result">
+      <span>✓</span>
+      <span>Claude reads your CV PDF, extracts structured data, writes a deployable <code>index.html</code>, and patches <code>cv.tex</code> — keeping both in sync. 90 seconds vs 30–45 minutes of copy-paste.</span>
+    </div>
+  </section>
+
+  <!-- 6h — Demo 7: Sort a project -->
+  <section class="detail">
+    <h3><span class="demo-badge">7</span> Sort &amp; Reorganize a Project Folder</h3>
     <p style="font-size:0.44em; color:var(--muted); margin:0.15em 0 0.1em;">Step 1 — always work on a copy of the directory:</p>
     <div class="code-wrap">
       <pre><code class="language-bash">cp -r my-project my-project-backup</code></pre>
@@ -1281,7 +1297,7 @@ and saves the result to output.csv.</code></pre>
     All commands and templates are one <kbd>↓</kbd> away on any section slide.<br>
     Press <kbd>O</kbd> to browse the full deck.
   </div>
-  <div style="margin-top:1em; font-size:0.38em; color:var(--muted); line-height:2;">
+  <div style="margin-top:1em; font-size:0.38em; color:var(--muted); line-height:1.7;">
     <a href="https://www.linkedin.com/company/finance-utrecht/" target="_blank"
        style="display:inline-flex; align-items:center; gap:8px; background:var(--accent); color:#0a0900; text-decoration:none; border-radius:8px; padding:6px 16px; font-weight:700; font-size:1.15em; margin-bottom:0.6em; box-shadow:0 3px 12px rgba(245,184,0,0.35); letter-spacing:0.01em;">
       <svg width="15" height="15" viewBox="0 0 24 24" fill="#0a0900"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
@@ -1289,7 +1305,8 @@ and saves the result to output.csv.</code></pre>
     </a><br>
     <strong style="color:var(--accent);">Inspired by &amp; built on the work of:</strong><br>
     Scott Cunningham — <a href="https://github.com/scunning1975/mixtapetools" target="_blank" style="color:var(--accent);">github.com/scunning1975/mixtapetools</a><br>
-    Mihail Velikov — <a href="https://github.com/velikov-mihail/edhec-master-class" target="_blank" style="color:var(--accent);">github.com/velikov-mihail/edhec-master-class</a>
+    Mihail Velikov — <a href="https://github.com/velikov-mihail/edhec-master-class" target="_blank" style="color:var(--accent);">github.com/velikov-mihail/edhec-master-class</a><br>
+    Jukka Sihvonen — <a href="https://github.com/jusi-aalto/strategic-revision" target="_blank" style="color:var(--accent);">github.com/jusi-aalto/strategic-revision</a>
   </div>
 </section>
 
