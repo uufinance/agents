@@ -91,17 +91,18 @@ em { color: #c4b5fd; font-style: normal; }
   font-size: 0.72em;
   line-height: 1.55;
   margin-bottom: 0.38em;
-  display: flex;
-  align-items: flex-start;
-  gap: 0.45em;
+  display: block;
+  position: relative;
+  padding-left: 1.1em;
 }
 .reveal ul li::before {
   content: '›';
   color: var(--accent);
   font-weight: 700;
   font-size: 1.15em;
-  flex-shrink: 0;
-  margin-top: -0.04em;
+  position: absolute;
+  left: 0;
+  top: -0.02em;
 }
 .reveal ul.large li { font-size: 0.85em; margin-bottom: 0.5em; }
 .reveal ul.small li { font-size: 0.55em; }
@@ -753,11 +754,10 @@ claude --version</code></pre>
       <pre><code class="language-bash">mkdir my-research &amp;&amp; cd my-research &amp;&amp; claude init</code></pre>
       <button class="copy-btn" onclick="copyCode(this)">Copy</button>
     </div>
-    <div class="callout tip" style="margin-top:0.3em; font-size:0.48em;">
-      <span class="callout-icon">📦</span>
-      <span><strong>No npm?</strong> Install Node.js first: <code>brew install node</code> (Mac) &nbsp;·&nbsp; <code>winget install OpenJS.NodeJS</code> (Windows)</span>
-    </div>
-    <div class="callout tip" style="margin-top:0.2em; font-size:0.48em;">
+    <p style="font-size:0.38em; color:var(--muted); margin:0.15em 0 0.2em;">
+      No npm? → <code>brew install node</code> (Mac) &nbsp;·&nbsp; <code>winget install OpenJS.NodeJS</code> (Windows)
+    </p>
+    <div class="callout tip" style="margin-top:0.1em;">
       <span class="callout-icon">🚀</span>
       <span><strong>No install?</strong> Open <strong>claude.ai → New Project</strong>, upload your file. Covers 90% of today's demos.</span>
     </div>
@@ -1027,18 +1027,19 @@ Keep the existing style and LaTeX formatting conventions."</code></pre>
   <!-- 6f — Demo 5: Replication Package -->
   <section class="detail">
     <h3><span class="demo-badge">5</span> Replication Package &amp; Interactive Appendix</h3>
+    <p style="font-size:0.44em; color:var(--muted); margin:0.15em 0 0.1em;">Option A — replication package (JF / JFE / RFS now require this):</p>
     <div class="code-wrap">
-      <pre><code class="language-bash"># Build a replication package (JF / JFE / RFS now require this)
-claude "I have a completed paper (paper.pdf) and analysis scripts (analysis/).
+      <pre><code class="language-bash">claude "I have a completed paper (paper.pdf) and analysis scripts (analysis/).
 Create a replication package:
   (1) README.md: data sources, how to run, expected outputs, software versions
-  (2) Run the scripts end-to-end and verify all tables and figures reproduce
-  (3) Flag any data that cannot be shared (WRDS, Compustat, Bloomberg)
-      and write download instructions for each
-  (4) Write a data availability statement in journal-submission format"
-
-# Interactive appendix variant
-claude "Convert my results tables and figures (tables/ figures/) into
+  (2) Verify all tables and figures reproduce end-to-end
+  (3) Flag data that cannot be shared (WRDS, Bloomberg) + write download instructions
+  (4) Write a data availability statement in journal-submission format"</code></pre>
+      <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+    </div>
+    <p style="font-size:0.44em; color:var(--muted); margin:0.2em 0 0.1em;">Option B — interactive appendix:</p>
+    <div class="code-wrap">
+      <pre><code class="language-bash">claude "Convert my results tables and figures (tables/ figures/) into
 an interactive HTML appendix — sortable tables, zoomable Chart.js figures.
 Suitable for hosting on the journal website or my homepage."</code></pre>
       <button class="copy-btn" onclick="copyCode(this)">Copy</button>
@@ -1060,17 +1061,17 @@ Suitable for hosting on the journal website or my homepage."</code></pre>
     <p style="font-size:0.44em; color:var(--muted); margin:0.25em 0 0.1em;">Step 2 — ask Claude to survey and reorganize:</p>
     <div class="code-wrap">
       <pre><code class="language-bash">cd my-project-backup
-claude "Survey this project folder. Then:
-  (1) Propose a clean directory structure (group by: data, code, output, docs)
-  (2) Rename files to follow snake_case and include dates where relevant (YYYY-MM-DD)
-  (3) Identify obvious duplicates and flag them for removal
-  (4) Write a README.md describing the structure and how to run the main analysis
-Show me the plan and wait for my approval before moving anything."</code></pre>
+claude "Survey this folder. Then:
+  (1) Propose a clean structure (data, code, output, docs)
+  (2) Rename files to snake_case with dates (YYYY-MM-DD) where relevant
+  (3) Flag obvious duplicates
+  (4) Write a README.md with structure and how to run the main analysis
+Show me the plan before moving anything."</code></pre>
       <button class="copy-btn" onclick="copyCode(this)">Copy</button>
     </div>
     <div class="callout warn" style="margin-top:0.3em;">
       <span class="callout-icon">⚠️</span>
-      <span><strong>Always work on a copy of the directory</strong> — Claude will move and rename files. Use <code>--plan</code> or ask it to show the reorganization plan before executing.</span>
+      <span>Always work on a copy — Claude will move and rename files. Use <code>--plan</code> to preview first.</span>
     </div>
     <div class="demo-result">
       <span>✓</span>
