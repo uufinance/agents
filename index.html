@@ -559,32 +559,10 @@ body.light .ba-col.after   { background: rgba(52,211,153,0.08);  border-color: r
 ══════════════════════════════════════════════════════════ -->
 <section>
 
-  <!-- 2a — Comparison table -->
+  <!-- 2a — Three eras -->
   <section>
     <span class="eyebrow">Section 2</span>
-    <h2>Three CLI Tools at a Glance</h2>
-    <table style="font-size:0.46em;">
-      <thead><tr><th></th><th>Claude Code (Anthropic)</th><th>Codex CLI (OpenAI)</th><th>Gemini CLI (Google)</th></tr></thead>
-      <tbody>
-        <tr><td>Models</td><td>Haiku 4.5 / Sonnet 4.6 / Opus 4.7</td><td>GPT-4.1 / GPT-5.5</td><td>Gemini 2.5 Flash / 2.5 Pro</td></tr>
-        <tr><td>Context window</td><td>200K tokens</td><td>128K tokens</td><td><strong style="color:#34d399">1M tokens</strong></td></tr>
-        <tr><td>Runs locally</td><td><strong style="color:#34d399">Yes</strong> — reads &amp; writes your files</td><td><strong style="color:#34d399">Yes</strong> — CLI + cloud exec for parallel tasks</td><td><strong style="color:#34d399">Yes</strong> — CLI on your machine</td></tr>
-        <tr><td>Plan mode</td><td><code>--plan</code></td><td><code>--approval-mode full</code></td><td>Interactive (approve each step)</td></tr>
-        <tr><td>Memory file</td><td><code>CLAUDE.md</code></td><td><code>AGENTS.md</code></td><td><code>GEMINI.md</code></td></tr>
-        <tr><td>Plans</td><td>Pro $20 / Max $100 / Max $200 (20×)</td><td>Plus $20 / Pro $200</td><td>Free tier / AI Premium $20</td></tr>
-        <tr><td>Best for</td><td>Long files, local data, research pipelines</td><td>Rapid async code generation</td><td>Largest context, multimodal (PDFs, audio)</td></tr>
-      </tbody>
-    </table>
-    <div class="callout tip" style="margin-top:0.35em;">
-      <span class="callout-icon">🛡</span>
-      <span>All three CLIs support a <strong>plan/preview mode</strong> — review proposed changes before any file is written. Claude: <code>--plan</code> · Codex: <code>--approval-mode full</code> · Gemini: interactive approval per step.</span>
-    </div>
-    <div class="down-hint">↓ three eras · AI ladder</div>
-  </section>
-
-  <!-- 2b — Three eras -->
-  <section class="detail">
-    <h3>Three Eras of AI</h3>
+    <h2>Three Eras of AI</h2>
     <div class="timeline">
       <div class="tl-card">
         <div class="tl-year">2022–23</div>
@@ -606,9 +584,10 @@ body.light .ba-col.after   { background: rgba(52,211,153,0.08);  border-color: r
       <li>The 2024→2025 jump isn't incremental — the agent <em>acts</em>.</li>
       <li>Reads your files, runs code, checks output, fixes errors. In a loop. Unattended.</li>
     </ul>
+    <div class="down-hint">↓ AI ladder &amp; tool comparison</div>
   </section>
 
-  <!-- 2c — AI Ladder -->
+  <!-- 2b — AI Ladder -->
   <section class="detail">
     <h3>The AI Ladder — Where Are You?</h3>
     <div class="ai-ladder">
@@ -640,6 +619,27 @@ body.light .ba-col.after   { background: rgba(52,211,153,0.08);  border-color: r
     <div class="callout tip" style="margin-top:0.3em;">
       <span class="callout-icon">📍</span>
       <span>Most researchers gain the most productivity at <strong>Level 2–3</strong>. Levels 4–5 require DevOps infrastructure — worth it for systematic literature reviews or ongoing data production.</span>
+    </div>
+  </section>
+
+  <!-- 2c — Comparison table -->
+  <section class="detail">
+    <h3>Three CLI Tools at a Glance</h3>
+    <table style="font-size:0.46em;">
+      <thead><tr><th></th><th>Claude Code (Anthropic)</th><th>Codex CLI (OpenAI)</th><th>Gemini CLI (Google)</th></tr></thead>
+      <tbody>
+        <tr><td>Models</td><td>Haiku 4.5 / Sonnet 4.6 / Opus 4.7</td><td>GPT-4.1 / GPT-5.5</td><td>Gemini 2.5 Flash / 2.5 Pro</td></tr>
+        <tr><td>Context window</td><td>200K tokens</td><td>128K tokens</td><td><strong style="color:#34d399">1M tokens</strong></td></tr>
+        <tr><td>Runs locally</td><td><strong style="color:#34d399">Yes</strong> — reads &amp; writes your files</td><td><strong style="color:#34d399">Yes</strong> — CLI + cloud exec for parallel tasks</td><td><strong style="color:#34d399">Yes</strong> — CLI on your machine</td></tr>
+        <tr><td>Plan mode</td><td><code>--plan</code></td><td><code>--approval-mode full</code></td><td>Interactive (approve each step)</td></tr>
+        <tr><td>Memory file</td><td><code>CLAUDE.md</code></td><td><code>AGENTS.md</code></td><td><code>GEMINI.md</code></td></tr>
+        <tr><td>Plans</td><td>Pro $20 / Max $100 / Max $200 (20×)</td><td>Plus $20 / Pro $200</td><td>Free tier / AI Premium $20</td></tr>
+        <tr><td>Best for</td><td>Long files, local data, research pipelines</td><td>Rapid async code generation</td><td>Largest context, multimodal (PDFs, audio)</td></tr>
+      </tbody>
+    </table>
+    <div class="callout tip" style="margin-top:0.35em;">
+      <span class="callout-icon">🛡</span>
+      <span>All three CLIs support a <strong>plan/preview mode</strong> — review proposed changes before any file is written. Claude: <code>--plan</code> · Codex: <code>--approval-mode full</code> · Gemini: interactive approval per step.</span>
     </div>
   </section>
 
