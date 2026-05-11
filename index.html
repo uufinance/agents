@@ -559,10 +559,32 @@ body.light .ba-col.after   { background: rgba(52,211,153,0.08);  border-color: r
 ══════════════════════════════════════════════════════════ -->
 <section>
 
-  <!-- 2a — Three eras -->
+  <!-- 2a — Comparison table -->
   <section>
     <span class="eyebrow">Section 2</span>
-    <h2>Three Eras of AI</h2>
+    <h2>Three CLI Tools at a Glance</h2>
+    <table style="font-size:0.46em;">
+      <thead><tr><th></th><th>Claude Code (Anthropic)</th><th>Codex CLI (OpenAI)</th><th>Gemini CLI (Google)</th></tr></thead>
+      <tbody>
+        <tr><td>Models</td><td>Haiku 4.5 / Sonnet 4.6 / Opus 4.7</td><td>GPT-4.1 / GPT-5.5</td><td>Gemini 2.5 Flash / 2.5 Pro</td></tr>
+        <tr><td>Context window</td><td>200K tokens</td><td>128K tokens</td><td><strong style="color:#34d399">1M tokens</strong></td></tr>
+        <tr><td>Runs locally</td><td><strong style="color:#34d399">Yes</strong> — reads &amp; writes your files</td><td><strong style="color:#34d399">Yes</strong> — CLI + cloud exec for parallel tasks</td><td><strong style="color:#34d399">Yes</strong> — CLI on your machine</td></tr>
+        <tr><td>Plan mode</td><td><code>--plan</code></td><td><code>--approval-mode full</code></td><td>Interactive (approve each step)</td></tr>
+        <tr><td>Memory file</td><td><code>CLAUDE.md</code></td><td><code>AGENTS.md</code></td><td><code>GEMINI.md</code></td></tr>
+        <tr><td>Plans</td><td>Pro $20 / Max $100 / Max $200 (20×)</td><td>Plus $20 / Pro $200</td><td>Free tier / AI Premium $20</td></tr>
+        <tr><td>Best for</td><td>Long files, local data, research pipelines</td><td>Rapid async code generation</td><td>Largest context, multimodal (PDFs, audio)</td></tr>
+      </tbody>
+    </table>
+    <div class="callout tip" style="margin-top:0.35em;">
+      <span class="callout-icon">🛡</span>
+      <span>All three CLIs support a <strong>plan/preview mode</strong> — review proposed changes before any file is written. Claude: <code>--plan</code> · Codex: <code>--approval-mode full</code> · Gemini: interactive approval per step.</span>
+    </div>
+    <div class="down-hint">↓ three eras · AI ladder</div>
+  </section>
+
+  <!-- 2b — Three eras -->
+  <section class="detail">
+    <h3>Three Eras of AI</h3>
     <div class="timeline">
       <div class="tl-card">
         <div class="tl-year">2022–23</div>
@@ -584,28 +606,6 @@ body.light .ba-col.after   { background: rgba(52,211,153,0.08);  border-color: r
       <li>The 2024→2025 jump isn't incremental — the agent <em>acts</em>.</li>
       <li>Reads your files, runs code, checks output, fixes errors. In a loop. Unattended.</li>
     </ul>
-    <div class="down-hint">↓ tool comparison &amp; AI ladder</div>
-  </section>
-
-  <!-- 2b — Comparison table -->
-  <section class="detail">
-    <h3>Three CLI Tools at a Glance</h3>
-    <table style="font-size:0.46em;">
-      <thead><tr><th></th><th>Claude Code (Anthropic)</th><th>Codex CLI (OpenAI)</th><th>Gemini CLI (Google)</th></tr></thead>
-      <tbody>
-        <tr><td>Models</td><td>Haiku 4.5 / Sonnet 4.6 / Opus 4.7</td><td>GPT-4.1 / GPT-5.5</td><td>Gemini 2.5 Flash / 2.5 Pro</td></tr>
-        <tr><td>Context window</td><td>200K tokens</td><td>128K tokens</td><td><strong style="color:#34d399">1M tokens</strong></td></tr>
-        <tr><td>Runs locally</td><td><strong style="color:#34d399">Yes</strong> — reads &amp; writes your files</td><td><strong style="color:#34d399">Yes</strong> — CLI + cloud exec for parallel tasks</td><td><strong style="color:#34d399">Yes</strong> — CLI on your machine</td></tr>
-        <tr><td>Plan mode</td><td><code>--plan</code></td><td><code>--approval-mode full</code></td><td>Interactive (approve each step)</td></tr>
-        <tr><td>Memory file</td><td><code>CLAUDE.md</code></td><td><code>AGENTS.md</code></td><td><code>GEMINI.md</code></td></tr>
-        <tr><td>Plans</td><td>Pro $20 / Max $100 / Max $200 (20×)</td><td>Plus $20 / Pro $200</td><td>Free tier / AI Premium $20</td></tr>
-        <tr><td>Best for</td><td>Long files, local data, research pipelines</td><td>Rapid async code generation</td><td>Largest context, multimodal (PDFs, audio)</td></tr>
-      </tbody>
-    </table>
-    <div class="callout tip" style="margin-top:0.35em;">
-      <span class="callout-icon">🛡</span>
-      <span>All three CLIs support a <strong>plan/preview mode</strong> — review proposed changes before any file is written. Claude: <code>--plan</code> · Codex: <code>--approval-mode full</code> · Gemini: interactive approval per step.</span>
-    </div>
   </section>
 
   <!-- 2c — AI Ladder -->
@@ -1025,12 +1025,12 @@ claude
       <li><strong>Demo 2</strong> — Plan an R&amp;R response with <code>/strategic-revision</code></li>
       <li><strong>Demo 3</strong> — Generate a conference slide deck with <code>/beautiful-deck</code></li>
       <li><strong>Demo 4</strong> — Create a replication package or interactive appendix</li>
+      <li><strong>Demo 5</strong> — Sort and reorganize a messy project folder</li>
     </ul>
     <p style="font-size:0.48em; color:var(--accent); font-weight:700; margin:0.4em 0 0.1em; letter-spacing:0.04em;">TEACHING &amp; ADMIN</p>
     <ul>
-      <li><strong>Demo 5</strong> — Transcribe a student meeting with <code>/transcribe-meeting</code></li>
-      <li><strong>Demo 6</strong> — Build or update your academic homepage + CV</li>
-      <li><strong>Demo 7</strong> — Sort and reorganize a messy project folder</li>
+      <li><strong>Demo 6</strong> — Transcribe a student meeting with <code>/transcribe-meeting</code></li>
+      <li><strong>Demo 7</strong> — Build or update your academic homepage + CV</li>
     </ul>
     <div class="callout tip" style="margin-top:0.5em;">
       <span class="callout-icon">🛠</span>
@@ -1135,55 +1135,9 @@ Suitable for hosting on the journal website or my homepage."</code></pre>
     </div>
   </section>
 
-  <!-- 6f — Demo 5: Meeting Transcript -->
+  <!-- 6f — Demo 5: Sort a project -->
   <section class="detail">
-    <h3><span class="demo-badge">5</span> Transcribe a Meeting &amp; Produce a Structured Summary</h3>
-    <div class="code-wrap">
-      <pre><code class="language-bash"># /transcribe-meeting is already in this project
-claude
-&gt; /transcribe-meeting meeting.m4a</code></pre>
-      <button class="copy-btn" onclick="copyCode(this)">Copy</button>
-    </div>
-    <p style="font-size:0.48em; color:var(--muted); margin:0.25em 0 0.2em;">The skill produces a structured summary with:</p>
-    <ul style="margin-top:0;">
-      <li>Key decisions made — numbered list</li>
-      <li>Action items: who is responsible, what, by when</li>
-      <li>Open questions that still need resolving</li>
-      <li>Suggested agenda items for the next meeting</li>
-    </ul>
-    <div class="callout tip" style="margin-top:0.3em;">
-      <span class="callout-icon">🔒</span>
-      <span><strong>Fully local — no cloud.</strong> <strong>Whisper</strong> transcribes the audio, <strong>Ollama</strong> (local LLM) writes the summary. Your recording never leaves the machine.</span>
-    </div>
-  </section>
-
-  <!-- 6g — Demo 6: Homepage + CV -->
-  <section class="detail">
-    <h3><span class="demo-badge">6</span> Build or Update Your Academic Homepage &amp; CV</h3>
-    <p style="font-size:0.44em; color:var(--muted); margin:0.15em 0 0.1em;">Option A — build from scratch:</p>
-    <div class="code-wrap">
-      <pre><code class="language-bash">claude "Create a clean academic homepage from cv.pdf.
-Sections: About, Research (working papers + publications), Teaching, Contact.
-Minimal HTML, no frameworks. Output: index.html"</code></pre>
-      <button class="copy-btn" onclick="copyCode(this)">Copy</button>
-    </div>
-    <p style="font-size:0.44em; color:var(--muted); margin:0.25em 0 0.1em;">Option B — add a new paper to an existing site:</p>
-    <div class="code-wrap">
-      <pre><code class="language-bash">claude "Add this paper to index.html and cv.tex:
-Title: [Your title]  ·  Co-authors: [Names]  ·  SSRN: [URL]
-Abstract: [paste abstract]
-Keep the existing style and LaTeX formatting conventions."</code></pre>
-      <button class="copy-btn" onclick="copyCode(this)">Copy</button>
-    </div>
-    <div class="demo-result">
-      <span>✓</span>
-      <span>Claude reads your CV PDF, extracts structured data, writes a deployable <code>index.html</code>, and patches <code>cv.tex</code> — keeping both in sync. 90 seconds vs 30–45 minutes of copy-paste.</span>
-    </div>
-  </section>
-
-  <!-- 6h — Demo 7: Sort a project -->
-  <section class="detail">
-    <h3><span class="demo-badge">7</span> Sort &amp; Reorganize a Project Folder</h3>
+    <h3><span class="demo-badge">5</span> Sort &amp; Reorganize a Project Folder</h3>
     <p style="font-size:0.44em; color:var(--muted); margin:0.15em 0 0.1em;">Step 1 — always work on a copy of the directory:</p>
     <div class="code-wrap">
       <pre><code class="language-bash">cp -r my-project my-project-backup</code></pre>
@@ -1207,6 +1161,52 @@ Show me the plan before moving anything."</code></pre>
     <div class="demo-result">
       <span>✓</span>
       <span>Claude reads every filename, infers the project structure, proposes a reorganization, and renames/moves with your approval. A PhD project folder that grew over years → clean, documented structure in 10 minutes.</span>
+    </div>
+  </section>
+
+  <!-- 6g — Demo 6: Meeting Transcript -->
+  <section class="detail">
+    <h3><span class="demo-badge">6</span> Transcribe a Meeting &amp; Produce a Structured Summary</h3>
+    <div class="code-wrap">
+      <pre><code class="language-bash"># /transcribe-meeting is already in this project
+claude
+&gt; /transcribe-meeting meeting.m4a</code></pre>
+      <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+    </div>
+    <p style="font-size:0.48em; color:var(--muted); margin:0.25em 0 0.2em;">The skill produces a structured summary with:</p>
+    <ul style="margin-top:0;">
+      <li>Key decisions made — numbered list</li>
+      <li>Action items: who is responsible, what, by when</li>
+      <li>Open questions that still need resolving</li>
+      <li>Suggested agenda items for the next meeting</li>
+    </ul>
+    <div class="callout tip" style="margin-top:0.3em;">
+      <span class="callout-icon">🔒</span>
+      <span><strong>Fully local — no cloud.</strong> <strong>Whisper</strong> transcribes the audio, <strong>Ollama</strong> (local LLM) writes the summary. Your recording never leaves the machine.</span>
+    </div>
+  </section>
+
+  <!-- 6h — Demo 7: Homepage + CV -->
+  <section class="detail">
+    <h3><span class="demo-badge">7</span> Build or Update Your Academic Homepage &amp; CV</h3>
+    <p style="font-size:0.44em; color:var(--muted); margin:0.15em 0 0.1em;">Option A — build from scratch:</p>
+    <div class="code-wrap">
+      <pre><code class="language-bash">claude "Create a clean academic homepage from cv.pdf.
+Sections: About, Research (working papers + publications), Teaching, Contact.
+Minimal HTML, no frameworks. Output: index.html"</code></pre>
+      <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+    </div>
+    <p style="font-size:0.44em; color:var(--muted); margin:0.25em 0 0.1em;">Option B — add a new paper to an existing site:</p>
+    <div class="code-wrap">
+      <pre><code class="language-bash">claude "Add this paper to index.html and cv.tex:
+Title: [Your title]  ·  Co-authors: [Names]  ·  SSRN: [URL]
+Abstract: [paste abstract]
+Keep the existing style and LaTeX formatting conventions."</code></pre>
+      <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+    </div>
+    <div class="demo-result">
+      <span>✓</span>
+      <span>Claude reads your CV PDF, extracts structured data, writes a deployable <code>index.html</code>, and patches <code>cv.tex</code> — keeping both in sync. 90 seconds vs 30–45 minutes of copy-paste.</span>
     </div>
   </section>
 
