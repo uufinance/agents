@@ -134,7 +134,9 @@ em { color: #c4b5fd; font-style: normal; }
   font-size: 1em;
   line-height: 1.55;
   max-height: none;
-  overflow: visible;
+  overflow: hidden;
+  white-space: pre-wrap;
+  word-break: break-all;
   tab-size: 2;
 }
 .code-wrap { position: relative; }
@@ -377,6 +379,71 @@ kbd {
   font-size: 0.85em;
   color: #c4b5fd;
 }
+
+/* ── Light mode ────────────────────────────────────────── */
+body.light .reveal-viewport { background: #f0eeff; }
+body.light .reveal { color: #1e1b4b; }
+body.light .reveal h1, body.light .reveal h2, body.light .reveal h3 { color: #1e1b4b; }
+body.light .reveal .slides section { background: transparent; }
+body.light .detail { background: #e8e3ff !important; }
+body.light .reveal pre { background: #f8f6ff; border-color: #c4b5fd; }
+body.light .reveal pre code { color: #1e1b4b; }
+body.light .reveal table td { color: #2d1b6b; }
+body.light .reveal table td:first-child { color: #1e1b4b; }
+body.light .ba-col.before { background: #f5f0ff; border-color: #c4b5fd; }
+body.light .ba-col.after  { background: #ecfdf5; border-color: #6ee7b7; }
+body.light .ba-row { color: #3b2d8a; border-bottom-color: #d8d0f5; }
+body.light .ladder-rung { border-color: #c4b5fd; }
+body.light .ladder-rung.now { background: rgba(124,58,237,0.08); }
+body.light .ladder-num { background: #ede9fe; color: #6d28d9; }
+body.light .callout.tip  { background: rgba(124,58,237,0.08); }
+body.light .callout.warn { background: rgba(245,158,11,0.08); }
+body.light .callout.go   { background: rgba(52,211,153,0.08); }
+body.light .muted { color: #5b4a99; }
+body.light em { color: #5b21b6; }
+body.light .mem-card, body.light .prompt-card { border-color: #c4b5fd; }
+body.light .mem-card-header { background: #ede9fe; }
+body.light .concept-item { background: #ede9fe; border-color: #c4b5fd; }
+body.light .tl-card { background: #ede9fe; border-color: #c4b5fd; }
+body.light .tl-card.now { background: rgba(124,58,237,0.12); }
+body.light .plan-pill { background: #ede9fe; border-color: #c4b5fd; }
+body.light .copy-btn { background: #ede9fe; color: #5b21b6; }
+body.light .down-hint { color: rgba(30,27,75,0.4); }
+body.light .reveal .slide-number { background: rgba(124,58,237,0.2); color: #1e1b4b; }
+body.light .title-bg { background: linear-gradient(135deg, #ede9fe 0%, #ddd6fe 55%, #c4b5fd 100%) !important; }
+body.light .title-bg h1 { color: #1e1b4b; }
+body.light .title-sub { color: #3b2d8a; }
+body.light .title-meta { color: #5b4a99; }
+body.light .reveal p code, body.light .reveal li code, body.light .reveal td code {
+  background: rgba(124,58,237,0.12); color: #4c1d95;
+}
+body.light .demo-result { background: rgba(52,211,153,0.12); border-color: #059669; color: #065f46; }
+body.light .demo-badge { background: var(--accent); color: #fff; }
+body.light .eyebrow { color: #b45309; }
+body.light .flow { background: #ede9fe; border-color: #c4b5fd; }
+body.light .flow-item { background: #ddd6fe; color: #1e1b4b; }
+body.light .flow-arrow { color: #6d28d9; }
+body.light kbd { background: #ede9fe; border-color: #c4b5fd; color: #1e1b4b; }
+body.light .reveal a { color: #5b21b6; }
+
+/* Theme toggle button */
+#theme-toggle {
+  position: fixed;
+  top: 14px;
+  right: 56px;
+  z-index: 9999;
+  background: rgba(124,58,237,0.3);
+  border: 1px solid rgba(124,58,237,0.5);
+  border-radius: 20px;
+  padding: 4px 10px;
+  font-size: 15px;
+  cursor: pointer;
+  color: #fff;
+  line-height: 1;
+  transition: background 0.2s;
+  font-family: 'Open Sans', sans-serif;
+}
+#theme-toggle:hover { background: rgba(124,58,237,0.6); }
 </style>
 </head>
 <body>
@@ -478,22 +545,22 @@ kbd {
 
   <!-- 2b — Comparison table -->
   <section class="detail">
-    <h3>Claude Code vs. OpenAI Codex CLI</h3>
-    <table>
-      <thead><tr><th></th><th>Claude Code (Anthropic)</th><th>Codex CLI (OpenAI)</th></tr></thead>
+    <h3>Three CLI Tools at a Glance</h3>
+    <table style="font-size:0.46em;">
+      <thead><tr><th></th><th>Claude Code (Anthropic)</th><th>Codex CLI (OpenAI)</th><th>Gemini CLI (Google)</th></tr></thead>
       <tbody>
-        <tr><td>Models</td><td>Haiku 4.5 / Sonnet 4.6 / Opus 4.7</td><td>GPT-4.1 / GPT-5.5</td></tr>
-        <tr><td>Context window</td><td>200K tokens</td><td>128K tokens</td></tr>
-        <tr><td>Runs code locally</td><td><strong style="color:#34d399">Yes</strong> — reads &amp; writes your files</td><td><strong style="color:#34d399">Yes</strong> — CLI on your machine; cloud exec available for long parallel tasks</td></tr>
-        <tr><td>Plan mode</td><td><code>--plan</code> (no writes until approved)</td><td><code>--approval-mode full</code></td></tr>
-        <tr><td>Memory file</td><td><code>CLAUDE.md</code> in project root</td><td><code>AGENTS.md</code></td></tr>
-        <tr><td>Plans</td><td>Pro $20 / Max $100 / Max <strong>$200</strong> (20×)</td><td>Plus $20 / Pro <strong>$200</strong></td></tr>
-        <tr><td>Best for</td><td>Long files, local data, research pipelines</td><td>Rapid async code generation</td></tr>
+        <tr><td>Models</td><td>Haiku 4.5 / Sonnet 4.6 / Opus 4.7</td><td>GPT-4.1 / GPT-5.5</td><td>Gemini 2.5 Flash / 2.5 Pro</td></tr>
+        <tr><td>Context window</td><td>200K tokens</td><td>128K tokens</td><td><strong style="color:#34d399">1M tokens</strong></td></tr>
+        <tr><td>Runs locally</td><td><strong style="color:#34d399">Yes</strong> — reads &amp; writes your files</td><td><strong style="color:#34d399">Yes</strong> — CLI + cloud exec for parallel tasks</td><td><strong style="color:#34d399">Yes</strong> — CLI on your machine</td></tr>
+        <tr><td>Plan mode</td><td><code>--plan</code></td><td><code>--approval-mode full</code></td><td>Interactive (approve each step)</td></tr>
+        <tr><td>Memory file</td><td><code>CLAUDE.md</code></td><td><code>AGENTS.md</code></td><td><code>GEMINI.md</code></td></tr>
+        <tr><td>Plans</td><td>Pro $20 / Max $100 / Max $200 (20×)</td><td>Plus $20 / Pro $200</td><td>Free tier / AI Premium $20</td></tr>
+        <tr><td>Best for</td><td>Long files, local data, research pipelines</td><td>Rapid async code generation</td><td>Largest context, multimodal (PDFs, audio)</td></tr>
       </tbody>
     </table>
-    <div class="callout tip" style="margin-top:0.45em;">
-      <span class="callout-icon">📘</span>
-      <span>Both require a paid plan for CLI access. <strong>Claude Max $200</strong> and <strong>ChatGPT Pro $200</strong> unlock the highest quotas — sufficient for overnight pipelines and large replication packages.</span>
+    <div class="callout tip" style="margin-top:0.35em;">
+      <span class="callout-icon">🛡</span>
+      <span>All three CLIs support a <strong>plan/preview mode</strong> — review proposed changes before any file is written. Claude: <code>--plan</code> · Codex: <code>--approval-mode full</code> · Gemini: interactive approval per step.</span>
     </div>
   </section>
 
@@ -875,6 +942,10 @@ cdc "Pull ESG data from WRDS, clean, run all regressions, save results to result
       <span class="callout-icon">🎨</span>
       <span>Skills in mixtapetools: <strong>beautiful-deck</strong> (Beamer slides from your results), <strong>referee-2</strong> (structured 5-part code audit), <strong>blindspot</strong> (surfaces overlooked problems in your analysis).</span>
     </div>
+    <div class="callout warn" style="margin-top:0.35em;">
+      <span class="callout-icon">⚠️</span>
+      <span><strong>Security note:</strong> A skill is a markdown file containing instructions that Claude executes with full access to your machine. <strong>Only pull skills from sources you trust.</strong> A crafted skill file can read sensitive data or run arbitrary commands — treat it like executable code, not just text.</span>
+    </div>
     <div class="down-hint">↓ how to pull and invoke</div>
   </section>
 
@@ -912,7 +983,7 @@ claude
   <section>
     <span class="eyebrow">Section 6</span>
     <h2>Live Demos</h2>
-    <ul class="large">
+    <ul>
       <li><strong>Demo 1</strong> — Write a referee report with <code>/referee-2</code> + references check</li>
       <li><strong>Demo 2</strong> — Generate a slide deck from a paper with <code>/beautiful-deck</code></li>
       <li><strong>Demo 3</strong> — Transcribe a student meeting with <code>/transcribe-meeting</code></li>
@@ -1218,6 +1289,12 @@ document.querySelectorAll('.checklist li').forEach(li => {
     li.querySelector('.check-box').textContent = li.classList.contains('done') ? '✓' : '';
   });
 });
+
+function toggleTheme() {
+  const isLight = document.body.classList.toggle('light');
+  document.getElementById('theme-toggle').textContent = isLight ? '🌙' : '☀️';
+}
 </script>
+<button id="theme-toggle" onclick="toggleTheme()" title="Toggle light/dark mode">☀️</button>
 </body>
 </html>
