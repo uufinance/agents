@@ -204,15 +204,14 @@ em { color: #c4b5fd; font-style: normal; }
 .ba-col.before .ba-head { color: #f87171; border-color: #f87171; }
 .ba-col.after  .ba-head { color: #34d399; border-color: #34d399; }
 .ba-row {
-  display: flex;
-  gap: 0.55em;
-  padding: 0.32em 0;
+  position: relative;
+  padding: 0.32em 0 0.32em 1.1em;
   border-bottom: 1px solid #1c1a35;
   color: #b8bedd;
   line-height: 1.45;
 }
 .ba-row:last-child { border-bottom: none; }
-.ba-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; margin-top: 5px; }
+.ba-dot { width: 6px; height: 6px; border-radius: 50%; position: absolute; left: 0; top: 0.65em; }
 .ba-col.before .ba-dot { background: #f87171; }
 .ba-col.after  .ba-dot { background: #34d399; }
 
@@ -479,22 +478,22 @@ kbd {
 
   <!-- 2b — Comparison table -->
   <section class="detail">
-    <h3>Claude Code vs. ChatGPT / GPT-4o</h3>
+    <h3>Claude Code vs. OpenAI Codex CLI</h3>
     <table>
-      <thead><tr><th></th><th>Claude Code (CLI)</th><th>ChatGPT + GPT-4o</th></tr></thead>
+      <thead><tr><th></th><th>Claude Code (Anthropic)</th><th>Codex CLI (OpenAI)</th></tr></thead>
       <tbody>
-        <tr><td>Made by</td><td>Anthropic</td><td>OpenAI</td></tr>
-        <tr><td>Models</td><td>Haiku 3.5 / Sonnet 4 / Opus 4</td><td>GPT-4o, GPT-4o mini</td></tr>
+        <tr><td>Models</td><td>Haiku 4.5 / Sonnet 4.6 / Opus 4.7</td><td>GPT-4.1 / GPT-5.5</td></tr>
         <tr><td>Context window</td><td>200K tokens</td><td>128K tokens</td></tr>
-        <tr><td>Runs code locally</td><td><strong style="color:#34d399">Yes</strong> — reads &amp; writes your files</td><td>Code Interpreter: sandboxed only</td></tr>
-        <tr><td>Plan mode</td><td><code>--plan</code> flag (no writes until approved)</td><td>No equivalent</td></tr>
-        <tr><td>Memory across sessions</td><td><code>CLAUDE.md</code> in project root</td><td>ChatGPT Memory (account-level)</td></tr>
-        <tr><td>Best for</td><td>Long files, local data, research pipelines</td><td>Quick Q&amp;A, writing, general coding</td></tr>
+        <tr><td>Runs code locally</td><td><strong style="color:#34d399">Yes</strong> — reads &amp; writes your files</td><td>Cloud only (async background tasks)</td></tr>
+        <tr><td>Plan mode</td><td><code>--plan</code> (no writes until approved)</td><td><code>--approval-mode full</code></td></tr>
+        <tr><td>Memory file</td><td><code>CLAUDE.md</code> in project root</td><td><code>AGENTS.md</code></td></tr>
+        <tr><td>Plans</td><td>Pro $20 / Max $100 / Max <strong>$200</strong> (20×)</td><td>Plus $20 / Pro <strong>$200</strong></td></tr>
+        <tr><td>Best for</td><td>Long files, local data, research pipelines</td><td>Rapid async code generation</td></tr>
       </tbody>
     </table>
     <div class="callout tip" style="margin-top:0.45em;">
       <span class="callout-icon">📘</span>
-      <span>For this workshop: <strong>Claude Pro</strong> ($20/month) gives full Claude Code access. <strong>ChatGPT Plus</strong> gives GPT-4o but no local file execution.</span>
+      <span>Both require a paid plan for CLI access. <strong>Claude Max $200</strong> and <strong>ChatGPT Pro $200</strong> unlock the highest quotas — sufficient for overnight pipelines and large replication packages.</span>
     </div>
   </section>
 
@@ -717,9 +716,14 @@ kbd {
         <div class="pp-desc">Sonnet + Opus access. Heavy use triggers cooldown (up to 5h).</div>
       </div>
       <div class="plan-pill">
-        <div class="pp-name">Claude Max</div>
+        <div class="pp-name">Claude Max (5×)</div>
         <div class="pp-price">~$100/month</div>
         <div class="pp-desc">5× the Pro quota. For long coding sessions and automated pipelines.</div>
+      </div>
+      <div class="plan-pill">
+        <div class="pp-name">Claude Max (20×)</div>
+        <div class="pp-price">~$200/month</div>
+        <div class="pp-desc">20× the Pro quota. For overnight pipelines, large replication packages, and unattended agents. Equivalent to OpenAI ChatGPT Pro ($200).</div>
       </div>
       <div class="plan-pill">
         <div class="pp-name">API (pay-per-use)</div>
@@ -796,6 +800,43 @@ claude init                                 # 4 · creates CLAUDE.md</code></pre
     </div>
   </section>
 
+  <!-- 4d — Permission modes -->
+  <section class="detail">
+    <h3>Permission Modes — From Safe to Fast</h3>
+    <table>
+      <thead><tr><th>Mode</th><th>Command</th><th>What happens</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><strong>Default</strong> (safe)</td>
+          <td><code>claude</code></td>
+          <td>Claude asks before every file write, shell command, and network call.</td>
+        </tr>
+        <tr>
+          <td><strong>Plan first</strong></td>
+          <td><code>claude --plan</code></td>
+          <td>Proposes a full plan and waits for your approval before executing anything.</td>
+        </tr>
+        <tr>
+          <td><strong>Auto-accept</strong> ⚡</td>
+          <td><code>claude --dangerously-skip-permissions</code></td>
+          <td>All permissions pre-approved. Zero interruptions. <strong>Only in repos you fully trust.</strong></td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="code-wrap" style="margin-top:0.3em;">
+      <pre><code class="language-bash"># Power-user alias — add to your shell profile
+alias cdc="claude --dangerously-skip-permissions"
+
+# Typical use: overnight pipeline with no babysitting
+cdc "Pull ESG data from WRDS, clean, run all regressions, save results to results/"</code></pre>
+      <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+    </div>
+    <div class="callout warn" style="margin-top:0.3em;">
+      <span class="callout-icon">⚠️</span>
+      <span>Never use <code>--dangerously-skip-permissions</code> on shared or production systems — it gives Claude unrestricted shell and filesystem access. Safe use: your own laptop, in a project you control, with a git backup.</span>
+    </div>
+  </section>
+
 </section>
 
 <!-- ══════════════════════════════════════════════════════════
@@ -859,6 +900,7 @@ claude
       <li><strong>Demo 3</strong> — Transcribe a student meeting with <code>/transcribe-meeting</code></li>
       <li><strong>Demo 4</strong> — Build or update your academic homepage + CV</li>
       <li><strong>Demo 5</strong> — Create a replication package or interactive appendix</li>
+      <li><strong>Demo 6</strong> — Sort and reorganize a project folder</li>
     </ul>
     <div class="callout tip" style="margin-top:0.5em;">
       <span class="callout-icon">🛠</span>
@@ -870,13 +912,15 @@ claude
   <!-- 6b — Demo 1: Referee Report -->
   <section class="detail">
     <h3><span class="demo-badge">1</span> Referee Report with <code>/referee-2</code></h3>
+    <p style="font-size:0.44em; color:var(--muted); margin:0.15em 0 0.1em;">Step 1 — pull the skill once:</p>
     <div class="code-wrap">
-      <pre><code class="language-bash"># Pull the skill once
-curl -o .claude/skills/referee-2.md \
-  https://raw.githubusercontent.com/scunning1975/mixtapetools/main/skills/referee-2.md
-
-# Run against the paper PDF
-claude "I need to review this paper: paper.pdf
+      <pre><code class="language-bash">curl -o .claude/skills/referee-2.md \
+  https://raw.githubusercontent.com/scunning1975/mixtapetools/main/skills/referee-2.md</code></pre>
+      <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+    </div>
+    <p style="font-size:0.44em; color:var(--muted); margin:0.25em 0 0.1em;">Step 2 — run against the paper:</p>
+    <div class="code-wrap">
+      <pre><code class="language-bash">claude "I need to review this paper: paper.pdf
 /referee-2
 After the structured report, also scan the bibliography:
 flag any references where the year or journal name looks incorrect,
@@ -892,13 +936,15 @@ and list any key papers in this literature that are missing."</code></pre>
   <!-- 6c — Demo 2: Slide Deck from Paper -->
   <section class="detail">
     <h3><span class="demo-badge">2</span> Slide Deck from Paper with <code>/beautiful-deck</code></h3>
+    <p style="font-size:0.44em; color:var(--muted); margin:0.15em 0 0.1em;">Step 1 — pull the skill once:</p>
     <div class="code-wrap">
-      <pre><code class="language-bash"># Pull the skill once
-curl -o .claude/skills/beautiful-deck.md \
-  https://raw.githubusercontent.com/scunning1975/mixtapetools/main/skills/beautiful-deck.md
-
-# Generate a conference presentation from a working paper
-claude "Here is my working paper: paper.pdf
+      <pre><code class="language-bash">curl -o .claude/skills/beautiful-deck.md \
+  https://raw.githubusercontent.com/scunning1975/mixtapetools/main/skills/beautiful-deck.md</code></pre>
+      <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+    </div>
+    <p style="font-size:0.44em; color:var(--muted); margin:0.25em 0 0.1em;">Step 2 — generate the conference presentation:</p>
+    <div class="code-wrap">
+      <pre><code class="language-bash">claude "Here is my working paper: paper.pdf
 /beautiful-deck
 Target audience: finance conference (EFA / AFA style).
 12 slides maximum. Include motivation, data, key table, main figure, conclusion."</code></pre>
@@ -935,14 +981,16 @@ claude
   <!-- 6e — Demo 4: Homepage + CV -->
   <section class="detail">
     <h3><span class="demo-badge">4</span> Build or Update Your Academic Homepage &amp; CV</h3>
+    <p style="font-size:0.44em; color:var(--muted); margin:0.15em 0 0.1em;">Option A — build from scratch:</p>
     <div class="code-wrap">
-      <pre><code class="language-bash"># Option A — build a homepage from scratch
-claude "Create a clean academic homepage from cv.pdf.
+      <pre><code class="language-bash">claude "Create a clean academic homepage from cv.pdf.
 Sections: About, Research (working papers + publications), Teaching, Contact.
-Minimal HTML, no frameworks. Output: index.html"
-
-# Option B — add a new working paper to an existing site
-claude "Add this paper to index.html and cv.tex:
+Minimal HTML, no frameworks. Output: index.html"</code></pre>
+      <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+    </div>
+    <p style="font-size:0.44em; color:var(--muted); margin:0.25em 0 0.1em;">Option B — add a new paper to an existing site:</p>
+    <div class="code-wrap">
+      <pre><code class="language-bash">claude "Add this paper to index.html and cv.tex:
 Title: [Your title]  ·  Co-authors: [Names]  ·  SSRN: [URL]
 Abstract: [paste abstract]
 Keep the existing style and LaTeX formatting conventions."</code></pre>
@@ -976,6 +1024,35 @@ Suitable for hosting on the journal website or my homepage."</code></pre>
     <div class="demo-result">
       <span>✓</span>
       <span>Claude traces which table in the paper maps to which script, writes the README, and flags proprietary data — the AEA Data Editor checklist, automated. The interactive appendix gives readers an explorable version of every result.</span>
+    </div>
+  </section>
+
+  <!-- 6g — Demo 6: Sort a project -->
+  <section class="detail">
+    <h3><span class="demo-badge">6</span> Sort &amp; Reorganize a Project Folder</h3>
+    <p style="font-size:0.44em; color:var(--muted); margin:0.15em 0 0.1em;">Step 1 — always work on a copy of the directory:</p>
+    <div class="code-wrap">
+      <pre><code class="language-bash">cp -r my-project my-project-backup</code></pre>
+      <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+    </div>
+    <p style="font-size:0.44em; color:var(--muted); margin:0.25em 0 0.1em;">Step 2 — ask Claude to survey and reorganize:</p>
+    <div class="code-wrap">
+      <pre><code class="language-bash">cd my-project-backup
+claude "Survey this project folder. Then:
+  (1) Propose a clean directory structure (group by: data, code, output, docs)
+  (2) Rename files to follow snake_case and include dates where relevant (YYYY-MM-DD)
+  (3) Identify obvious duplicates and flag them for removal
+  (4) Write a README.md describing the structure and how to run the main analysis
+Show me the plan and wait for my approval before moving anything."</code></pre>
+      <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+    </div>
+    <div class="callout warn" style="margin-top:0.3em;">
+      <span class="callout-icon">⚠️</span>
+      <span><strong>Always work on a copy of the directory</strong> — Claude will move and rename files. Use <code>--plan</code> or ask it to show the reorganization plan before executing.</span>
+    </div>
+    <div class="demo-result">
+      <span>✓</span>
+      <span>Claude reads every filename, infers the project structure, proposes a reorganization, and renames/moves with your approval. A PhD project folder that grew over years → clean, documented structure in 10 minutes.</span>
     </div>
   </section>
 
@@ -1067,6 +1144,11 @@ and saves the result to output.csv.</code></pre>
   <div class="title-meta">
     All commands and templates are one <kbd>↓</kbd> away on any section slide.<br>
     Press <kbd>O</kbd> to browse the full deck.
+  </div>
+  <div style="margin-top:1.4em; font-size:0.38em; color:var(--muted); line-height:2;">
+    <strong style="color:#c4b5fd;">Inspired by &amp; built on the work of:</strong><br>
+    Scott Cunningham — <a href="https://github.com/scunning1975/mixtapetools" target="_blank" style="color:#a78bfa;">github.com/scunning1975/mixtapetools</a><br>
+    Mihail Velikov — <a href="https://github.com/velikov-mihail/edhec-master-class" target="_blank" style="color:#a78bfa;">github.com/velikov-mihail/edhec-master-class</a>
   </div>
 </section>
 
