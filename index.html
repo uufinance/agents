@@ -1,0 +1,1491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Claude Code Workshop — USE Finance</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ── Variables ─────────────────────────────────────────────────────── */
+:root {
+  --bg: #ffffff;
+  --surface: #f8f9fa;
+  --border: #e5e7eb;
+  --text: #1a1a2e;
+  --text-muted: #6b7280;
+  --accent: #7c3aed;
+  --accent-light: #ede9fe;
+  --accent-dark: #5b21b6;
+  --amber: #f59e0b;
+  --amber-light: #fef3c7;
+  --teal: #0d9488;
+  --teal-light: #ccfbf1;
+  --red-light: #fee2e2;
+  --green-light: #d1fae5;
+  --code-bg: #1e1e2e;
+  --code-text: #cdd6f4;
+  --sidebar-w: 240px;
+  --content-max: 860px;
+  --header-h: 56px;
+}
+[data-theme="dark"] {
+  --bg: #0f0c1a;
+  --surface: #1a1730;
+  --border: #2d2a3e;
+  --text: #e2e8f0;
+  --text-muted: #94a3b8;
+  --accent-light: #2d1f5e;
+  --amber-light: #2d220a;
+  --teal-light: #042f2e;
+  --red-light: #2d0a0a;
+  --green-light: #052e16;
+}
+
+/* ── Reset ─────────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--text);
+  background: var(--bg);
+  transition: background 0.3s, color 0.3s;
+}
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* ── Progress bar ──────────────────────────────────────────────────── */
+#progress-bar {
+  position: fixed;
+  top: 0; left: 0;
+  height: 3px;
+  width: 0%;
+  background: linear-gradient(90deg, var(--accent), var(--amber));
+  z-index: 1000;
+  transition: width 0.1s;
+}
+
+/* ── Header ────────────────────────────────────────────────────────── */
+#site-header {
+  position: fixed;
+  top: 3px; left: 0; right: 0;
+  height: var(--header-h);
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  padding: 0 24px;
+  gap: 16px;
+  z-index: 900;
+  transition: background 0.3s;
+}
+.header-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 700;
+  font-size: 15px;
+  color: var(--text);
+  text-decoration: none;
+}
+.logo-mark {
+  width: 32px; height: 32px;
+  background: linear-gradient(135deg, var(--accent) 0%, var(--amber) 100%);
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  color: white;
+  font-weight: 700;
+  font-size: 14px;
+  flex-shrink: 0;
+}
+.header-title {
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--text-muted);
+}
+.header-spacer { flex: 1; }
+#dark-toggle {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 4px 12px;
+  font-size: 13px;
+  cursor: pointer;
+  color: var(--text);
+  transition: all 0.2s;
+}
+#dark-toggle:hover { background: var(--accent-light); border-color: var(--accent); }
+#menu-toggle {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  color: var(--text);
+  font-size: 20px;
+}
+
+/* ── Layout ────────────────────────────────────────────────────────── */
+#layout {
+  display: flex;
+  padding-top: calc(var(--header-h) + 3px);
+  min-height: 100vh;
+}
+
+/* ── Sidebar ───────────────────────────────────────────────────────── */
+#sidebar {
+  width: var(--sidebar-w);
+  flex-shrink: 0;
+  position: fixed;
+  top: calc(var(--header-h) + 3px);
+  bottom: 0;
+  left: 0;
+  overflow-y: auto;
+  background: var(--surface);
+  border-right: 1px solid var(--border);
+  padding: 24px 0 40px;
+  transition: transform 0.3s, background 0.3s;
+}
+#sidebar nav { padding: 0 16px; }
+.nav-section-label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin: 20px 0 6px 8px;
+}
+.nav-section-label:first-child { margin-top: 0; }
+.nav-link {
+  display: block;
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-size: 13px;
+  color: var(--text-muted);
+  text-decoration: none;
+  transition: all 0.15s;
+  border-left: 2px solid transparent;
+  margin-bottom: 2px;
+}
+.nav-link:hover { color: var(--text); background: var(--border); text-decoration: none; }
+.nav-link.active {
+  color: var(--accent);
+  background: var(--accent-light);
+  border-left-color: var(--accent);
+  font-weight: 600;
+}
+
+/* ── Main content ──────────────────────────────────────────────────── */
+#main {
+  margin-left: var(--sidebar-w);
+  flex: 1;
+  min-width: 0;
+}
+
+/* ── Hero ──────────────────────────────────────────────────────────── */
+#hero {
+  background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+  background-size: 300% 300%;
+  animation: gradientShift 12s ease infinite;
+  color: white;
+  padding: 80px 60px 70px;
+  position: relative;
+  overflow: hidden;
+}
+@keyframes gradientShift {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+#hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 70% 30%, rgba(124,58,237,0.25) 0%, transparent 60%);
+  pointer-events: none;
+}
+.hero-eyebrow {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: rgba(245,158,11,0.9);
+  margin-bottom: 16px;
+}
+.hero-headline {
+  font-size: clamp(28px, 4vw, 44px);
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 18px;
+  max-width: 700px;
+}
+.hero-headline em {
+  font-style: normal;
+  background: linear-gradient(90deg, #a78bfa, #f59e0b);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.hero-sub {
+  font-size: 15px;
+  color: rgba(255,255,255,0.72);
+  max-width: 560px;
+  margin-bottom: 32px;
+  font-weight: 300;
+}
+.hero-cta {
+  display: inline-block;
+  padding: 12px 28px;
+  background: var(--accent);
+  color: white;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 14px;
+  text-decoration: none;
+  transition: all 0.2s;
+  box-shadow: 0 4px 20px rgba(124,58,237,0.4);
+}
+.hero-cta:hover {
+  background: var(--accent-dark);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 24px rgba(124,58,237,0.5);
+  text-decoration: none;
+  color: white;
+}
+
+/* Before/After cards */
+.ba-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 40px;
+  max-width: 720px;
+}
+.ba-card {
+  border-radius: 10px;
+  padding: 18px 20px;
+  backdrop-filter: blur(12px);
+}
+.ba-card.before { background: rgba(254,226,226,0.1); border: 1px solid rgba(254,226,226,0.2); }
+.ba-card.after  { background: rgba(209,250,229,0.1); border: 1px solid rgba(209,250,229,0.2); }
+.ba-label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+  opacity: 0.7;
+}
+.ba-card.before .ba-label { color: #fca5a5; }
+.ba-card.after  .ba-label { color: #6ee7b7; }
+.ba-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 13px;
+  color: rgba(255,255,255,0.82);
+  padding: 5px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  line-height: 1.45;
+}
+.ba-row:last-child { border-bottom: none; }
+.ba-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  margin-top: 6px;
+  flex-shrink: 0;
+}
+.ba-card.before .ba-dot { background: #f87171; }
+.ba-card.after  .ba-dot { background: #34d399; }
+
+/* ── Content sections ──────────────────────────────────────────────── */
+.content-section {
+  padding: 56px 60px;
+  border-bottom: 1px solid var(--border);
+}
+.content-section:last-child { border-bottom: none; }
+.section-number {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 6px;
+}
+.section-title {
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 8px;
+}
+.section-meta {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-bottom: 28px;
+}
+
+h3 {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--text);
+  margin: 32px 0 12px;
+}
+h3:first-child { margin-top: 0; }
+p { margin-bottom: 14px; }
+p:last-child { margin-bottom: 0; }
+
+/* ── Timeline ──────────────────────────────────────────────────────── */
+.timeline {
+  display: flex;
+  gap: 0;
+  position: relative;
+  margin: 32px 0;
+}
+.timeline::before {
+  content: '';
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  right: 20px;
+  height: 2px;
+  background: var(--border);
+}
+.tl-item {
+  flex: 1;
+  position: relative;
+  padding-top: 48px;
+  padding-right: 16px;
+}
+.tl-item:last-child { padding-right: 0; }
+.tl-node {
+  position: absolute;
+  top: 12px;
+  left: 0;
+  width: 18px; height: 18px;
+  border-radius: 50%;
+  background: var(--bg);
+  border: 3px solid var(--border);
+  transition: all 0.2s;
+}
+.tl-item.active .tl-node {
+  background: var(--accent);
+  border-color: var(--accent);
+  box-shadow: 0 0 0 4px var(--accent-light);
+}
+.tl-year {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--text-muted);
+  margin-bottom: 4px;
+}
+.tl-era {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+.tl-item.active .tl-era { color: var(--accent); }
+.tl-desc { font-size: 13px; color: var(--text-muted); line-height: 1.5; }
+
+/* ── Tables ────────────────────────────────────────────────────────── */
+.table-wrap { overflow-x: auto; margin: 20px 0; border-radius: 10px; border: 1px solid var(--border); }
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13.5px;
+}
+thead tr { background: var(--accent); color: white; }
+thead th {
+  padding: 11px 14px;
+  text-align: left;
+  font-weight: 600;
+  font-size: 12px;
+  letter-spacing: 0.04em;
+}
+tbody tr { border-bottom: 1px solid var(--border); transition: background 0.12s; }
+tbody tr:last-child { border-bottom: none; }
+tbody tr:nth-child(even) { background: var(--surface); }
+tbody tr:hover { background: var(--accent-light); }
+td { padding: 10px 14px; vertical-align: top; }
+td:first-child { font-weight: 600; }
+td code, th code {
+  font-family: 'Roboto Mono', monospace;
+  font-size: 12px;
+  background: var(--accent-light);
+  color: var(--accent);
+  padding: 1px 5px;
+  border-radius: 4px;
+}
+
+/* ── Cards ─────────────────────────────────────────────────────────── */
+.card-grid { display: grid; gap: 16px; margin: 20px 0; }
+.card-grid.cols-3 { grid-template-columns: repeat(3, 1fr); }
+.card-grid.cols-2 { grid-template-columns: repeat(2, 1fr); }
+.card {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 22px;
+  transition: all 0.2s;
+}
+.card:hover { transform: translateY(-2px); box-shadow: 0 4px 24px rgba(0,0,0,0.08); }
+.card-title { font-weight: 700; font-size: 15px; margin-bottom: 6px; color: var(--text); }
+.card-badge {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 2px 8px;
+  border-radius: 20px;
+  margin-bottom: 10px;
+}
+.badge-primary { background: var(--accent-light); color: var(--accent); }
+.badge-neutral { background: var(--surface); color: var(--text-muted); border: 1px solid var(--border); }
+.badge-warn { background: var(--amber-light); color: #92400e; }
+.card-list { list-style: none; font-size: 13px; color: var(--text-muted); }
+.card-list li { padding: 3px 0; display: flex; align-items: flex-start; gap: 6px; }
+.card-list li::before { content: '✓'; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+
+/* ── Code blocks ───────────────────────────────────────────────────── */
+.code-block {
+  background: var(--code-bg);
+  border-radius: 10px;
+  overflow: hidden;
+  margin: 16px 0;
+  font-family: 'Roboto Mono', monospace;
+}
+.code-header {
+  background: #181825;
+  padding: 8px 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border-bottom: 1px solid #313244;
+}
+.traffic-lights { display: flex; gap: 5px; }
+.tl-red   { width: 11px; height: 11px; border-radius: 50%; background: #f38ba8; }
+.tl-yellow{ width: 11px; height: 11px; border-radius: 50%; background: #f9e2af; }
+.tl-green { width: 11px; height: 11px; border-radius: 50%; background: #a6e3a1; }
+.code-lang {
+  font-size: 11px;
+  color: #6c7086;
+  margin-left: 4px;
+  font-weight: 500;
+}
+.copy-btn {
+  margin-left: auto;
+  background: #313244;
+  border: none;
+  border-radius: 5px;
+  padding: 3px 10px;
+  font-size: 11px;
+  color: #cdd6f4;
+  cursor: pointer;
+  font-family: 'Open Sans', sans-serif;
+  transition: all 0.15s;
+}
+.copy-btn:hover { background: var(--accent); color: white; }
+.copy-btn.copied { background: #a6e3a1; color: #1e1e2e; }
+pre {
+  padding: 18px 20px;
+  overflow-x: auto;
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--code-text);
+  tab-size: 2;
+}
+pre code { background: none; color: inherit; padding: 0; font-family: inherit; font-size: inherit; }
+/* Syntax tinting */
+.kw { color: #cba6f7; }
+.str { color: #a6e3a1; }
+.cm { color: #585b70; font-style: italic; }
+.fn { color: #89b4fa; }
+
+/* Inline code */
+p code, li code {
+  font-family: 'Roboto Mono', monospace;
+  font-size: 12.5px;
+  background: var(--accent-light);
+  color: var(--accent);
+  padding: 1px 6px;
+  border-radius: 4px;
+  border: 1px solid rgba(124,58,237,0.15);
+}
+[data-theme="dark"] p code, [data-theme="dark"] li code {
+  background: #2d1f5e;
+  color: #a78bfa;
+}
+
+/* ── Callouts ──────────────────────────────────────────────────────── */
+.callout {
+  border-radius: 10px;
+  padding: 16px 20px;
+  margin: 20px 0;
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  font-size: 14px;
+  line-height: 1.6;
+}
+.callout-icon { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+.callout.tip    { background: var(--accent-light); border-left: 4px solid var(--accent); }
+.callout.warning{ background: var(--amber-light);  border-left: 4px solid var(--amber); }
+.callout.concept{ background: var(--teal-light);   border-left: 4px solid var(--teal); }
+.callout strong { font-weight: 700; }
+
+/* ── Concept cards (3a–3f) ─────────────────────────────────────────── */
+.concept-card {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 24px;
+  margin-bottom: 24px;
+  transition: box-shadow 0.2s;
+}
+.concept-card:hover { box-shadow: 0 4px 24px rgba(0,0,0,0.08); }
+.concept-id {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px; height: 28px;
+  border-radius: 8px;
+  background: var(--accent);
+  color: white;
+  font-weight: 700;
+  font-size: 13px;
+  margin-bottom: 12px;
+}
+.concept-title { font-size: 17px; font-weight: 700; margin-bottom: 10px; }
+
+/* Plan limits pills */
+.plan-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin: 14px 0; }
+.plan-pill {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 14px;
+  background: var(--surface);
+}
+.plan-pill .plan-name { font-weight: 700; font-size: 14px; margin-bottom: 2px; }
+.plan-pill .plan-price { font-size: 12px; color: var(--text-muted); margin-bottom: 6px; }
+.plan-pill .plan-desc { font-size: 13px; color: var(--text-muted); }
+.plan-pill.recommended { border-color: var(--accent); }
+.plan-pill.recommended .plan-name { color: var(--accent); }
+
+/* Flow diagram */
+.flow-diagram {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  margin: 20px 0;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+.flow-node {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 8px 16px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+}
+.flow-node.agent { background: var(--accent); color: white; border-color: var(--accent); }
+.flow-node.tool  { background: var(--code-bg); color: var(--code-text); border-color: #313244;
+                   font-family: 'Roboto Mono', monospace; font-size: 12px; }
+.flow-arrow { color: var(--text-muted); font-size: 18px; padding: 0 4px; }
+
+/* ── Demo section ──────────────────────────────────────────────────── */
+.demo-block {
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  overflow: hidden;
+  margin-bottom: 32px;
+}
+.demo-header {
+  background: var(--surface);
+  padding: 16px 22px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border-bottom: 1px solid var(--border);
+}
+.demo-num {
+  width: 28px; height: 28px;
+  background: var(--accent);
+  color: white;
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 700;
+  font-size: 13px;
+  flex-shrink: 0;
+}
+.demo-title { font-weight: 700; font-size: 15px; }
+.demo-time { margin-left: auto; font-size: 12px; color: var(--text-muted); }
+.demo-body { padding: 20px 22px; }
+.demo-result {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  background: var(--green-light);
+  border-radius: 8px;
+  padding: 12px 16px;
+  font-size: 13px;
+  color: #065f46;
+  margin-top: 12px;
+}
+[data-theme="dark"] .demo-result { color: #a7f3d0; }
+.demo-result-icon { font-size: 16px; flex-shrink: 0; }
+
+/* ── CLAUDE.md section ─────────────────────────────────────────────── */
+.memory-compare {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin: 20px 0;
+}
+.memory-card {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+}
+.memory-card-header {
+  background: var(--surface);
+  padding: 10px 16px;
+  font-weight: 700;
+  font-size: 13px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.memory-card-header .file-chip {
+  font-family: 'Roboto Mono', monospace;
+  font-size: 12px;
+  background: var(--accent-light);
+  color: var(--accent);
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+.memory-card-body { padding: 14px 16px; font-size: 13px; color: var(--text-muted); }
+
+/* ── Starter prompts ───────────────────────────────────────────────── */
+.prompt-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+.prompt-card-header {
+  background: var(--accent);
+  color: white;
+  padding: 12px 20px;
+  font-weight: 700;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.prompt-letter {
+  width: 24px; height: 24px;
+  background: rgba(255,255,255,0.2);
+  border-radius: 6px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px;
+  font-weight: 700;
+}
+.prompt-body { padding: 0; }
+.prompt-body .code-block { margin: 0; border-radius: 0; }
+.prompt-body .code-header { border-radius: 0; }
+
+/* ── Checklist ─────────────────────────────────────────────────────── */
+.checklist { list-style: none; margin: 14px 0; }
+.checklist li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 7px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 14px;
+  cursor: pointer;
+  user-select: none;
+}
+.checklist li:last-child { border-bottom: none; }
+.check-box {
+  width: 18px; height: 18px;
+  border: 2px solid var(--border);
+  border-radius: 4px;
+  flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.15s;
+}
+.checklist li.done .check-box {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: white;
+  font-size: 11px;
+}
+
+/* ── Details/summary ───────────────────────────────────────────────── */
+details {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  margin: 16px 0;
+  overflow: hidden;
+}
+summary {
+  padding: 14px 18px;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  background: var(--surface);
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+summary::after { content: '▸'; margin-left: auto; color: var(--text-muted); transition: transform 0.2s; }
+details[open] summary::after { transform: rotate(90deg); }
+.details-body { padding: 18px; }
+.details-body ul { list-style: none; }
+.details-body li {
+  padding: 6px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 14px;
+  display: flex;
+  gap: 10px;
+}
+.details-body li:last-child { border-bottom: none; }
+.err-code { font-family: 'Roboto Mono', monospace; font-size: 12px; color: #f87171; font-weight: 600; flex-shrink: 0; white-space: nowrap; }
+
+/* ── Mobile ────────────────────────────────────────────────────────── */
+@media (max-width: 900px) {
+  #sidebar { transform: translateX(-100%); z-index: 800; }
+  #sidebar.open { transform: translateX(0); box-shadow: 4px 0 20px rgba(0,0,0,0.15); }
+  #main { margin-left: 0; }
+  #menu-toggle { display: block; }
+  .content-section { padding: 40px 24px; }
+  #hero { padding: 56px 24px 48px; }
+  .ba-grid { grid-template-columns: 1fr; }
+  .timeline { flex-direction: column; }
+  .timeline::before { display: none; }
+  .tl-item { padding-top: 0; padding-left: 32px; padding-bottom: 20px; }
+  .tl-node { top: 2px; left: 0; }
+  .card-grid.cols-3 { grid-template-columns: 1fr; }
+  .card-grid.cols-2 { grid-template-columns: 1fr; }
+  .plan-grid { grid-template-columns: 1fr; }
+  .memory-compare { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<div id="progress-bar"></div>
+
+<!-- ── Header ─────────────────────────────────────────────────────── -->
+<header id="site-header">
+  <button id="menu-toggle" aria-label="Toggle menu">&#9776;</button>
+  <a class="header-logo" href="#">
+    <div class="logo-mark">U</div>
+    <span>USE Finance</span>
+  </a>
+  <span class="header-title">Claude Code Workshop</span>
+  <div class="header-spacer"></div>
+  <button id="dark-toggle">&#9790; Dark</button>
+</header>
+
+<!-- ── Layout ─────────────────────────────────────────────────────── -->
+<div id="layout">
+
+  <!-- Sidebar -->
+  <aside id="sidebar">
+    <nav>
+      <div class="nav-section-label">Workshop</div>
+      <a class="nav-link active" href="#hero">Overview</a>
+
+      <div class="nav-section-label">Sections</div>
+      <a class="nav-link" href="#s1">1 · Hook</a>
+      <a class="nav-link" href="#s2">2 · What Changed</a>
+      <a class="nav-link" href="#s3">3 · Core Concepts</a>
+      <a class="nav-link" href="#s3-limits">↳ Plan Limits</a>
+      <a class="nav-link" href="#s3-models">↳ Models &amp; Effort</a>
+      <a class="nav-link" href="#s3-context">↳ Context Windows</a>
+      <a class="nav-link" href="#s3-plan">↳ Plan Mode</a>
+      <a class="nav-link" href="#s3-tools">↳ Tools &amp; Agents</a>
+      <a class="nav-link" href="#s3-interfaces">↳ Interfaces</a>
+      <a class="nav-link" href="#s3-memory">↳ CLAUDE.md</a>
+      <a class="nav-link" href="#s4">4 · Setup</a>
+      <a class="nav-link" href="#s5">5 · Live Demos</a>
+      <a class="nav-link" href="#s6">6 · Your Turn</a>
+    </nav>
+  </aside>
+
+  <!-- Main -->
+  <main id="main">
+
+    <!-- ── Hero ───────────────────────────────────────────────────── -->
+    <section id="hero">
+      <div class="hero-eyebrow">Utrecht School of Economics · Finance Workshop 2025</div>
+      <h1 class="hero-headline">What if your next research assistant<br>
+        <em>never slept, never billed by the hour,<br>and could already read code?</em>
+      </h1>
+      <p class="hero-sub">A 60-minute hands-on introduction to AI coding agents for finance researchers. No prior programming experience required.</p>
+      <a href="#s1" class="hero-cta">Start the Workshop &darr;</a>
+
+      <div class="ba-grid">
+        <div class="ba-card before">
+          <div class="ba-label">Before</div>
+          <div class="ba-row"><span class="ba-dot"></span>Clean 10,000 rows of Compustat data: <strong>3 hours</strong></div>
+          <div class="ba-row"><span class="ba-dot"></span>Debug a broken Stata regression: <strong>45 min of Stack Overflow</strong></div>
+          <div class="ba-row"><span class="ba-dot"></span>Build an interactive chart: <strong>hire an RA or learn D3</strong></div>
+          <div class="ba-row"><span class="ba-dot"></span>Transcribe a 60-min interview: <strong>send out, wait 24 hours</strong></div>
+        </div>
+        <div class="ba-card after">
+          <div class="ba-label">Now</div>
+          <div class="ba-row"><span class="ba-dot"></span>Describe what you want: <strong>4 minutes</strong></div>
+          <div class="ba-row"><span class="ba-dot"></span>Paste the error, get a working fix: <strong>30 seconds</strong></div>
+          <div class="ba-row"><span class="ba-dot"></span>"Make this chart interactive" → <strong>done</strong></div>
+          <div class="ba-row"><span class="ba-dot"></span>Run locally in the background: <strong>2 minutes</strong></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Section 1: Hook ────────────────────────────────────────── -->
+    <section id="s1" class="content-section">
+      <div class="section-number">Section 1 · 5 min</div>
+      <h2 class="section-title">The Translation Layer Problem</h2>
+      <p class="section-meta">Why this moment is different from ChatGPT</p>
+
+      <p>You have a research idea. Between that idea and a working result sits a translation layer: Python, R, Stata syntax, data cleaning scripts, visualisation libraries. For most economists, that layer is either a tax on productivity (if you can code) or a dependency on others (if you can't).</p>
+
+      <p><strong>AI agents eliminate that translation layer.</strong> Not by making you a better programmer — by making the translation unnecessary.</p>
+
+      <div class="callout concept">
+        <span class="callout-icon">&#128161;</span>
+        <div><strong>Key framing:</strong> We are not claiming this replaces your judgment as an economist. We are claiming it eliminates the translation layer between your idea and a working artifact.</div>
+      </div>
+
+      <p>The shift isn't that AI got smarter at text (though it did). It's that AI can now <em>act</em> — read your files, run code, check the output, fix errors, and iterate — all in a loop, without you touching a terminal.</p>
+    </section>
+
+    <!-- ── Section 2: What Changed ───────────────────────────────── -->
+    <section id="s2" class="content-section">
+      <div class="section-number">Section 2 · 5 min</div>
+      <h2 class="section-title">What Changed: Three Eras</h2>
+      <p class="section-meta">From text completion to autonomous agents</p>
+
+      <div class="timeline">
+        <div class="tl-item">
+          <div class="tl-node"></div>
+          <div class="tl-year">2022–2023</div>
+          <div class="tl-era">Text Era</div>
+          <div class="tl-desc">ChatGPT. It explains. You copy, paste, debug yourself.</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-node"></div>
+          <div class="tl-year">2024</div>
+          <div class="tl-era">Completion Era</div>
+          <div class="tl-desc">Copilot, Cursor. Autocomplete inside your editor.</div>
+        </div>
+        <div class="tl-item active">
+          <div class="tl-node"></div>
+          <div class="tl-year">2025+</div>
+          <div class="tl-era">Agent Era</div>
+          <div class="tl-desc">Claude Code, Codex. Describe a goal. Agent plans, writes, runs, reads errors, iterates.</div>
+        </div>
+      </div>
+
+      <h3>Claude Code vs. OpenAI Codex</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr>
+            <th></th>
+            <th>Claude Code</th>
+            <th>OpenAI Codex (CLI / cloud)</th>
+          </tr></thead>
+          <tbody>
+            <tr><td>Made by</td><td>Anthropic</td><td>OpenAI</td></tr>
+            <tr><td>Models</td><td>Haiku / Sonnet / Opus</td><td>GPT-4.1, GPT-5.5</td></tr>
+            <tr><td>Context window</td><td>200K tokens</td><td>128K tokens</td></tr>
+            <tr><td>Plan mode</td><td><code>--plan</code> flag</td><td><code>--approval-mode full</code></td></tr>
+            <tr><td>Cloud agent</td><td>Local only</td><td>Yes — async background tasks</td></tr>
+            <tr><td>Best for</td><td>Long files, nuanced reasoning</td><td>Rapid code generation</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="callout tip">
+        <span class="callout-icon">&#128218;</span>
+        <div><strong>For this workshop:</strong> Everyone with a <strong>Claude Pro</strong> or <strong>ChatGPT Plus</strong> account can follow along. The commands are nearly identical.</div>
+      </div>
+    </section>
+
+    <!-- ── Section 3: Core Concepts ──────────────────────────────── -->
+    <section id="s3" class="content-section">
+      <div class="section-number">Section 3 · 15 min</div>
+      <h2 class="section-title">Core Concepts</h2>
+      <p class="section-meta">Six things to understand before you start</p>
+
+      <!-- 3a: Plan Limits -->
+      <div id="s3-limits" class="concept-card">
+        <div class="concept-id">A</div>
+        <div class="concept-title">Plan Limits &amp; Usage Quotas</div>
+        <p>Not technical token counts — the <strong>practical limits on your subscription</strong>. Think of it as a data plan for AI.</p>
+
+        <div class="plan-grid">
+          <div class="plan-pill">
+            <div class="plan-name">Claude Free</div>
+            <div class="plan-price">Free</div>
+            <div class="plan-desc">Limited messages/day. Haiku model only. Good for exploring.</div>
+          </div>
+          <div class="plan-pill recommended">
+            <div class="plan-name">Claude Pro ★</div>
+            <div class="plan-price">~$20/month</div>
+            <div class="plan-desc">Sonnet + Opus access. Heavy use triggers a cooldown (up to 5 hours). Workshop default.</div>
+          </div>
+          <div class="plan-pill">
+            <div class="plan-name">Claude Max</div>
+            <div class="plan-price">~$100/month</div>
+            <div class="plan-desc">5× the Pro quota. For long coding sessions and intensive pipelines.</div>
+          </div>
+          <div class="plan-pill">
+            <div class="plan-name">API (pay-per-use)</div>
+            <div class="plan-price">Billed per token</div>
+            <div class="plan-desc">No message caps. Best for automated scripts run overnight.</div>
+          </div>
+        </div>
+
+        <div class="callout warning" style="margin-top:12px;">
+          <span class="callout-icon">&#9888;&#65039;</span>
+          <div>There's a <strong>7-day rolling window</strong> on some limits — if you hit a wall, it may clear sooner than you think. Set a spending cap in the Anthropic Console before using an API key.</div>
+        </div>
+      </div>
+
+      <!-- 3b: Models -->
+      <div id="s3-models" class="concept-card">
+        <div class="concept-id">B</div>
+        <div class="concept-title">Models &amp; Effort</div>
+        <p>Not all tasks need the smartest model. Choosing the right one saves money and time.</p>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Model</th><th>Speed</th><th>Cost</th><th>Best for</th></tr></thead>
+            <tbody>
+              <tr><td>Claude Haiku</td><td>Fast</td><td>Cheap</td><td>Bulk formatting, quick lookups</td></tr>
+              <tr><td>Claude Sonnet</td><td>Balanced</td><td>Mid</td><td>Most research tasks — <strong>workshop default</strong></td></tr>
+              <tr><td>Claude Opus</td><td>Slow</td><td>High</td><td>Complex, ambiguous problems</td></tr>
+              <tr><td>GPT-4.1</td><td>Fast</td><td>Mid</td><td>General coding, chat</td></tr>
+              <tr><td>GPT-5.5</td><td>Balanced</td><td>Higher</td><td>Nuanced conversational reasoning &amp; coding</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="callout tip">
+          <span class="callout-icon">&#129504;</span>
+          <div><strong>Extended thinking:</strong> Claude Opus can be told to "reason harder" before answering. For a standard regression, not needed. For a novel econometric design or a tricky identification strategy, worth the extra cost.</div>
+        </div>
+      </div>
+
+      <!-- 3c: Context Windows -->
+      <div id="s3-context" class="concept-card">
+        <div class="concept-id">C</div>
+        <div class="concept-title">Context Windows</div>
+        <p>The context window is how much the model holds in memory at once — like RAM, not storage. Claude Sonnet's 200K tokens is roughly equivalent to a full PhD dissertation in a single session.</p>
+        <p>Each conversation starts fresh. If you need the agent to remember your dataset structure, your methodology choices, or prior results — that's what <code>CLAUDE.md</code> is for (see concept F).</p>
+        <div class="callout warning">
+          <span class="callout-icon">&#9888;&#65039;</span>
+          <div>Hit "context length exceeded"? Break the task into smaller steps, or summarise prior results into <code>CLAUDE.md</code> so the next session starts with full context.</div>
+        </div>
+      </div>
+
+      <!-- 3d: Plan Mode -->
+      <div id="s3-plan" class="concept-card">
+        <div class="concept-id">D</div>
+        <div class="concept-title">Plan Mode</div>
+        <p>By default Claude acts immediately. The <code>--plan</code> flag makes it show its intended steps <em>before</em> executing anything — like pre-registering your analysis.</p>
+        <div class="code-block">
+          <div class="code-header">
+            <div class="traffic-lights"><div class="tl-red"></div><div class="tl-yellow"></div><div class="tl-green"></div></div>
+            <span class="code-lang">bash</span>
+            <button class="copy-btn" data-copy="claude --plan &quot;Download the Compustat data, replicate Sloan 1996 Table 2, and flag any deviations&quot;">Copy</button>
+          </div>
+          <pre><code>claude --plan <span class="str">"Download the Compustat data, replicate Sloan 1996 Table 2, and flag any deviations"</span></code></pre>
+        </div>
+        <p>Use plan mode before any operation that touches shared files, sends data somewhere, or runs code you haven't reviewed.</p>
+      </div>
+
+      <!-- 3e: Tools & Agents -->
+      <div id="s3-tools" class="concept-card">
+        <div class="concept-id">E</div>
+        <div class="concept-title">Tools, Agents &amp; Skills</div>
+        <p>Claude Code has <em>tools</em>: read file, write file, run shell command, search the web. An <strong>agent</strong> is a model that can call tools in a loop until the task is done.</p>
+        <div class="flow-diagram">
+          <div class="flow-node">You</div>
+          <span class="flow-arrow">→</span>
+          <div class="flow-node agent">Agent</div>
+          <span class="flow-arrow">→</span>
+          <div class="flow-node tool">read_file</div>
+          <span class="flow-arrow">→</span>
+          <div class="flow-node agent">Agent</div>
+          <span class="flow-arrow">→</span>
+          <div class="flow-node tool">run_code</div>
+          <span class="flow-arrow">→</span>
+          <div class="flow-node agent">Agent</div>
+          <span class="flow-arrow">→</span>
+          <div class="flow-node">Result</div>
+        </div>
+        <p><strong>Skills</strong> are pre-packaged instruction sets for common task categories (e.g., <code>/review</code>, <code>/init</code>, <code>/security-review</code>). Invoke them directly from the Claude Code prompt.</p>
+      </div>
+
+      <!-- 3e: Interfaces -->
+      <div id="s3-interfaces" class="concept-card">
+        <div class="concept-id">E2</div>
+        <div class="concept-title">Three Interfaces, One Model</div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th></th><th>Claude.ai (browser)</th><th>Claude Desktop</th><th>Claude Code (CLI)</th></tr></thead>
+            <tbody>
+              <tr><td>How to get</td><td>claude.ai</td><td>Download from claude.ai</td><td><code>npm install -g @anthropic-ai/claude-code</code></td></tr>
+              <tr><td>Best for</td><td>Chat, file uploads, Q&amp;A</td><td>Local files + MCP servers</td><td>Coding, terminal, agents</td></tr>
+              <tr><td>Can run code</td><td>No</td><td>No (reads/writes only)</td><td><strong>Yes</strong></td></tr>
+              <tr><td>Plan mode</td><td>No</td><td>No</td><td><strong>Yes</strong></td></tr>
+              <tr><td>For this workshop</td><td>Fallback</td><td>Light use</td><td><strong>Primary</strong></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>The Desktop app is great for document work: analysing a PDF, drafting, Q&amp;A over your own files. The CLI is the agent — it can execute code, run scripts, and manage files autonomously. Both connect to the same underlying Claude model.</p>
+      </div>
+
+      <!-- 3f: CLAUDE.md -->
+      <div id="s3-memory" class="concept-card">
+        <div class="concept-id">F</div>
+        <div class="concept-title">CLAUDE.md &amp; AGENTS.md — Giving the Agent Memory</div>
+        <p><strong>The problem:</strong> Every new conversation starts from zero. The agent doesn't know your dataset, your methodology choices, or what you tried last week.</p>
+        <p><strong>The solution:</strong> A markdown file in your project root that the agent reads automatically at the start of every session.</p>
+
+        <div class="memory-compare">
+          <div class="memory-card">
+            <div class="memory-card-header">
+              <span class="file-chip">CLAUDE.md</span>
+              Used by Claude Code
+            </div>
+            <div class="memory-card-body">Created with <code>claude init</code>. Place in your project root. Claude reads it before every session.</div>
+          </div>
+          <div class="memory-card">
+            <div class="memory-card-header">
+              <span class="file-chip">AGENTS.md</span>
+              Used by OpenAI Codex CLI
+            </div>
+            <div class="memory-card-body">Same concept, different filename. Create manually. Codex reads it at the start of every task.</div>
+          </div>
+        </div>
+
+        <p>Example <code>CLAUDE.md</code> for a finance research project:</p>
+        <div class="code-block">
+          <div class="code-header">
+            <div class="traffic-lights"><div class="tl-red"></div><div class="tl-yellow"></div><div class="tl-green"></div></div>
+            <span class="code-lang">CLAUDE.md</span>
+            <button class="copy-btn" data-copy="# Accrual Anomaly Replication Project
+
+## Data
+- Source: WRDS / Compustat annual, 1990-2023
+- Key file: data/compustat_clean.csv
+- Columns: gvkey, conm, fyear, ni, at, rect, invt, dpc, oancf
+
+## Methodology
+- Replicating Sloan (1996): accrual anomaly
+- Accruals = balance-sheet method (not cash-flow method)
+- Winsorize at 1% and 99% before analysis
+
+## Conventions
+- Python only (no R)
+- Save all output tables to results/
+- Always print sample size before and after any data filter">Copy</button>
+          </div>
+          <pre><code><span class="cm"># Accrual Anomaly Replication Project</span>
+
+<span class="kw">## Data</span>
+- Source: WRDS / Compustat annual, 1990–2023
+- Key file: data/compustat_clean.csv
+- Columns: gvkey, conm, fyear, ni, at, rect, invt, dpc, oancf
+
+<span class="kw">## Methodology</span>
+- Replicating Sloan (1996): accrual anomaly
+- Accruals = balance-sheet method (not cash-flow method)
+- Winsorize at 1% and 99% before analysis
+
+<span class="kw">## Conventions</span>
+- Python only (no R)
+- Save all output tables to results/
+- Always print sample size before and after any data filter</code></pre>
+        </div>
+
+        <div class="callout tip">
+          <span class="callout-icon">&#128161;</span>
+          <div>Think of <code>CLAUDE.md</code> as the methods section of your paper, written for an AI. If you'd explain it to a new PhD student, put it in <code>CLAUDE.md</code>.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Section 4: Setup ───────────────────────────────────────── -->
+    <section id="s4" class="content-section">
+      <div class="section-number">Section 4 · 5 min</div>
+      <h2 class="section-title">Setup</h2>
+      <p class="section-meta">Get Claude Code running in under 3 minutes</p>
+
+      <h3>Prerequisites</h3>
+      <ul class="checklist" id="prereq-list">
+        <li><span class="check-box"></span>Node.js 18 or newer installed (<code>node --version</code> to check)</li>
+        <li><span class="check-box"></span>An Anthropic account with Claude Pro or Max subscription — <em>or</em> an API key</li>
+        <li><span class="check-box"></span>A terminal open (macOS: Terminal.app or iTerm; Windows: PowerShell or WSL)</li>
+      </ul>
+
+      <h3>Install &amp; authenticate</h3>
+      <div class="code-block">
+        <div class="code-header">
+          <div class="traffic-lights"><div class="tl-red"></div><div class="tl-yellow"></div><div class="tl-green"></div></div>
+          <span class="code-lang">bash</span>
+          <button class="copy-btn" data-copy="npm install -g @anthropic-ai/claude-code
+claude           # first run: OAuth or API key prompt
+claude --version # verify install">Copy</button>
+        </div>
+        <pre><code>npm install -g @anthropic-ai/claude-code
+claude           <span class="cm"># first run: OAuth or API key prompt</span>
+claude --version <span class="cm"># verify install</span></code></pre>
+      </div>
+
+      <h3>Start a project</h3>
+      <div class="code-block">
+        <div class="code-header">
+          <div class="traffic-lights"><div class="tl-red"></div><div class="tl-yellow"></div><div class="tl-green"></div></div>
+          <span class="code-lang">bash</span>
+          <button class="copy-btn" data-copy="mkdir my-finance-project && cd my-finance-project
+claude init      # creates CLAUDE.md project memory file">Copy</button>
+        </div>
+        <pre><code>mkdir my-finance-project &amp;&amp; cd my-finance-project
+claude init      <span class="cm"># creates CLAUDE.md project memory file</span></code></pre>
+      </div>
+
+      <div class="callout warning">
+        <span class="callout-icon">&#9888;&#65039;</span>
+        <div><strong>API key users:</strong> Set a monthly spending limit in the <a href="https://console.anthropic.com" target="_blank">Anthropic Console</a> before running anything. $5–10 is enough for this workshop.</div>
+      </div>
+
+      <div class="callout tip">
+        <span class="callout-icon">&#128640;</span>
+        <div><strong>No install? No problem.</strong> Claude.ai with Projects (browser) covers 90% of single-session tasks. Open claude.ai, create a Project, upload your file, and use the same prompts shown below.</div>
+      </div>
+    </section>
+
+    <!-- ── Section 5: Live Demos ──────────────────────────────────── -->
+    <section id="s5" class="content-section">
+      <div class="section-number">Section 5 · 15 min</div>
+      <h2 class="section-title">Live Demos</h2>
+      <p class="section-meta">Four real tasks. Download <a href="assets/compustat_sample.csv" download>compustat_sample.csv</a> to follow along.</p>
+
+      <div class="callout concept">
+        <span class="callout-icon">&#128202;</span>
+        <div><strong>Demo dataset:</strong> <code>compustat_sample.csv</code> — 725 firm-year observations from 25 European firms, 1995–2023. Columns: <code>gvkey</code>, <code>conm</code>, <code>fyear</code>, <code>ni</code>, <code>at</code>, <code>rect</code>, <code>invt</code>, <code>dpc</code>, <code>oancf</code>. Structurally identical to a real WRDS/Compustat pull.</div>
+      </div>
+
+      <!-- Demo 1 -->
+      <div class="demo-block">
+        <div class="demo-header">
+          <div class="demo-num">1</div>
+          <div class="demo-title">Clean &amp; Explore Financial Data</div>
+          <div class="demo-time">4 min</div>
+        </div>
+        <div class="demo-body">
+          <div class="code-block">
+            <div class="code-header">
+              <div class="traffic-lights"><div class="tl-red"></div><div class="tl-yellow"></div><div class="tl-green"></div></div>
+              <span class="code-lang">bash</span>
+              <button class="copy-btn" data-copy='claude "Load compustat_sample.csv.
+Describe the data: number of firms, years covered, missing values by column.
+Calculate operating accruals using the balance-sheet method:
+  accruals = (change in rect + change in invt) - dpc
+Normalise by lagged total assets (at).
+Flag the top and bottom accrual decile for each year.
+Save a summary table to accruals_summary.md"'>Copy</button>
+            </div>
+            <pre><code>claude <span class="str">"Load compustat_sample.csv.
+Describe the data: number of firms, years covered, missing values by column.
+Calculate operating accruals using the balance-sheet method:
+  accruals = (change in rect + change in invt) - dpc
+Normalise by lagged total assets (at).
+Flag the top and bottom accrual decile for each year.
+Save a summary table to accruals_summary.md"</span></code></pre>
+          </div>
+          <div class="demo-result">
+            <span class="demo-result-icon">&#10003;</span>
+            <div><strong>What happened:</strong> Claude read the CSV, wrote Python, ran it, handled missing values, calculated derived variables, and saved structured output — without you opening a Python file.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Demo 2 -->
+      <div class="demo-block">
+        <div class="demo-header">
+          <div class="demo-num">2</div>
+          <div class="demo-title">Replicate Sloan (1996) — The Accrual Anomaly</div>
+          <div class="demo-time">4 min</div>
+        </div>
+        <div class="demo-body">
+          <div class="callout concept" style="margin-bottom:16px;">
+            <span class="callout-icon">&#128240;</span>
+            <div><strong>Sloan (1996)</strong> showed that firms with high accruals earn lower future returns — one of the most replicated findings in accounting research. Let's reproduce the core result from Table 2 in under 4 minutes.</div>
+          </div>
+          <div class="code-block">
+            <div class="code-header">
+              <div class="traffic-lights"><div class="tl-red"></div><div class="tl-yellow"></div><div class="tl-green"></div></div>
+              <span class="code-lang">bash</span>
+              <button class="copy-btn" data-copy='claude "Using compustat_sample.csv, replicate the core test from Sloan (1996).
+Sort firms into accrual deciles each year.
+Calculate mean next-year earnings (ni/at) for each decile.
+Test whether the top and bottom decile differ significantly (t-test).
+Write a paragraph describing the result in the style of a journal methods section."'>Copy</button>
+            </div>
+            <pre><code>claude <span class="str">"Using compustat_sample.csv, replicate the core test from Sloan (1996).
+Sort firms into accrual deciles each year.
+Calculate mean next-year earnings (ni/at) for each decile.
+Test whether the top and bottom decile differ significantly (t-test).
+Write a paragraph describing the result in the style of a journal methods section."</span></code></pre>
+          </div>
+          <div class="demo-result">
+            <span class="demo-result-icon">&#10003;</span>
+            <div><strong>What happened:</strong> A published academic finding, reproduced from a plain-English description of the paper's methodology. The agent wrote the code, ran the t-test, and drafted the methods paragraph.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Demo 3 -->
+      <div class="demo-block">
+        <div class="demo-header">
+          <div class="demo-num">3</div>
+          <div class="demo-title">Build a Shareable Visualization</div>
+          <div class="demo-time">3 min</div>
+        </div>
+        <div class="demo-body">
+          <div class="code-block">
+            <div class="code-header">
+              <div class="traffic-lights"><div class="tl-red"></div><div class="tl-yellow"></div><div class="tl-green"></div></div>
+              <span class="code-lang">bash</span>
+              <button class="copy-btn" data-copy='claude "Using the accrual decile results, create an HTML file with:
+- A bar chart of mean future earnings (ni/at) by accrual decile
+- A table showing the t-test result (t-stat, p-value, 95% CI)
+Use Chart.js from a CDN. Make it clean and suitable for a conference slide."'>Copy</button>
+            </div>
+            <pre><code>claude <span class="str">"Using the accrual decile results, create an HTML file with:
+- A bar chart of mean future earnings (ni/at) by accrual decile
+- A table showing the t-test result (t-stat, p-value, 95% CI)
+Use Chart.js from a CDN. Make it clean and suitable for a conference slide."</span></code></pre>
+          </div>
+          <div class="demo-result">
+            <span class="demo-result-icon">&#10003;</span>
+            <div><strong>What happened:</strong> A shareable HTML artifact — ready to open in a browser, drop into a presentation, or host on GitHub Pages. ChatGPT would have given you code to paste somewhere yourself.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Demo 4 -->
+      <div class="demo-block">
+        <div class="demo-header">
+          <div class="demo-num">4</div>
+          <div class="demo-title">Transcribe &amp; Structure an Earnings Call</div>
+          <div class="demo-time">4 min</div>
+        </div>
+        <div class="demo-body">
+          <div class="code-block">
+            <div class="code-header">
+              <div class="traffic-lights"><div class="tl-red"></div><div class="tl-yellow"></div><div class="tl-green"></div></div>
+              <span class="code-lang">bash</span>
+              <button class="copy-btn" data-copy='claude "Transcribe earnings_call.m4a using the whisper command-line tool.
+Then extract:
+  (1) key forward-looking statements about revenue or margins
+  (2) any guidance revisions (up/down vs prior quarter)
+  (3) management sentiment score 1-10 with one-sentence justification
+Save structured output to earnings_summary.md"'>Copy</button>
+            </div>
+            <pre><code>claude <span class="str">"Transcribe earnings_call.m4a using the whisper command-line tool.
+Then extract:
+  (1) key forward-looking statements about revenue or margins
+  (2) any guidance revisions (up/down vs prior quarter)
+  (3) management sentiment score 1–10 with one-sentence justification
+Save structured output to earnings_summary.md"</span></code></pre>
+          </div>
+          <div class="demo-result">
+            <span class="demo-result-icon">&#10003;</span>
+            <div><strong>What happened:</strong> Claude chained two tools — ran Whisper for speech-to-text, then applied its own reasoning to structure the transcript. An RA task that used to take half a day.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Section 6: Your Turn ───────────────────────────────────── -->
+    <section id="s6" class="content-section">
+      <div class="section-number">Section 6 · 15 min</div>
+      <h2 class="section-title">Your Turn</h2>
+      <p class="section-meta">Three starter prompts you can adapt right now</p>
+
+      <div class="prompt-card">
+        <div class="prompt-card-header">
+          <div class="prompt-letter">A</div>
+          Analyse your data
+        </div>
+        <div class="prompt-body">
+          <div class="code-block">
+            <div class="code-header">
+              <div class="traffic-lights"><div class="tl-red"></div><div class="tl-yellow"></div><div class="tl-green"></div></div>
+              <span class="code-lang">prompt</span>
+              <button class="copy-btn" data-copy="I have a dataset called [YOUR_FILE.csv] with columns [describe].
+I want to know [research question].
+Please:
+  (1) describe the data: rows, columns, missing values
+  (2) run an appropriate statistical test
+  (3) visualise the key result as a chart
+  (4) write a 3-sentence interpretation suitable for a paper">Copy</button>
+            </div>
+            <pre><code>I have a dataset called [YOUR_FILE.csv] with columns [describe].
+I want to know [research question].
+Please:
+  (1) describe the data: rows, columns, missing values
+  (2) run an appropriate statistical test
+  (3) visualise the key result as a chart
+  (4) write a 3-sentence interpretation suitable for a paper</code></pre>
+          </div>
+        </div>
+      </div>
+
+      <div class="prompt-card">
+        <div class="prompt-card-header">
+          <div class="prompt-letter">B</div>
+          Automate a repetitive task
+        </div>
+        <div class="prompt-body">
+          <div class="code-block">
+            <div class="code-header">
+              <div class="traffic-lights"><div class="tl-red"></div><div class="tl-yellow"></div><div class="tl-green"></div></div>
+              <span class="code-lang">prompt</span>
+              <button class="copy-btn" data-copy="I have [N] Excel/CSV files in a folder, each containing [describe structure].
+Write a script that [combines / extracts / calculates / formats] them
+and saves the result to output.csv.">Copy</button>
+            </div>
+            <pre><code>I have [N] Excel/CSV files in a folder, each containing [describe structure].
+Write a script that [combines / extracts / calculates / formats] them
+and saves the result to output.csv.</code></pre>
+          </div>
+        </div>
+      </div>
+
+      <div class="prompt-card">
+        <div class="prompt-card-header">
+          <div class="prompt-letter">C</div>
+          Build something to show
+        </div>
+        <div class="prompt-body">
+          <div class="code-block">
+            <div class="code-header">
+              <div class="traffic-lights"><div class="tl-red"></div><div class="tl-yellow"></div><div class="tl-green"></div></div>
+              <span class="code-lang">prompt</span>
+              <button class="copy-btn" data-copy="Create a simple webpage displaying [research topic] as an interactive dashboard.
+Use publicly available data from [source].
+Make it suitable to share with students or conference attendees.">Copy</button>
+            </div>
+            <pre><code>Create a simple webpage displaying [research topic] as an interactive dashboard.
+Use publicly available data from [source].
+Make it suitable to share with students or conference attendees.</code></pre>
+          </div>
+        </div>
+      </div>
+
+      <details>
+        <summary>&#128270; Troubleshooting common issues</summary>
+        <div class="details-body">
+          <ul>
+            <li><span class="err-code">"Not reading my file"</span><span>Check you're in the right directory: run <code>pwd</code> and compare to where your file lives.</span></li>
+            <li><span class="err-code">"Installed unexpected packages"</span><span>Normal behaviour — Claude manages its own dependencies. Review what was installed with <code>pip list</code>.</span></li>
+            <li><span class="err-code">"Running in a loop"</span><span>Press <kbd>Ctrl+C</kbd> to interrupt. Use <code>--plan</code> next time to review before execution.</span></li>
+            <li><span class="err-code">"Context length exceeded"</span><span>Break the task into smaller steps, or summarise prior results into <code>CLAUDE.md</code>.</span></li>
+            <li><span class="err-code">"Rate limited"</span><span>You've hit the plan cooldown. Wait up to 5 hours, or switch to API access.</span></li>
+          </ul>
+        </div>
+      </details>
+
+      <h3>Take-home checklist</h3>
+      <ul class="checklist">
+        <li><span class="check-box"></span>Create <code>CLAUDE.md</code> in every research project (<code>claude init</code>)</li>
+        <li><span class="check-box"></span>Use <code>--plan</code> before any operation that touches shared files</li>
+        <li><span class="check-box"></span>Ask Claude to explain its own code: <em>"Walk me through what that script does"</em></li>
+        <li><span class="check-box"></span>Use Claude.ai Projects for cross-session memory when working in the browser</li>
+        <li><span class="check-box"></span>Set a spending cap in the Anthropic Console before using an API key</li>
+      </ul>
+    </section>
+
+  </main>
+</div><!-- /layout -->
+
+<script>
+// Progress bar
+const bar = document.getElementById('progress-bar');
+window.addEventListener('scroll', () => {
+  const p = window.scrollY / (document.body.scrollHeight - window.innerHeight) * 100;
+  bar.style.width = Math.min(p, 100) + '%';
+});
+
+// Dark mode toggle
+const toggle = document.getElementById('dark-toggle');
+toggle.addEventListener('click', () => {
+  const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+  document.documentElement.setAttribute('data-theme', isDark ? '' : 'dark');
+  toggle.textContent = isDark ? '☾ Dark' : '☀ Light';
+});
+
+// Mobile sidebar
+const menuBtn = document.getElementById('menu-toggle');
+const sidebar = document.getElementById('sidebar');
+menuBtn.addEventListener('click', () => sidebar.classList.toggle('open'));
+document.addEventListener('click', e => {
+  if (!sidebar.contains(e.target) && e.target !== menuBtn) sidebar.classList.remove('open');
+});
+
+// Active nav via IntersectionObserver
+const sections = document.querySelectorAll('section[id], div[id^="s3-"]');
+const navLinks = document.querySelectorAll('.nav-link');
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      navLinks.forEach(l => l.classList.remove('active'));
+      const active = document.querySelector(`.nav-link[href="#${entry.target.id}"]`);
+      if (active) active.classList.add('active');
+    }
+  });
+}, { rootMargin: '-20% 0px -70% 0px' });
+sections.forEach(s => observer.observe(s));
+
+// Copy buttons
+document.querySelectorAll('.copy-btn').forEach(btn => {
+  btn.addEventListener('click', async () => {
+    const text = btn.getAttribute('data-copy');
+    try {
+      await navigator.clipboard.writeText(text);
+      const orig = btn.textContent;
+      btn.textContent = 'Copied!';
+      btn.classList.add('copied');
+      setTimeout(() => { btn.textContent = orig; btn.classList.remove('copied'); }, 2000);
+    } catch {}
+  });
+});
+
+// Checklist toggle
+document.querySelectorAll('.checklist li').forEach(li => {
+  li.addEventListener('click', () => {
+    li.classList.toggle('done');
+    const box = li.querySelector('.check-box');
+    box.textContent = li.classList.contains('done') ? '✓' : '';
+  });
+});
+</script>
+</body>
+</html>
