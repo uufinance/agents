@@ -190,6 +190,7 @@ em { color: #fde68a; font-style: normal; }
   gap: 0.6em;
   align-items: flex-start;
   line-height: 1.55;
+  color: #e4dfc8;
 }
 .callout-icon { font-size: 1.25em; flex-shrink: 0; margin-top: 0.05em; }
 .callout.tip  { background: rgba(245,184,0,0.12);   border-left: 3px solid var(--accent); }
@@ -412,6 +413,7 @@ body.light .ba-row { color: #2a1e00; border-bottom-color: #e8d890; }
 body.light .ladder-rung { border-color: #e8d890; }
 body.light .ladder-rung.now { background: rgba(245,184,0,0.14); }
 body.light .ladder-num { background: #fff3b0; color: #7a5c00; }
+body.light .callout      { color: #2a1e00; }
 body.light .callout.tip  { background: rgba(245,184,0,0.10); }
 body.light .callout.warn { background: rgba(200,23,28,0.07); }
 body.light .callout.go   { background: rgba(52,211,153,0.08); }
@@ -1110,8 +1112,8 @@ Target audience: finance conference (EFA / AFA style).
   <!-- 6e — Demo 4: Replication Package -->
   <section class="detail">
     <h3><span class="demo-badge">4</span> Replication Package &amp; Interactive Appendix</h3>
-    <p style="font-size:0.44em; color:var(--muted); margin:0.15em 0 0.1em;">Option A — replication package (JF / JFE / RFS now require this):</p>
-    <div class="code-wrap">
+    <p style="font-size:0.44em; color:var(--muted); margin:0.1em 0 0.06em;">Option A — replication package (JF / JFE / RFS now require this):</p>
+    <div class="code-wrap" style="margin-bottom:0.15em;">
       <pre><code class="language-bash">claude "I have a completed paper (paper.pdf) and analysis scripts (analysis/).
 Create a replication package:
   (1) README.md: data sources, how to run, expected outputs, software versions
@@ -1120,14 +1122,14 @@ Create a replication package:
   (4) Write a data availability statement in journal-submission format"</code></pre>
       <button class="copy-btn" onclick="copyCode(this)">Copy</button>
     </div>
-    <p style="font-size:0.44em; color:var(--muted); margin:0.2em 0 0.1em;">Option B — interactive appendix:</p>
-    <div class="code-wrap">
+    <p style="font-size:0.44em; color:var(--muted); margin:0.1em 0 0.06em;">Option B — interactive appendix:</p>
+    <div class="code-wrap" style="margin-bottom:0.15em;">
       <pre><code class="language-bash">claude "Convert my results tables and figures (tables/ figures/) into
 an interactive HTML appendix — sortable tables, zoomable Chart.js figures.
 Suitable for hosting on the journal website or my homepage."</code></pre>
       <button class="copy-btn" onclick="copyCode(this)">Copy</button>
     </div>
-    <div class="demo-result">
+    <div class="demo-result" style="margin-top:0.15em;">
       <span>✓</span>
       <span>Claude traces which table in the paper maps to which script, writes the README, and flags proprietary data — the AEA Data Editor checklist, automated. The interactive appendix gives readers an explorable version of every result.</span>
     </div>
@@ -1187,8 +1189,8 @@ Keep the existing style and LaTeX formatting conventions."</code></pre>
       <pre><code class="language-bash">cp -r my-project my-project-backup</code></pre>
       <button class="copy-btn" onclick="copyCode(this)">Copy</button>
     </div>
-    <p style="font-size:0.44em; color:var(--muted); margin:0.25em 0 0.1em;">Step 2 — ask Claude to survey and reorganize:</p>
-    <div class="code-wrap">
+    <p style="font-size:0.44em; color:var(--muted); margin:0.15em 0 0.08em;">Step 2 — ask Claude to survey and reorganize:</p>
+    <div class="code-wrap" style="margin-bottom:0.15em;">
       <pre><code class="language-bash">cd my-project-backup
 claude "Survey this folder. Then:
   (1) Propose a clean structure (data, code, output, docs)
@@ -1198,7 +1200,7 @@ claude "Survey this folder. Then:
 Show me the plan before moving anything."</code></pre>
       <button class="copy-btn" onclick="copyCode(this)">Copy</button>
     </div>
-    <div class="callout warn" style="margin-top:0.3em;">
+    <div class="callout warn" style="margin-top:0.2em;">
       <span class="callout-icon">⚠️</span>
       <span>Always work on a copy — Claude will move and rename files. Use <code>--plan</code> to preview first.</span>
     </div>
