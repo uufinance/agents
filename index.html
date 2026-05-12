@@ -1037,7 +1037,7 @@ claude
     </ul>
     <div class="callout tip" style="margin-top:0.5em;">
       <span class="callout-icon">🛠</span>
-      <span>Skills used: <strong>referee-2</strong>, <strong>beautiful-deck</strong> (from <a href="https://github.com/scunning1975/mixtapetools" target="_blank">mixtapetools</a>); <strong>strategic-revision</strong> (from <a href="https://github.com/jusi-aalto/strategic-revision" target="_blank">jusi-aalto</a>); <strong>transcribe-meeting</strong> ships with this project.</span>
+      <span>Skills used: <strong>referee-2</strong>, <strong>beautiful-deck</strong> (from <a href="https://github.com/scunning1975/mixtapetools" target="_blank">mixtapetools</a>); <strong>strategic-revision</strong> (from <a href="https://github.com/jusi-aalto/strategic-revision" target="_blank">jusi-aalto</a>); <strong>transcribe-meeting</strong> (from <a href="https://github.com/tchew86/transcribe-meeting" target="_blank">tchew86</a>).</span>
     </div>
     <div class="down-hint">↓ commands for each demo</div>
   </section>
@@ -1154,7 +1154,8 @@ Minimal HTML, no frameworks. Output: index.html"</code></pre>
   <section class="detail">
     <h3><span class="demo-badge">6</span> Transcribe a Meeting &amp; Produce a Structured Summary</h3>
     <div class="code-wrap">
-      <pre><code class="language-bash"># /transcribe-meeting is already in this project
+      <pre><code class="language-bash">git clone https://github.com/tchew86/transcribe-meeting \
+  .claude/skills/transcribe-meeting
 claude
 &gt; /transcribe-meeting meeting.m4a</code></pre>
       <button class="copy-btn" onclick="copyCode(this)">Copy</button>
