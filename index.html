@@ -597,6 +597,25 @@ npm install -g @google/gemini-cli    # Google Gemini CLI</code></pre>
     </div>
   </section>
 
+  <!-- 0e — Data Retention & Privacy -->
+  <section class="detail">
+    <h3>Data Retention &amp; Privacy</h3>
+    <table style="font-size:0.43em;">
+      <thead><tr><th>Interface</th><th>Used to train AI?</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td>Claude.ai Free / Pro</td><td>Potentially yes</td><td>Consumer product; Anthropic may use conversations</td></tr>
+        <tr><td>Claude API (key)</td><td><strong style="color:#34d399">No</strong></td><td>API terms explicitly exclude training use</td></tr>
+        <tr><td>Claude for Work / Teams</td><td><strong style="color:#34d399">No</strong></td><td>Enterprise DPA available on request</td></tr>
+        <tr><td>ChatGPT (consumer)</td><td>Potentially yes</td><td>Can opt out in Settings → Data Controls</td></tr>
+        <tr><td>OpenAI API</td><td><strong style="color:#34d399">No</strong></td><td>API terms explicitly exclude training use</td></tr>
+      </tbody>
+    </table>
+    <div class="callout tip" style="margin-top:0.4em;">
+      <span class="callout-icon">🧠</span>
+      <span>Consumer interfaces (claude.ai, ChatGPT) may use conversations to improve the model. <strong>Before uploading any data, know what you're sharing.</strong> When in doubt, use the API — your conversations are not used for training.</span>
+    </div>
+  </section>
+
 </section>
 
 <!-- ══════════════════════════════════════════════════════════
@@ -907,6 +926,10 @@ npm install -g @google/gemini-cli    # Google Gemini CLI</code></pre>
       <span class="callout-icon">⚠️</span>
       <span>Hit "context length exceeded"? Break the task into smaller steps or run <code>/clear</code> and summarise prior results into <code>CLAUDE.md</code>. <strong>Claude Pro</strong> triggers a cooldown after heavy use (up to <strong>5 hours</strong>).</span>
     </div>
+    <div class="callout tip" style="margin-top:0.3em;">
+      <span class="callout-icon">📊</span>
+      <span><strong>See usage in real time.</strong> The CLI status bar can show context %, rate-limit cooldown, and session tokens. Run <strong>/statusline-setup</strong> in Claude Code CLI to configure it.</span>
+    </div>
   </section>
 
   <!-- 3g — F: Plan Limits -->
@@ -948,133 +971,13 @@ npm install -g @google/gemini-cli    # Google Gemini CLI</code></pre>
 </section>
 
 <!-- ══════════════════════════════════════════════════════════
-     4 · SETUP
-══════════════════════════════════════════════════════════ -->
-<section>
-
-  <!-- 4a — Main -->
-  <section>
-    <span class="eyebrow">Section 4</span>
-    <h2>Setup</h2>
-    <p style="font-size:0.44em; color:var(--muted); margin:0.1em 0 0.08em;">1 · Install Claude Code</p>
-    <div class="code-wrap">
-      <pre><code class="language-bash">npm install -g @anthropic-ai/claude-code</code></pre>
-      <button class="copy-btn" onclick="copyCode(this)">Copy</button>
-    </div>
-    <p style="font-size:0.44em; color:var(--muted); margin:0.2em 0 0.08em;">2 · First run (opens browser login) &amp; verify</p>
-    <div class="code-wrap">
-      <pre><code class="language-bash">claude
-claude --version</code></pre>
-      <button class="copy-btn" onclick="copyCode(this)">Copy</button>
-    </div>
-    <p style="font-size:0.44em; color:var(--muted); margin:0.2em 0 0.08em;">3 · Create a project</p>
-    <div class="code-wrap">
-      <pre><code class="language-bash">mkdir my-research &amp;&amp; cd my-research &amp;&amp; claude init</code></pre>
-      <button class="copy-btn" onclick="copyCode(this)">Copy</button>
-    </div>
-    <p style="font-size:0.38em; color:var(--muted); margin:0.15em 0 0.2em;">
-      No npm? → <code>brew install node</code> (Mac) &nbsp;·&nbsp; <code>winget install OpenJS.NodeJS</code> (Windows)
-    </p>
-    <div class="callout tip" style="margin-top:0.1em;">
-      <span class="callout-icon">🚀</span>
-      <span><strong>No install?</strong> Open <strong>claude.ai → New Project</strong>, upload your file. Works for Demo 4 live. The <code>/skill</code> demos need the CLI.</span>
-    </div>
-    <div class="down-hint">↓ Codex &amp; Gemini CLI · prerequisites</div>
-  </section>
-
-  <!-- 4a-2 — Also install Codex / Gemini -->
-  <section class="detail">
-    <h3>Setup — Also Install Codex or Gemini CLI</h3>
-    <p style="font-size:0.44em; color:var(--muted); margin:0.1em 0 0.08em;">OpenAI Codex CLI</p>
-    <div class="code-wrap">
-      <pre><code class="language-bash">npm install -g @openai/codex
-codex --version</code></pre>
-      <button class="copy-btn" onclick="copyCode(this)">Copy</button>
-    </div>
-    <p style="font-size:0.44em; color:var(--muted); margin:0.2em 0 0.08em;">Google Gemini CLI</p>
-    <div class="code-wrap">
-      <pre><code class="language-bash">npm install -g @google/gemini-cli
-gemini --version</code></pre>
-      <button class="copy-btn" onclick="copyCode(this)">Copy</button>
-    </div>
-    <div class="callout tip" style="margin-top:0.35em;">
-      <span class="callout-icon">💡</span>
-      <span>All three CLIs follow the same pattern: install via npm, authenticate via browser, run from your project folder. <strong>Note:</strong> the <code>/skill-name</code> shortcuts in the demos use Claude Code's skills system — the underlying task prompts work in any CLI, but the <code>/</code>-shortcut syntax is Claude Code-specific.</span>
-    </div>
-  </section>
-
-  <!-- 4b — Detail: Prerequisites -->
-  <section class="detail">
-    <h3>Setup — Prerequisites &amp; Safety</h3>
-    <ul class="checklist" id="prereq-list">
-      <li><span class="check-box"></span>Node.js 18 or newer — check with <code>node --version</code></li>
-      <li><span class="check-box"></span>Anthropic account with Claude Pro or Max — or an API key</li>
-      <li><span class="check-box"></span>A terminal open (macOS: Terminal.app · Windows: PowerShell or WSL)</li>
-    </ul>
-    <div class="callout warn" style="margin-top:0.5em;">
-      <span class="callout-icon">⚠️</span>
-      <span>If using an API key: set a monthly spending limit in the <a href="https://console.anthropic.com" target="_blank">Anthropic Console</a> before running anything. $5–10 is enough for this workshop.</span>
-    </div>
-  </section>
-
-  <!-- 4c — Detail: Data retention -->
-  <section class="detail">
-    <h3>Setup — Data Retention &amp; Privacy</h3>
-    <table>
-      <thead><tr><th>Interface</th><th>Used to train AI?</th><th>Notes</th></tr></thead>
-      <tbody>
-        <tr><td>Claude.ai Free / Pro</td><td>Potentially yes</td><td>Consumer product; Anthropic may use conversations</td></tr>
-        <tr><td>Claude API (key)</td><td><strong style="color:#34d399">No</strong></td><td>API terms explicitly exclude training use</td></tr>
-        <tr><td>Claude for Work / Teams</td><td><strong style="color:#34d399">No</strong></td><td>Enterprise DPA available on request</td></tr>
-        <tr><td>ChatGPT (consumer)</td><td>Potentially yes</td><td>Can opt out in Settings → Data Controls</td></tr>
-        <tr><td>OpenAI API</td><td><strong style="color:#34d399">No</strong></td><td>API terms explicitly exclude training use</td></tr>
-      </tbody>
-    </table>
-    <div class="callout tip" style="margin-top:0.4em;">
-      <span class="callout-icon">🧠</span>
-      <span>Consumer interfaces (claude.ai, ChatGPT) may use conversations to improve the model. <strong>Before uploading any data, know what you're sharing.</strong> When in doubt, use the API — your conversations are not used for training.</span>
-    </div>
-  </section>
-
-  <!-- 4d — Permission modes -->
-  <section class="detail">
-    <h3>Permission Modes — From Safe to Fast</h3>
-    <table>
-      <thead><tr><th>Mode</th><th>Command</th><th>What happens</th></tr></thead>
-      <tbody>
-        <tr>
-          <td><strong>Default</strong> (safe)</td>
-          <td><code>claude</code></td>
-          <td>Claude asks before every file write, shell command, and network call.</td>
-        </tr>
-        <tr>
-          <td><strong>Plan first</strong></td>
-          <td><code>claude --plan</code></td>
-          <td>Proposes a full plan and waits for your approval before executing anything.</td>
-        </tr>
-        <tr>
-          <td><strong>Auto-accept</strong> ⚡</td>
-          <td><code>claude --dangerously-skip-permissions</code></td>
-          <td>All permissions pre-approved. Zero interruptions. <strong>Only in repos you fully trust.</strong></td>
-        </tr>
-      </tbody>
-    </table>
-    <div class="callout warn" style="margin-top:0.4em;">
-      <span class="callout-icon">⚠️</span>
-      <span><strong>Only safe inside a sandbox.</strong> <code>--dangerously-skip-permissions</code> lets Claude write any file and run any command. Use it only in a <strong>Docker devcontainer</strong> (Anthropic ships a reference image with an outbound-firewall allowlist) or a <strong>fresh git worktree on a clean branch</strong>. Never on a bare host with access to your home directory.</span>
-    </div>
-  </section>
-
-</section>
-
-<!-- ══════════════════════════════════════════════════════════
-     5 · SKILLS — STANDING ON OTHERS' SHOULDERS
+     4 · SKILLS — STANDING ON OTHERS' SHOULDERS
 ══════════════════════════════════════════════════════════ -->
 <section>
 
   <!-- 5a — Main -->
   <section>
-    <span class="eyebrow">Section 5</span>
+    <span class="eyebrow">Section 4</span>
     <h2>Skills: Standing on Others' Shoulders</h2>
     <ul class="large">
       <li>A <strong>skill</strong> is a markdown file with structured instructions — shareable, version-controlled, community-built.</li>
@@ -1118,24 +1021,26 @@ claude
 </section>
 
 <!-- ══════════════════════════════════════════════════════════
-     6 · LIVE DEMOS
+     5 · LIVE DEMOS
 ══════════════════════════════════════════════════════════ -->
 <section>
 
   <!-- 6a — Overview -->
   <section>
-    <span class="eyebrow">Section 6</span>
+    <span class="eyebrow">Section 5</span>
     <h2>Live Demos</h2>
     <p style="font-size:0.48em; color:var(--accent); font-weight:700; margin:0.3em 0 0.1em; letter-spacing:0.04em;">RESEARCH</p>
     <ul>
       <li><strong>Demo 1</strong> — Write a referee report with <code>/referee-2</code> + references check</li>
       <li><strong>Demo 2</strong> — Plan an R&amp;R response with <code>/strategic-revision</code></li>
       <li><strong>Demo 3</strong> — Generate a conference slide deck with <code>/beautiful-deck</code></li>
+      <li><strong>Demo 4</strong> — Replicate Stata analysis in Python &amp; R</li>
     </ul>
     <p style="font-size:0.48em; color:var(--accent); font-weight:700; margin:0.4em 0 0.1em; letter-spacing:0.04em;">TEACHING &amp; ADMIN</p>
     <ul>
-      <li><strong>Demo 4</strong> — Build your academic homepage from CV</li>
-      <li><strong>Demo 5</strong> — Transcribe a student meeting with <code>/transcribe-meeting</code></li>
+      <li><strong>Demo 5</strong> — Build your academic homepage from CV</li>
+      <li><strong>Demo 6</strong> — Transcribe a student meeting with <code>/transcribe-meeting</code></li>
+      <li><strong>Demo 7</strong> — Build interactive teaching tools</li>
     </ul>
     <div class="callout tip" style="margin-top:0.5em;">
       <span class="callout-icon">🛠</span>
@@ -1149,8 +1054,8 @@ claude
     <h3><span class="demo-badge">1</span> Referee Report with <code>/referee-2</code></h3>
     <p style="font-size:0.44em; color:var(--muted); margin:0.15em 0 0.1em;">Step 1 — pull the skill once:</p>
     <div class="code-wrap">
-      <pre><code class="language-bash">curl -o .claude/skills/referee-2.md \
-  https://raw.githubusercontent.com/scunning1975/mixtapetools/main/skills/referee-2.md</code></pre>
+      <pre><code class="language-bash">git clone https://github.com/scunning1975/mixtapetools \
+  .claude/skills/mixtapetools</code></pre>
       <button class="copy-btn" onclick="copyCode(this)">Copy</button>
     </div>
     <p style="font-size:0.44em; color:var(--muted); margin:0.25em 0 0.1em;">Step 2 — run against the paper:</p>
@@ -1214,9 +1119,28 @@ Target audience: finance conference (EFA / AFA style).
     </div>
   </section>
 
-  <!-- 6e — Demo 4: Homepage from CV -->
+  <!-- 6e — Demo 4: Code Replication -->
   <section class="detail">
-    <h3><span class="demo-badge">4</span> Build Your Academic Homepage from CV</h3>
+    <h3><span class="demo-badge">4</span> Replicate Stata Analysis in Python &amp; R</h3>
+    <p style="font-size:0.44em; color:var(--muted); margin:0.15em 0 0.1em;">Give Claude your Stata code and let it handle the translation:</p>
+    <div class="code-wrap">
+      <pre><code class="language-bash">claude "I have Stata code in analysis.do running factor regressions.
+Replicate the full analysis in Python (pandas + statsmodels) and R (tidyverse + fixest):
+  (1) Match sample selection and variable construction exactly
+  (2) Reproduce all tables — same column order, same significance stars
+  (3) Flag any Stata-specific syntax that required a workaround
+Then run /beautiful-deck to turn the comparison into presentation slides."</code></pre>
+      <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+    </div>
+    <div class="demo-result">
+      <span>✓</span>
+      <span>Three-language replication in one session. Claude traces Stata syntax to Python/R equivalents, flags divergences, and hands off to /beautiful-deck for the final slides — useful for journal replication requirements and teaching cross-language workflows.</span>
+    </div>
+  </section>
+
+  <!-- 6f — Demo 5: Homepage from CV -->
+  <section class="detail">
+    <h3><span class="demo-badge">5</span> Build Your Academic Homepage from CV</h3>
     <div class="code-wrap">
       <pre><code class="language-bash">claude "Create a clean academic homepage from cv.pdf.
 Sections: About, Research (working papers + publications), Teaching, Contact.
@@ -1229,9 +1153,9 @@ Minimal HTML, no frameworks. Output: index.html"</code></pre>
     </div>
   </section>
 
-  <!-- 6f — Demo 5: Meeting Transcript -->
+  <!-- 6g — Demo 6: Meeting Transcript -->
   <section class="detail">
-    <h3><span class="demo-badge">5</span> Transcribe a Meeting &amp; Produce a Structured Summary</h3>
+    <h3><span class="demo-badge">6</span> Transcribe a Meeting &amp; Produce a Structured Summary</h3>
     <div class="code-wrap">
       <pre><code class="language-bash"># /transcribe-meeting is already in this project
 claude
@@ -1251,6 +1175,29 @@ claude
     </div>
   </section>
 
+  <!-- 6j — Demo 7: Interactive Teaching Tools -->
+  <section class="detail">
+    <h3><span class="demo-badge">7</span> Build Interactive Teaching Tools</h3>
+    <p style="font-size:0.44em; color:var(--muted); margin:0.15em 0 0.1em;">Single-prompt build — no prior web development knowledge needed:</p>
+    <div class="code-wrap">
+      <pre><code class="language-bash">claude "Build a student mock-exam interface for a financial markets course.
+Questions loaded from questions.json. Features:
+  - One question at a time, multiple choice, 90-second timer
+  - Running score + instant feedback after each answer
+  - Admin view (password-protected) showing all submissions
+Single HTML file, vanilla JS, no server or dependencies."</code></pre>
+      <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+    </div>
+    <div class="demo-result">
+      <span>✓</span>
+      <span>Claude produces a fully self-contained HTML file deployable anywhere. Same approach powers student trading competitions and text-analysis games — no server, no framework.</span>
+    </div>
+    <div class="callout tip" style="margin-top:0.3em;">
+      <span class="callout-icon">🔗</span>
+      <span>Live examples: <a href="https://tinyurl.com/usemafmock" target="_blank">mock exam</a> (admin pw: <em>mads</em>) &nbsp;·&nbsp; <a href="https://tinyurl.com/volatrading2026" target="_blank">trading competition</a> &nbsp;·&nbsp; <a href="https://tinyurl.com/usetextasdata" target="_blank">text-as-data game</a></span>
+    </div>
+  </section>
+
 </section>
 
 <!-- ══════════════════════════════════════════════════════════
@@ -1260,7 +1207,7 @@ claude
 
   <!-- 6a — Main -->
   <section>
-    <span class="eyebrow">Section 7</span>
+    <span class="eyebrow">Section 6</span>
     <h2>Your Turn</h2>
     <div class="prompt-grid">
       <div class="prompt-card">
