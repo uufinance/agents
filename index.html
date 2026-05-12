@@ -490,6 +490,120 @@ body.light .ba-col.after   { background: rgba(52,211,153,0.08);  border-color: r
 </section>
 
 <!-- ══════════════════════════════════════════════════════════
+     0 · BEFORE THE WORKSHOP
+══════════════════════════════════════════════════════════ -->
+<section>
+
+  <!-- 0a — Overview -->
+  <section>
+    <span class="eyebrow">Before the Workshop</span>
+    <h2>Setup — Pick Your Track</h2>
+    <div style="display:flex; gap:0.8em; margin-top:0.45em;">
+      <div style="flex:1; background:var(--panel); border:1px solid var(--border); border-radius:8px; padding:0.7em 0.8em; font-size:0.42em;">
+        <p style="font-weight:700; font-size:1.15em; margin:0 0 0.3em; color:var(--accent);">A &nbsp;·&nbsp; Cloud Only</p>
+        <p style="color:var(--muted); margin:0 0 0.4em;">Browser + free account. No local install. Safe — nothing runs on your machine.</p>
+        <ul style="margin:0; padding-left:1.1em; color:var(--fg);">
+          <li>0 min setup</li>
+          <li>Works for Demo 5 live</li>
+          <li>All other demos: watch + try at home</li>
+        </ul>
+      </div>
+      <div style="flex:1; background:var(--panel); border:1px solid var(--border); border-radius:8px; padding:0.7em 0.8em; font-size:0.42em;">
+        <p style="font-weight:700; font-size:1.15em; margin:0 0 0.3em; color:var(--accent);">B &nbsp;·&nbsp; Full CLI</p>
+        <p style="color:var(--muted); margin:0 0 0.4em;">Node.js + Claude Code on your machine. Default mode always asks before touching any file.</p>
+        <ul style="margin:0; padding-left:1.1em; color:var(--fg);">
+          <li>~15 min setup</li>
+          <li>All 7 demos live</li>
+          <li>Required for <code>/skill</code> invocations</li>
+        </ul>
+      </div>
+      <div style="flex:1; background:var(--panel); border:1px solid var(--border); border-radius:8px; padding:0.7em 0.8em; font-size:0.42em;">
+        <p style="font-weight:700; font-size:1.15em; margin:0 0 0.3em; color:var(--accent);">C &nbsp;·&nbsp; + GitHub</p>
+        <p style="color:var(--muted); margin:0 0 0.4em;">Free account + <code>git</code>. Needed to clone skill repos used in Demos 1–3. Add on top of Track B.</p>
+        <ul style="margin:0; padding-left:1.1em; color:var(--fg);">
+          <li>~5 min (+ Track B)</li>
+          <li>Pull any skill with one command</li>
+          <li>Save and share your own work</li>
+        </ul>
+      </div>
+    </div>
+    <div class="callout tip" style="margin-top:0.45em;">
+      <span class="callout-icon">👇</span>
+      <span>Scroll <strong>↓</strong> for step-by-step instructions on each track. Come back with <strong>→</strong> when you're ready.</span>
+    </div>
+  </section>
+
+  <!-- 0b — Track A: Cloud Only -->
+  <section class="detail">
+    <h3>Track A — Cloud Only (No Install)</h3>
+    <p style="font-size:0.44em; color:var(--muted); margin:0.1em 0 0.2em;">Step 1 — Create a free Anthropic account</p>
+    <div class="code-wrap">
+      <pre><code class="language-bash"># Open in your browser:
+https://claude.ai</code></pre>
+      <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+    </div>
+    <p style="font-size:0.44em; color:var(--muted); margin:0.3em 0 0.1em;">Step 2 — Create a Project</p>
+    <p style="font-size:0.42em; margin:0 0 0.3em;">Click <strong>Projects → New Project</strong>. Give it a name (e.g. <em>Workshop</em>). Upload any PDF or text file as context.</p>
+    <p style="font-size:0.44em; color:var(--muted); margin:0.1em 0 0.1em;">Step 3 — You're ready</p>
+    <p style="font-size:0.42em; margin:0 0 0.3em;">Follow <strong>Demo 5</strong> live (academic homepage + CV). For the <code>/skill</code> demos, watch along — you can run them yourself with Track B later.</p>
+    <div class="callout tip" style="margin-top:0.3em;">
+      <span class="callout-icon">🔒</span>
+      <span><strong>Nothing runs on your machine.</strong> Claude.ai is a web interface — no files are created or modified locally. The Pro plan ($20/mo) gives longer conversations and priority access; the free plan is fine for today.</span>
+    </div>
+  </section>
+
+  <!-- 0c — Track B: CLI Install -->
+  <section class="detail">
+    <h3>Track B — CLI Install (~15 min)</h3>
+    <p style="font-size:0.44em; color:var(--muted); margin:0.1em 0 0.08em;">Step 1 — Install Node.js 18 or newer</p>
+    <div class="code-wrap">
+      <pre><code class="language-bash">node --version          # Already have it? Skip to step 2.
+# Mac:     brew install node
+# Windows: winget install OpenJS.NodeJS
+# Linux:   nvm install --lts</code></pre>
+      <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+    </div>
+    <p style="font-size:0.44em; color:var(--muted); margin:0.25em 0 0.08em;">Step 2 — Install Claude Code &amp; authenticate</p>
+    <div class="code-wrap">
+      <pre><code class="language-bash">npm install -g @anthropic-ai/claude-code
+claude            # Opens browser → sign in with your Anthropic account
+claude --version  # Verify install</code></pre>
+      <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+    </div>
+    <div class="callout warn" style="margin-top:0.3em;">
+      <span class="callout-icon">⚠️</span>
+      <span><strong>Set a spending cap before your first session.</strong> Go to <strong>console.anthropic.com → Settings → Billing</strong> and set a monthly limit (e.g. $10). Default mode always asks before touching files — nothing runs without your approval.</span>
+    </div>
+  </section>
+
+  <!-- 0d — Track C: GitHub + git -->
+  <section class="detail">
+    <h3>Track C — GitHub + git (Bonus, ~5 min)</h3>
+    <p style="font-size:0.44em; color:var(--muted); margin:0.1em 0 0.2em;">Step 1 — Create a free GitHub account</p>
+    <p style="font-size:0.42em; margin:0 0 0.3em;">Open <strong>github.com</strong> and sign up. Free tier is all you need.</p>
+    <p style="font-size:0.44em; color:var(--muted); margin:0.1em 0 0.08em;">Step 2 — Verify <code>git</code> is installed</p>
+    <div class="code-wrap">
+      <pre><code class="language-bash">git --version
+# Mac (if missing): xcode-select --install   OR   brew install git
+# Windows:          winget install Git.Git</code></pre>
+      <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+    </div>
+    <p style="font-size:0.44em; color:var(--muted); margin:0.25em 0 0.08em;">Step 3 — Test: clone a skill</p>
+    <div class="code-wrap">
+      <pre><code class="language-bash">mkdir -p .claude/skills
+git clone https://github.com/scunning1975/mixtapetools \
+  .claude/skills/mixtapetools</code></pre>
+      <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+    </div>
+    <div class="callout tip" style="margin-top:0.3em;">
+      <span class="callout-icon">💡</span>
+      <span>Public repos don't require a GitHub account to clone — only <code>git</code>. A GitHub account lets you <strong>save and push your own work</strong> (replication packages, scripts, homepages) so collaborators can access it.</span>
+    </div>
+  </section>
+
+</section>
+
+<!-- ══════════════════════════════════════════════════════════
      1 · THE PROBLEM
 ══════════════════════════════════════════════════════════ -->
 <section>
@@ -851,7 +965,7 @@ claude --version</code></pre>
     </p>
     <div class="callout tip" style="margin-top:0.1em;">
       <span class="callout-icon">🚀</span>
-      <span><strong>No install?</strong> Open <strong>claude.ai → New Project</strong>, upload your file. Covers 90% of today's demos.</span>
+      <span><strong>No install?</strong> Open <strong>claude.ai → New Project</strong>, upload your file. Works for Demo 5 live. The <code>/skill</code> demos need the CLI.</span>
     </div>
     <div class="down-hint">↓ Codex &amp; Gemini CLI · prerequisites</div>
   </section>
@@ -873,7 +987,7 @@ gemini --version</code></pre>
     </div>
     <div class="callout tip" style="margin-top:0.35em;">
       <span class="callout-icon">💡</span>
-      <span>All three CLIs follow the same pattern: install via npm, authenticate via browser, run from your project folder. The commands on the demo slides work with any of them — just replace <code>claude</code> with <code>codex</code> or <code>gemini</code>.</span>
+      <span>All three CLIs follow the same pattern: install via npm, authenticate via browser, run from your project folder. <strong>Note:</strong> the <code>/skill-name</code> shortcuts in the demos use Claude Code's skills system — the underlying task prompts work in any CLI, but the <code>/</code>-shortcut syntax is Claude Code-specific.</span>
     </div>
   </section>
 
@@ -1005,13 +1119,11 @@ claude
       <li><strong>Demo 1</strong> — Write a referee report with <code>/referee-2</code> + references check</li>
       <li><strong>Demo 2</strong> — Plan an R&amp;R response with <code>/strategic-revision</code></li>
       <li><strong>Demo 3</strong> — Generate a conference slide deck with <code>/beautiful-deck</code></li>
-      <li><strong>Demo 4</strong> — Create a replication package or interactive appendix</li>
-      <li><strong>Demo 5</strong> — Sort and reorganize a messy project folder</li>
     </ul>
     <p style="font-size:0.48em; color:var(--accent); font-weight:700; margin:0.4em 0 0.1em; letter-spacing:0.04em;">TEACHING &amp; ADMIN</p>
     <ul>
-      <li><strong>Demo 6</strong> — Transcribe a student meeting with <code>/transcribe-meeting</code></li>
-      <li><strong>Demo 7</strong> — Build or update your academic homepage + CV</li>
+      <li><strong>Demo 4</strong> — Transcribe a student meeting with <code>/transcribe-meeting</code></li>
+      <li><strong>Demo 5</strong> — Build or update your academic homepage + CV</li>
     </ul>
     <div class="callout tip" style="margin-top:0.5em;">
       <span class="callout-icon">🛠</span>
@@ -1090,64 +1202,9 @@ Target audience: finance conference (EFA / AFA style).
     </div>
   </section>
 
-  <!-- 6e — Demo 4: Replication Package -->
+  <!-- 6e — Demo 4: Meeting Transcript -->
   <section class="detail">
-    <h3><span class="demo-badge">4</span> Replication Package &amp; Interactive Appendix</h3>
-    <p style="font-size:0.44em; color:var(--muted); margin:0.1em 0 0.06em;">Option A — replication package (JF / JFE / RFS now require this):</p>
-    <div class="code-wrap" style="margin-bottom:0.15em;">
-      <pre><code class="language-bash">claude "I have a completed paper (paper.pdf) and analysis scripts (analysis/).
-Create a replication package:
-  (1) README.md: data sources, how to run, expected outputs, software versions
-  (2) Verify all tables and figures reproduce end-to-end
-  (3) Flag data that cannot be shared (WRDS, Bloomberg) + write download instructions
-  (4) Write a data availability statement in journal-submission format"</code></pre>
-      <button class="copy-btn" onclick="copyCode(this)">Copy</button>
-    </div>
-    <p style="font-size:0.44em; color:var(--muted); margin:0.1em 0 0.06em;">Option B — interactive appendix:</p>
-    <div class="code-wrap" style="margin-bottom:0.15em;">
-      <pre><code class="language-bash">claude "Convert my results tables and figures (tables/ figures/) into
-an interactive HTML appendix — sortable tables, zoomable Chart.js figures.
-Suitable for hosting on the journal website or my homepage."</code></pre>
-      <button class="copy-btn" onclick="copyCode(this)">Copy</button>
-    </div>
-    <div class="demo-result" style="margin-top:0.15em;">
-      <span>✓</span>
-      <span>Claude traces which table in the paper maps to which script, writes the README, and flags proprietary data — the AEA Data Editor checklist, automated. The interactive appendix gives readers an explorable version of every result.</span>
-    </div>
-  </section>
-
-  <!-- 6f — Demo 5: Sort a project -->
-  <section class="detail">
-    <h3><span class="demo-badge">5</span> Sort &amp; Reorganize a Project Folder</h3>
-    <p style="font-size:0.44em; color:var(--muted); margin:0.15em 0 0.1em;">Step 1 — always work on a copy of the directory:</p>
-    <div class="code-wrap">
-      <pre><code class="language-bash">cp -r my-project my-project-backup</code></pre>
-      <button class="copy-btn" onclick="copyCode(this)">Copy</button>
-    </div>
-    <p style="font-size:0.44em; color:var(--muted); margin:0.15em 0 0.08em;">Step 2 — ask Claude to survey and reorganize:</p>
-    <div class="code-wrap" style="margin-bottom:0.15em;">
-      <pre><code class="language-bash">cd my-project-backup
-claude "Survey this folder. Then:
-  (1) Propose a clean structure (data, code, output, docs)
-  (2) Rename files to snake_case with dates (YYYY-MM-DD) where relevant
-  (3) Flag obvious duplicates
-  (4) Write a README.md with structure and how to run the main analysis
-Show me the plan before moving anything."</code></pre>
-      <button class="copy-btn" onclick="copyCode(this)">Copy</button>
-    </div>
-    <div class="callout warn" style="margin-top:0.2em;">
-      <span class="callout-icon">⚠️</span>
-      <span>Always work on a copy — Claude will move and rename files. Use <code>--plan</code> to preview first.</span>
-    </div>
-    <div class="demo-result">
-      <span>✓</span>
-      <span>Claude reads every filename, infers the project structure, proposes a reorganization, and renames/moves with your approval. A PhD project folder that grew over years → clean, documented structure in 10 minutes.</span>
-    </div>
-  </section>
-
-  <!-- 6g — Demo 6: Meeting Transcript -->
-  <section class="detail">
-    <h3><span class="demo-badge">6</span> Transcribe a Meeting &amp; Produce a Structured Summary</h3>
+    <h3><span class="demo-badge">4</span> Transcribe a Meeting &amp; Produce a Structured Summary</h3>
     <div class="code-wrap">
       <pre><code class="language-bash"># /transcribe-meeting is already in this project
 claude
@@ -1167,9 +1224,9 @@ claude
     </div>
   </section>
 
-  <!-- 6h — Demo 7: Homepage + CV -->
+  <!-- 6f — Demo 5: Homepage + CV -->
   <section class="detail">
-    <h3><span class="demo-badge">7</span> Build or Update Your Academic Homepage &amp; CV</h3>
+    <h3><span class="demo-badge">5</span> Build or Update Your Academic Homepage &amp; CV</h3>
     <p style="font-size:0.44em; color:var(--muted); margin:0.15em 0 0.1em;">Option A — build from scratch:</p>
     <div class="code-wrap">
       <pre><code class="language-bash">claude "Create a clean academic homepage from cv.pdf.
