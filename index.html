@@ -1176,19 +1176,19 @@ claude
   <!-- 6j — Demo 7: Interactive Teaching Tools -->
   <section class="detail">
     <h3><span class="demo-badge">7</span> Build Interactive Teaching Tools</h3>
-    <p style="font-size:0.44em; color:var(--muted); margin:0.15em 0 0.1em;">Single-prompt build — no prior web development knowledge needed:</p>
+    <p style="font-size:0.44em; color:var(--muted); margin:0.15em 0 0.1em;">Single-prompt build — no prior coding knowledge needed:</p>
     <div class="code-wrap">
       <pre><code class="language-bash">claude "Build a student mock-exam interface for a financial markets course.
-Questions loaded from questions.json. Features:
+Use Google Apps Script + Google Sheets as the database. Features:
   - One question at a time, multiple choice, 90-second timer
   - Running score + instant feedback after each answer
-  - Admin view (password-protected) showing all submissions
-Single HTML file, vanilla JS, no server or dependencies."</code></pre>
+  - All submissions logged to a Sheet; admin view shows live results
+Deploy as a Google Apps Script Web App."</code></pre>
       <button class="copy-btn" onclick="copyCode(this)">Copy</button>
     </div>
     <div class="demo-result">
       <span>✓</span>
-      <span>Claude produces a fully self-contained HTML file deployable anywhere. Same approach powers student trading competitions and text-analysis games — no server, no framework.</span>
+      <span>Claude writes the Apps Script + HTML, wires it to a Google Sheet, and gives you a deployable web app URL. Same approach powers student trading competitions and text-analysis games — no server to manage, submissions stored automatically.</span>
     </div>
     <div class="callout tip" style="margin-top:0.3em;">
       <span class="callout-icon">🔗</span>
