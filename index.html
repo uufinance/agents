@@ -1329,6 +1329,31 @@ function copyCode(btn) {
   }).catch(() => {});
 }
 
+// Overview mode: shift grid to eliminate blank space at top-left.
+// Reveal.js centers the overview on the current slide, which places the entire
+// grid in the lower-right quadrant when starting from slide (0,0). This hook
+// fires after Reveal finishes setup (setTimeout 120ms), reads the actual screen
+// position of the first slide, and shifts the grid so it starts near (20, 20).
+// Math: Δscreen = totalScale × Δtranslate, where totalScale = product of all
+// scale() factors (e.g. 1.2 presentation × 0.2 overview = 0.24).
+Reveal.on('overviewshown', () => {
+  setTimeout(() => {
+    const slides = document.querySelector('.reveal .slides');
+    const t = slides.style.transform || '';
+    const firstSlide = slides.querySelector('section');
+    if (!firstSlide) return;
+    const { left, top } = firstSlide.getBoundingClientRect();
+    const pad = 20;
+    const dxScreen = pad - left;
+    const dyScreen = pad - top;
+    const allScales = [...t.matchAll(/scale\(([\d.]+)\)/g)].map(m => parseFloat(m[1]));
+    const totalScale = allScales.reduce((a, b) => a * b, 1) || 1;
+    slides.style.transform = t
+      .replace(/translateX\(([-\d.]+)px\)/, (_, x) => `translateX(${+x + dxScreen / totalScale}px)`)
+      .replace(/translateY\(([-\d.]+)px\)/, (_, y) => `translateY(${+y + dyScreen / totalScale}px)`);
+  }, 120);
+});
+
 // Clickable checklist items
 document.querySelectorAll('.checklist li').forEach(li => {
   li.addEventListener('click', () => {
