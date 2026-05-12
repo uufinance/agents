@@ -504,7 +504,7 @@ body.light .ba-col.after   { background: rgba(52,211,153,0.08);  border-color: r
         <p style="color:var(--muted); margin:0 0 0.4em;">Browser + free account. No local install. Safe — nothing runs on your machine.</p>
         <ul style="margin:0; padding-left:1.1em; color:var(--fg);">
           <li>0 min setup</li>
-          <li>Works for Demo 5 live</li>
+          <li>Works for Demo 4 live</li>
           <li>All other demos: watch + try at home</li>
         </ul>
       </div>
@@ -545,7 +545,7 @@ https://claude.ai</code></pre>
     <p style="font-size:0.44em; color:var(--muted); margin:0.3em 0 0.1em;">Step 2 — Create a Project</p>
     <p style="font-size:0.42em; margin:0 0 0.3em;">Click <strong>Projects → New Project</strong>. Give it a name (e.g. <em>Workshop</em>). Upload any PDF or text file as context.</p>
     <p style="font-size:0.44em; color:var(--muted); margin:0.1em 0 0.1em;">Step 3 — You're ready</p>
-    <p style="font-size:0.42em; margin:0 0 0.3em;">Follow <strong>Demo 5</strong> live (academic homepage + CV). For the <code>/skill</code> demos, watch along — you can run them yourself with Track B later.</p>
+    <p style="font-size:0.42em; margin:0 0 0.3em;">Follow <strong>Demo 4</strong> live (academic homepage from CV). For the <code>/skill</code> demos, watch along — you can run them yourself with Track B later.</p>
     <div class="callout tip" style="margin-top:0.3em;">
       <span class="callout-icon">🔒</span>
       <span><strong>Nothing runs on your machine.</strong> Claude.ai is a web interface — no files are created or modified locally. The Pro plan ($20/mo) gives longer conversations and priority access; the free plan is fine for today.</span>
@@ -965,7 +965,7 @@ claude --version</code></pre>
     </p>
     <div class="callout tip" style="margin-top:0.1em;">
       <span class="callout-icon">🚀</span>
-      <span><strong>No install?</strong> Open <strong>claude.ai → New Project</strong>, upload your file. Works for Demo 5 live. The <code>/skill</code> demos need the CLI.</span>
+      <span><strong>No install?</strong> Open <strong>claude.ai → New Project</strong>, upload your file. Works for Demo 4 live. The <code>/skill</code> demos need the CLI.</span>
     </div>
     <div class="down-hint">↓ Codex &amp; Gemini CLI · prerequisites</div>
   </section>
@@ -1122,8 +1122,8 @@ claude
     </ul>
     <p style="font-size:0.48em; color:var(--accent); font-weight:700; margin:0.4em 0 0.1em; letter-spacing:0.04em;">TEACHING &amp; ADMIN</p>
     <ul>
-      <li><strong>Demo 4</strong> — Transcribe a student meeting with <code>/transcribe-meeting</code></li>
-      <li><strong>Demo 5</strong> — Build or update your academic homepage + CV</li>
+      <li><strong>Demo 4</strong> — Build your academic homepage from CV</li>
+      <li><strong>Demo 5</strong> — Transcribe a student meeting with <code>/transcribe-meeting</code></li>
     </ul>
     <div class="callout tip" style="margin-top:0.5em;">
       <span class="callout-icon">🛠</span>
@@ -1202,9 +1202,24 @@ Target audience: finance conference (EFA / AFA style).
     </div>
   </section>
 
-  <!-- 6e — Demo 4: Meeting Transcript -->
+  <!-- 6e — Demo 4: Homepage from CV -->
   <section class="detail">
-    <h3><span class="demo-badge">4</span> Transcribe a Meeting &amp; Produce a Structured Summary</h3>
+    <h3><span class="demo-badge">4</span> Build Your Academic Homepage from CV</h3>
+    <div class="code-wrap">
+      <pre><code class="language-bash">claude "Create a clean academic homepage from cv.pdf.
+Sections: About, Research (working papers + publications), Teaching, Contact.
+Minimal HTML, no frameworks. Output: index.html"</code></pre>
+      <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+    </div>
+    <div class="demo-result">
+      <span>✓</span>
+      <span>Claude reads your CV PDF, extracts structured data, and writes a deployable <code>index.html</code>. 90 seconds vs 30–45 minutes of copy-paste.</span>
+    </div>
+  </section>
+
+  <!-- 6f — Demo 5: Meeting Transcript -->
+  <section class="detail">
+    <h3><span class="demo-badge">5</span> Transcribe a Meeting &amp; Produce a Structured Summary</h3>
     <div class="code-wrap">
       <pre><code class="language-bash"># /transcribe-meeting is already in this project
 claude
@@ -1221,30 +1236,6 @@ claude
     <div class="callout tip" style="margin-top:0.3em;">
       <span class="callout-icon">🔒</span>
       <span><strong>Fully local — no cloud.</strong> <strong>Whisper</strong> transcribes the audio, <strong>Ollama</strong> (local LLM) writes the summary. Your recording never leaves the machine.</span>
-    </div>
-  </section>
-
-  <!-- 6f — Demo 5: Homepage + CV -->
-  <section class="detail">
-    <h3><span class="demo-badge">5</span> Build or Update Your Academic Homepage &amp; CV</h3>
-    <p style="font-size:0.44em; color:var(--muted); margin:0.15em 0 0.1em;">Option A — build from scratch:</p>
-    <div class="code-wrap">
-      <pre><code class="language-bash">claude "Create a clean academic homepage from cv.pdf.
-Sections: About, Research (working papers + publications), Teaching, Contact.
-Minimal HTML, no frameworks. Output: index.html"</code></pre>
-      <button class="copy-btn" onclick="copyCode(this)">Copy</button>
-    </div>
-    <p style="font-size:0.44em; color:var(--muted); margin:0.25em 0 0.1em;">Option B — add a new paper to an existing site:</p>
-    <div class="code-wrap">
-      <pre><code class="language-bash">claude "Add this paper to index.html and cv.tex:
-Title: [Your title]  ·  Co-authors: [Names]  ·  SSRN: [URL]
-Abstract: [paste abstract]
-Keep the existing style and LaTeX formatting conventions."</code></pre>
-      <button class="copy-btn" onclick="copyCode(this)">Copy</button>
-    </div>
-    <div class="demo-result">
-      <span>✓</span>
-      <span>Claude reads your CV PDF, extracts structured data, writes a deployable <code>index.html</code>, and patches <code>cv.tex</code> — keeping both in sync. 90 seconds vs 30–45 minutes of copy-paste.</span>
     </div>
   </section>
 
