@@ -570,22 +570,15 @@ https://claude.ai</code></pre>
   <!-- 0d — Track C: Full CLI -->
   <section class="detail">
     <h3>Track C — Full CLI (~15 min)</h3>
-    <p style="font-size:0.44em; color:var(--muted); margin:0.1em 0 0.08em;">Step 1 — Install Node.js 18 or newer</p>
-    <div class="code-wrap">
-      <pre><code class="language-bash">node --version          # Already have it? Skip to step 2.
-# Mac:     brew install node
-# Windows: winget install OpenJS.NodeJS
-# Linux:   nvm install --lts</code></pre>
-      <button class="copy-btn" onclick="copyCode(this)">Copy</button>
-    </div>
-    <p style="font-size:0.44em; color:var(--muted); margin:0.25em 0 0.08em;">Step 2 — Install Claude Code &amp; authenticate</p>
+    <p style="font-size:0.44em; color:var(--muted); margin:0.1em 0 0.08em;">Step 1 — Install Node.js 18+ &nbsp;(<code>node --version</code> to check; if missing: Mac <code>brew install node</code> · Windows <code>winget install OpenJS.NodeJS</code> · Linux <code>nvm install --lts</code>)</p>
+    <p style="font-size:0.44em; color:var(--muted); margin:0.3em 0 0.08em;">Step 2 — Install Claude Code &amp; authenticate</p>
     <div class="code-wrap">
       <pre><code class="language-bash">npm install -g @anthropic-ai/claude-code
 claude            # Opens browser → sign in with your Anthropic account
 claude --version  # Verify install</code></pre>
       <button class="copy-btn" onclick="copyCode(this)">Copy</button>
     </div>
-    <p style="font-size:0.44em; color:var(--muted); margin:0.25em 0 0.08em;">Optional — also install Codex or Gemini CLI to compare</p>
+    <p style="font-size:0.44em; color:var(--muted); margin:0.3em 0 0.08em;">Optional — also install Codex or Gemini CLI to compare</p>
     <div class="code-wrap">
       <pre><code class="language-bash">npm install -g @openai/codex          # OpenAI Codex CLI
 npm install -g @google/gemini-cli    # Google Gemini CLI</code></pre>
@@ -738,7 +731,7 @@ npm install -g @google/gemini-cli    # Google Gemini CLI</code></pre>
     <table style="font-size:0.46em;">
       <thead><tr><th></th><th>Claude Code (Anthropic)</th><th>Codex CLI (OpenAI)</th><th>Gemini CLI (Google)</th></tr></thead>
       <tbody>
-        <tr><td>Models</td><td>Haiku 4.5 / Sonnet 4.6 / Opus 4.7</td><td>GPT-5.5 / GPT-5.4 / GPT-5.3-Codex</td><td>Gemini 2.5 Flash / Gemini 3 / 3.1 Pro</td></tr>
+        <tr><td>Models</td><td>Haiku 4.5 / Sonnet 4.6 / Opus 4.7</td><td>o4-mini / o3</td><td>Gemini 2.5 Flash / Gemini 3 / 3.1 Pro</td></tr>
         <tr><td>Context window</td><td>200K tokens</td><td>128K tokens</td><td><strong style="color:#34d399">1M tokens</strong></td></tr>
         <tr><td>Runs locally</td><td><strong style="color:#34d399">Yes</strong> — reads &amp; writes your files</td><td><strong style="color:#34d399">Yes</strong> — CLI + cloud exec for parallel tasks</td><td><strong style="color:#34d399">Yes</strong> — CLI on your machine</td></tr>
         <tr><td>Memory file</td><td><code>CLAUDE.md</code></td><td><code>AGENTS.md</code></td><td><code>GEMINI.md</code></td></tr>
@@ -903,8 +896,8 @@ npm install -g @google/gemini-cli    # Google Gemini CLI</code></pre>
         <tr><td>Claude Haiku 4.5</td><td>Fast</td><td>Cheap</td><td>Bulk formatting, quick lookups</td></tr>
         <tr><td>Claude Sonnet 4.6</td><td>Balanced</td><td>Mid</td><td>Most research tasks — <strong>workshop default</strong></td></tr>
         <tr><td>Claude Opus 4.7</td><td>Slow</td><td>High</td><td>Complex, ambiguous problems</td></tr>
-        <tr><td>GPT-5.5</td><td>Fast</td><td>Mid</td><td>Agentic coding, general tasks (Codex default)</td></tr>
-        <tr><td>GPT-5.4-mini</td><td>Very fast</td><td>Low</td><td>Rapid iteration, higher usage limits (Codex)</td></tr>
+        <tr><td>o3 (Codex)</td><td>Slow</td><td>High</td><td>Complex reasoning tasks (Codex default)</td></tr>
+        <tr><td>o4-mini (Codex)</td><td>Very fast</td><td>Low</td><td>Rapid iteration, agentic coding, high usage limits</td></tr>
       </tbody>
     </table>
     <div class="callout tip" style="margin-top:0.4em;">
@@ -954,7 +947,7 @@ npm install -g @google/gemini-cli    # Google Gemini CLI</code></pre>
       <div class="plan-pill">
         <div class="pp-name">Claude Max (20×)</div>
         <div class="pp-price">~$200/month</div>
-        <div class="pp-desc">20× the Pro quota. For overnight pipelines, large replication packages, and unattended agents. Equivalent to OpenAI ChatGPT Pro ($200).</div>
+        <div class="pp-desc">20× the Pro quota. Overnight pipelines, large replication packages, unattended agents. Equivalent to ChatGPT Pro ($200).</div>
       </div>
       <div class="plan-pill">
         <div class="pp-name">API (pay-per-use)</div>
@@ -962,13 +955,9 @@ npm install -g @google/gemini-cli    # Google Gemini CLI</code></pre>
         <div class="pp-desc">Best for running scripts overnight. Set a spending limit first.</div>
       </div>
     </div>
-    <div class="callout warn" style="margin-top:0.4em;">
-      <span class="callout-icon">⚠️</span>
-      <span>Set a monthly spending cap in the Anthropic Console before using an API key. $5–10 covers this workshop.</span>
-    </div>
-    <div class="callout tip" style="margin-top:0.3em;">
+    <div class="callout tip" style="margin-top:0.4em;">
       <span class="callout-icon">📊</span>
-      <span>Check your current usage and remaining quota at <a href="https://claude.ai/settings/usage" target="_blank" style="color:var(--accent);">claude.ai/settings/usage</a>.</span>
+      <span>Check your live usage at <a href="https://claude.ai/settings/usage" target="_blank" style="color:var(--accent);">claude.ai/settings/usage</a>. &nbsp;·&nbsp; <strong>API users:</strong> set a monthly spending cap in the Anthropic Console before your first session — $5–10 covers this workshop.</span>
     </div>
   </section>
 
