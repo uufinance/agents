@@ -504,26 +504,26 @@ body.light .ba-col.after   { background: rgba(52,211,153,0.08);  border-color: r
         <p style="color:var(--muted); margin:0 0 0.4em;">Browser + free account. No local install. Safe — nothing runs on your machine.</p>
         <ul style="margin:0; padding-left:1.1em; color:var(--fg);">
           <li>0 min setup</li>
-          <li>Works for Demo 4 live</li>
+          <li>Works for Demo 5 live</li>
           <li>All other demos: watch + try at home</li>
         </ul>
       </div>
       <div style="flex:1; background:var(--panel); border:1px solid var(--border); border-radius:8px; padding:0.7em 0.8em; font-size:0.42em;">
-        <p style="font-weight:700; font-size:1.15em; margin:0 0 0.3em; color:var(--accent);">B &nbsp;·&nbsp; Full CLI</p>
-        <p style="color:var(--muted); margin:0 0 0.4em;">Node.js + Claude Code on your machine. Default mode always asks before touching any file.</p>
+        <p style="font-weight:700; font-size:1.15em; margin:0 0 0.3em; color:var(--accent);">B &nbsp;·&nbsp; Desktop App + GitHub</p>
+        <p style="color:var(--muted); margin:0 0 0.4em;">Install Claude Desktop. Connect GitHub MCP. Can also read and write local files via MCP — no terminal required.</p>
         <ul style="margin:0; padding-left:1.1em; color:var(--fg);">
-          <li>~15 min setup</li>
-          <li>All 7 demos live</li>
-          <li>Required for <code>/skill</code> invocations</li>
+          <li>~10 min setup</li>
+          <li>Works for Demos 1–3 live (with MCP)</li>
+          <li>No <code>/skill</code> shortcuts</li>
         </ul>
       </div>
       <div style="flex:1; background:var(--panel); border:1px solid var(--border); border-radius:8px; padding:0.7em 0.8em; font-size:0.42em;">
-        <p style="font-weight:700; font-size:1.15em; margin:0 0 0.3em; color:var(--accent);">C &nbsp;·&nbsp; + GitHub</p>
-        <p style="color:var(--muted); margin:0 0 0.4em;">Free account + <code>git</code>. Needed to clone skill repos used in Demos 1–3. Add on top of Track B.</p>
+        <p style="font-weight:700; font-size:1.15em; margin:0 0 0.3em; color:var(--accent);">C &nbsp;·&nbsp; Full CLI</p>
+        <p style="color:var(--muted); margin:0 0 0.4em;">Node.js + Claude Code. Default mode always asks before touching any file. Required for <code>/skill</code> invocations and local code execution.</p>
         <ul style="margin:0; padding-left:1.1em; color:var(--fg);">
-          <li>~5 min (+ Track B)</li>
-          <li>Pull any skill with one command</li>
-          <li>Save and share your own work</li>
+          <li>~15 min setup</li>
+          <li>All 7 demos live</li>
+          <li>Required for <code>/skill</code> shortcuts</li>
         </ul>
       </div>
     </div>
@@ -545,16 +545,31 @@ https://claude.ai</code></pre>
     <p style="font-size:0.44em; color:var(--muted); margin:0.3em 0 0.1em;">Step 2 — Create a Project</p>
     <p style="font-size:0.42em; margin:0 0 0.3em;">Click <strong>Projects → New Project</strong>. Give it a name (e.g. <em>Workshop</em>). Upload any PDF or text file as context.</p>
     <p style="font-size:0.44em; color:var(--muted); margin:0.1em 0 0.1em;">Step 3 — You're ready</p>
-    <p style="font-size:0.42em; margin:0 0 0.3em;">Follow <strong>Demo 4</strong> live (academic homepage from CV). For the <code>/skill</code> demos, watch along — you can run them yourself with Track B later.</p>
+    <p style="font-size:0.42em; margin:0 0 0.3em;">Follow <strong>Demo 5</strong> live (academic homepage from CV). For the <code>/skill</code> demos, watch along — you can run them yourself with Track B later.</p>
     <div class="callout tip" style="margin-top:0.3em;">
       <span class="callout-icon">🔒</span>
       <span><strong>Nothing runs on your machine.</strong> Claude.ai is a web interface — no files are created or modified locally. The Pro plan ($20/mo) gives longer conversations and priority access; the free plan is fine for today.</span>
     </div>
   </section>
 
-  <!-- 0c — Track B: CLI Install -->
+  <!-- 0c — Track B: Desktop App + GitHub -->
   <section class="detail">
-    <h3>Track B — CLI Install (~15 min)</h3>
+    <h3>Track B — Claude Desktop App + GitHub</h3>
+    <p style="font-size:0.44em; color:var(--muted); margin:0.1em 0 0.2em;">Step 1 — Install Claude Desktop</p>
+    <p style="font-size:0.42em; margin:0 0 0.3em;">Download from <strong>claude.ai/download</strong>. Sign in with your Anthropic account.</p>
+    <p style="font-size:0.44em; color:var(--muted); margin:0.1em 0 0.08em;">Step 2 — Connect GitHub MCP</p>
+    <p style="font-size:0.42em; margin:0 0 0.3em;">In Claude Desktop: <strong>Settings → Extensions → GitHub → Authorize</strong>. This lets Claude read and push to your repositories.</p>
+    <p style="font-size:0.44em; color:var(--muted); margin:0.1em 0 0.08em;">Step 3 (optional) — Add local file access</p>
+    <p style="font-size:0.42em; margin:0 0 0.3em;">Add a filesystem MCP server to give Claude access to a specific folder on your machine — without using the terminal.</p>
+    <div class="callout tip" style="margin-top:0.3em;">
+      <span class="callout-icon">💡</span>
+      <span><strong>Works locally too.</strong> MCP servers let the Desktop App read and modify files in a folder you specify. The underlying task prompts from the demos work here — only the <code>/skill-name</code> shortcuts require the CLI.</span>
+    </div>
+  </section>
+
+  <!-- 0d — Track C: Full CLI -->
+  <section class="detail">
+    <h3>Track C — Full CLI (~15 min)</h3>
     <p style="font-size:0.44em; color:var(--muted); margin:0.1em 0 0.08em;">Step 1 — Install Node.js 18 or newer</p>
     <div class="code-wrap">
       <pre><code class="language-bash">node --version          # Already have it? Skip to step 2.
@@ -570,34 +585,15 @@ claude            # Opens browser → sign in with your Anthropic account
 claude --version  # Verify install</code></pre>
       <button class="copy-btn" onclick="copyCode(this)">Copy</button>
     </div>
+    <p style="font-size:0.44em; color:var(--muted); margin:0.25em 0 0.08em;">Optional — also install Codex or Gemini CLI to compare</p>
+    <div class="code-wrap">
+      <pre><code class="language-bash">npm install -g @openai/codex          # OpenAI Codex CLI
+npm install -g @google/gemini-cli    # Google Gemini CLI</code></pre>
+      <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+    </div>
     <div class="callout warn" style="margin-top:0.3em;">
       <span class="callout-icon">⚠️</span>
       <span><strong>Set a spending cap before your first session.</strong> Go to <strong>console.anthropic.com → Settings → Billing</strong> and set a monthly limit (e.g. $10). Default mode always asks before touching files — nothing runs without your approval.</span>
-    </div>
-  </section>
-
-  <!-- 0d — Track C: GitHub + git -->
-  <section class="detail">
-    <h3>Track C — GitHub + git (Bonus, ~5 min)</h3>
-    <p style="font-size:0.44em; color:var(--muted); margin:0.1em 0 0.2em;">Step 1 — Create a free GitHub account</p>
-    <p style="font-size:0.42em; margin:0 0 0.3em;">Open <strong>github.com</strong> and sign up. Free tier is all you need.</p>
-    <p style="font-size:0.44em; color:var(--muted); margin:0.1em 0 0.08em;">Step 2 — Verify <code>git</code> is installed</p>
-    <div class="code-wrap">
-      <pre><code class="language-bash">git --version
-# Mac (if missing): xcode-select --install   OR   brew install git
-# Windows:          winget install Git.Git</code></pre>
-      <button class="copy-btn" onclick="copyCode(this)">Copy</button>
-    </div>
-    <p style="font-size:0.44em; color:var(--muted); margin:0.25em 0 0.08em;">Step 3 — Test: clone a skill</p>
-    <div class="code-wrap">
-      <pre><code class="language-bash">mkdir -p .claude/skills
-git clone https://github.com/scunning1975/mixtapetools \
-  .claude/skills/mixtapetools</code></pre>
-      <button class="copy-btn" onclick="copyCode(this)">Copy</button>
-    </div>
-    <div class="callout tip" style="margin-top:0.3em;">
-      <span class="callout-icon">💡</span>
-      <span>Public repos don't require a GitHub account to clone — only <code>git</code>. A GitHub account lets you <strong>save and push your own work</strong> (replication packages, scripts, homepages) so collaborators can access it.</span>
     </div>
   </section>
 
@@ -726,7 +722,6 @@ git clone https://github.com/scunning1975/mixtapetools \
         <tr><td>Models</td><td>Haiku 4.5 / Sonnet 4.6 / Opus 4.7</td><td>GPT-5.5 / GPT-5.4 / GPT-5.3-Codex</td><td>Gemini 2.5 Flash / Gemini 3 / 3.1 Pro</td></tr>
         <tr><td>Context window</td><td>200K tokens</td><td>128K tokens</td><td><strong style="color:#34d399">1M tokens</strong></td></tr>
         <tr><td>Runs locally</td><td><strong style="color:#34d399">Yes</strong> — reads &amp; writes your files</td><td><strong style="color:#34d399">Yes</strong> — CLI + cloud exec for parallel tasks</td><td><strong style="color:#34d399">Yes</strong> — CLI on your machine</td></tr>
-        <tr><td>Plan mode</td><td><code>--plan</code></td><td><code>--approval-mode full</code></td><td>Interactive (approve each step)</td></tr>
         <tr><td>Memory file</td><td><code>CLAUDE.md</code></td><td><code>AGENTS.md</code></td><td><code>GEMINI.md</code></td></tr>
         <tr><td>Plans</td><td>Pro $20 / Max $100 / Max $200 (20×)</td><td>Free / Plus $20 / Pro $100–200</td><td>Free / AI Pro $20 / AI Ultra $250</td></tr>
         <tr><td>Best for</td><td>Long files, local data, research pipelines</td><td>Rapid async code generation</td><td>Largest context, multimodal (PDFs, audio)</td></tr>
@@ -734,7 +729,7 @@ git clone https://github.com/scunning1975/mixtapetools \
     </table>
     <div class="callout tip" style="margin-top:0.35em;">
       <span class="callout-icon">🛡</span>
-      <span>All three CLIs support a <strong>plan/preview mode</strong> — review proposed changes before any file is written. Claude: <code>--plan</code> · Codex: <code>--approval-mode full</code> · Gemini: interactive approval per step.</span>
+      <span>All three CLIs share the same install pattern: <code>npm install -g &lt;package&gt;</code>, authenticate via browser, run from your project folder. The <code>/skill-name</code> shortcuts in the demos are Claude Code-specific.</span>
     </div>
   </section>
 
@@ -800,7 +795,7 @@ git clone https://github.com/scunning1975/mixtapetools \
       <span class="fa">→</span>
       <div class="fn">Result</div>
     </div>
-    <p style="font-size:0.45em; color:var(--muted); margin:0.3em 0 0.15em;">Under the hood — the <strong style="color:#fff;">ReAct loop</strong> (Reason + Act):</p>
+    <p style="font-size:0.45em; color:var(--muted); margin:0.3em 0 0.15em;">Under the hood — the <strong style="color:var(--accent);">ReAct loop</strong> (Reason + Act):</p>
     <div class="flow">
       <div class="fn agent">Think</div>
       <span class="fa">→</span>
@@ -812,8 +807,8 @@ git clone https://github.com/scunning1975/mixtapetools \
       <span class="fa" style="color:#a78bfa;">↺ loop</span>
     </div>
     <ul style="margin-top:0.2em;">
-      <li>Three interfaces, one model — browser (claude.ai), Desktop app, CLI. <strong>Only the CLI runs code.</strong></li>
-      <li><strong>Skills</strong> are shareable instruction sets invoked with a slash: <code>/review</code>, <code>/init</code>. Anyone can author one.</li>
+      <li>Three interfaces, one model. The CLI and Desktop App (via MCP) can read and run code in your local files. The web interface works in Claude's own sandboxed environment.</li>
+      <li><strong>Skills</strong> are shareable instruction sets invoked with a slash: <code>/review</code>, <code>/init</code>. Use <code>/resume</code> to continue a previous session. Anyone can author a skill.</li>
     </ul>
   </section>
 
@@ -831,7 +826,7 @@ git clone https://github.com/scunning1975/mixtapetools \
       </div>
     </div>
     <div class="code-wrap">
-      <pre><code class="language-markdown"># My Research Project
+      <pre><code class="language-plaintext"># My Research Project
 
 ## Data
 - Source: WRDS / Compustat annual, 1990–2023
@@ -849,18 +844,35 @@ git clone https://github.com/scunning1975/mixtapetools \
 
   <!-- 3d — C: Plan Mode -->
   <section class="detail">
-    <h3>C · Plan Mode</h3>
-    <ul>
-      <li>By default Claude acts immediately — reads your files, runs code, writes output.</li>
-      <li><code>--plan</code> shows its intended steps <em>before</em> executing anything. Think of it as pre-registering your analysis.</li>
-    </ul>
-    <div class="code-wrap">
-      <pre><code class="language-bash">claude --plan "Download Compustat, replicate Sloan 1996 Table 2, flag any deviations"</code></pre>
-      <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+    <h3>C · Permission &amp; Plan Modes</h3>
+    <table style="font-size:0.43em; margin-top:0.3em;">
+      <thead><tr><th>Mode</th><th>How to activate</th><th>What happens</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><strong>Default</strong> (safe)</td>
+          <td><code>claude</code></td>
+          <td>Claude asks before every file write, shell command, network call.</td>
+        </tr>
+        <tr>
+          <td><strong>Plan first</strong></td>
+          <td>CLI: <code>claude --plan "..."</code><br>Web/Desktop: toggle Plan mode in UI</td>
+          <td>Proposes full plan, waits for approval before executing anything.</td>
+        </tr>
+        <tr>
+          <td><strong>Auto-approve</strong> ⚡</td>
+          <td><code>claude --dangerously-skip-permissions</code></td>
+          <td>All permissions pre-approved. Zero interruptions. Only in sandboxed repos.</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="callout tip" style="margin-top:0.3em;">
+      <span class="callout-icon">💡</span>
+      <span><code>--plan</code> is a CLI startup flag — start a fresh session in plan mode. Inside a running session, just ask Claude to "show me what you would do first". In the <strong>web and Desktop apps</strong>, click the Plan-mode toggle in the input bar.</span>
     </div>
-    <ul style="margin-top:0.4em;">
-      <li>Use plan mode before any operation touching shared files or running code that modifies data.</li>
-    </ul>
+    <div class="callout warn" style="margin-top:0.25em;">
+      <span class="callout-icon">⚠️</span>
+      <span><code>--dangerously-skip-permissions</code> lets Claude write any file and run any command. Use only in a <strong>Docker devcontainer</strong> or a <strong>fresh git worktree on a clean branch</strong>. Never on a bare host with your home directory in scope.</span>
+    </div>
   </section>
 
   <!-- 3e — D: Models & Effort -->
@@ -889,11 +901,11 @@ git clone https://github.com/scunning1975/mixtapetools \
       <li>The context window is how much the model holds in memory at once — like RAM, not storage.</li>
       <li>Claude Sonnet 4.6: <strong>200K tokens</strong> ≈ a full PhD dissertation in one session.</li>
       <li>Each conversation starts fresh. Use <code>CLAUDE.md</code> to carry over project knowledge.</li>
-      <li>Run <code>/clear</code> inside a session to reset context without restarting — useful when the window fills mid-task.</li>
+      <li>Run <code>/compact</code> to summarise prior context and continue, or <code>/clear</code> to reset fully — useful when the window fills mid-task.</li>
     </ul>
     <div class="callout warn" style="margin-top:0.4em;">
       <span class="callout-icon">⚠️</span>
-      <span>Hit "context length exceeded"? Break the task into smaller steps or run <code>/clear</code> and summarise prior results into <code>CLAUDE.md</code>. <strong>Claude Pro</strong> triggers a cooldown after heavy use (up to <strong>5 hours</strong>); quota resets on a <strong>7-day rolling window</strong>.</span>
+      <span>Hit "context length exceeded"? Break the task into smaller steps or run <code>/clear</code> and summarise prior results into <code>CLAUDE.md</code>. <strong>Claude Pro</strong> triggers a cooldown after heavy use (up to <strong>5 hours</strong>).</span>
     </div>
   </section>
 
