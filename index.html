@@ -490,6 +490,120 @@ body.light .ba-col.after   { background: rgba(52,211,153,0.08);  border-color: r
 </section>
 
 <!-- ══════════════════════════════════════════════════════════
+     0 · BEFORE THE WORKSHOP
+══════════════════════════════════════════════════════════ -->
+<section>
+
+  <!-- 0a — Overview -->
+  <section>
+    <span class="eyebrow">Before the Workshop</span>
+    <h2>Setup — Pick Your Track</h2>
+    <div style="display:flex; gap:0.8em; margin-top:0.45em;">
+      <div style="flex:1; background:var(--panel); border:1px solid var(--border); border-radius:8px; padding:0.7em 0.8em; font-size:0.42em;">
+        <p style="font-weight:700; font-size:1.15em; margin:0 0 0.3em; color:var(--accent);">A &nbsp;·&nbsp; Cloud Only</p>
+        <p style="color:var(--muted); margin:0 0 0.4em;">Browser + free account. No local install. Safe — nothing runs on your machine.</p>
+        <ul style="margin:0; padding-left:1.1em; color:var(--fg);">
+          <li>0 min setup</li>
+          <li>Works for Demos 4 &amp; 7 live</li>
+          <li>All other demos: watch + try at home</li>
+        </ul>
+      </div>
+      <div style="flex:1; background:var(--panel); border:1px solid var(--border); border-radius:8px; padding:0.7em 0.8em; font-size:0.42em;">
+        <p style="font-weight:700; font-size:1.15em; margin:0 0 0.3em; color:var(--accent);">B &nbsp;·&nbsp; Full CLI</p>
+        <p style="color:var(--muted); margin:0 0 0.4em;">Node.js + Claude Code on your machine. Default mode always asks before touching any file.</p>
+        <ul style="margin:0; padding-left:1.1em; color:var(--fg);">
+          <li>~15 min setup</li>
+          <li>All 7 demos live</li>
+          <li>Required for <code>/skill</code> invocations</li>
+        </ul>
+      </div>
+      <div style="flex:1; background:var(--panel); border:1px solid var(--border); border-radius:8px; padding:0.7em 0.8em; font-size:0.42em;">
+        <p style="font-weight:700; font-size:1.15em; margin:0 0 0.3em; color:var(--accent);">C &nbsp;·&nbsp; + GitHub</p>
+        <p style="color:var(--muted); margin:0 0 0.4em;">Free account + <code>git</code>. Needed to clone skill repos used in Demos 1–3. Add on top of Track B.</p>
+        <ul style="margin:0; padding-left:1.1em; color:var(--fg);">
+          <li>~5 min (+ Track B)</li>
+          <li>Pull any skill with one command</li>
+          <li>Save and share your own work</li>
+        </ul>
+      </div>
+    </div>
+    <div class="callout tip" style="margin-top:0.45em;">
+      <span class="callout-icon">👇</span>
+      <span>Scroll <strong>↓</strong> for step-by-step instructions on each track. Come back with <strong>→</strong> when you're ready.</span>
+    </div>
+  </section>
+
+  <!-- 0b — Track A: Cloud Only -->
+  <section class="detail">
+    <h3>Track A — Cloud Only (No Install)</h3>
+    <p style="font-size:0.44em; color:var(--muted); margin:0.1em 0 0.2em;">Step 1 — Create a free Anthropic account</p>
+    <div class="code-wrap">
+      <pre><code class="language-bash"># Open in your browser:
+https://claude.ai</code></pre>
+      <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+    </div>
+    <p style="font-size:0.44em; color:var(--muted); margin:0.3em 0 0.1em;">Step 2 — Create a Project</p>
+    <p style="font-size:0.42em; margin:0 0 0.3em;">Click <strong>Projects → New Project</strong>. Give it a name (e.g. <em>Workshop</em>). Upload any PDF or text file as context.</p>
+    <p style="font-size:0.44em; color:var(--muted); margin:0.1em 0 0.1em;">Step 3 — You're ready</p>
+    <p style="font-size:0.42em; margin:0 0 0.3em;">Follow <strong>Demos 4 &amp; 7</strong> live (replication package and academic homepage). For the <code>/skill</code> demos, watch along — you can run them yourself with Track B later.</p>
+    <div class="callout tip" style="margin-top:0.3em;">
+      <span class="callout-icon">🔒</span>
+      <span><strong>Nothing runs on your machine.</strong> Claude.ai is a web interface — no files are created or modified locally. The Pro plan ($20/mo) gives longer conversations and priority access; the free plan is fine for today.</span>
+    </div>
+  </section>
+
+  <!-- 0c — Track B: CLI Install -->
+  <section class="detail">
+    <h3>Track B — CLI Install (~15 min)</h3>
+    <p style="font-size:0.44em; color:var(--muted); margin:0.1em 0 0.08em;">Step 1 — Install Node.js 18 or newer</p>
+    <div class="code-wrap">
+      <pre><code class="language-bash">node --version          # Already have it? Skip to step 2.
+# Mac:     brew install node
+# Windows: winget install OpenJS.NodeJS
+# Linux:   nvm install --lts</code></pre>
+      <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+    </div>
+    <p style="font-size:0.44em; color:var(--muted); margin:0.25em 0 0.08em;">Step 2 — Install Claude Code &amp; authenticate</p>
+    <div class="code-wrap">
+      <pre><code class="language-bash">npm install -g @anthropic-ai/claude-code
+claude            # Opens browser → sign in with your Anthropic account
+claude --version  # Verify install</code></pre>
+      <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+    </div>
+    <div class="callout warn" style="margin-top:0.3em;">
+      <span class="callout-icon">⚠️</span>
+      <span><strong>Set a spending cap before your first session.</strong> Go to <strong>console.anthropic.com → Settings → Billing</strong> and set a monthly limit (e.g. $10). Default mode always asks before touching files — nothing runs without your approval.</span>
+    </div>
+  </section>
+
+  <!-- 0d — Track C: GitHub + git -->
+  <section class="detail">
+    <h3>Track C — GitHub + git (Bonus, ~5 min)</h3>
+    <p style="font-size:0.44em; color:var(--muted); margin:0.1em 0 0.2em;">Step 1 — Create a free GitHub account</p>
+    <p style="font-size:0.42em; margin:0 0 0.3em;">Open <strong>github.com</strong> and sign up. Free tier is all you need.</p>
+    <p style="font-size:0.44em; color:var(--muted); margin:0.1em 0 0.08em;">Step 2 — Verify <code>git</code> is installed</p>
+    <div class="code-wrap">
+      <pre><code class="language-bash">git --version
+# Mac (if missing): xcode-select --install   OR   brew install git
+# Windows:          winget install Git.Git</code></pre>
+      <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+    </div>
+    <p style="font-size:0.44em; color:var(--muted); margin:0.25em 0 0.08em;">Step 3 — Test: clone a skill</p>
+    <div class="code-wrap">
+      <pre><code class="language-bash">mkdir -p .claude/skills
+git clone https://github.com/scunning1975/mixtapetools \
+  .claude/skills/mixtapetools</code></pre>
+      <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+    </div>
+    <div class="callout tip" style="margin-top:0.3em;">
+      <span class="callout-icon">💡</span>
+      <span>Public repos don't require a GitHub account to clone — only <code>git</code>. A GitHub account lets you <strong>save and push your own work</strong> (replication packages, scripts, homepages) so collaborators can access it.</span>
+    </div>
+  </section>
+
+</section>
+
+<!-- ══════════════════════════════════════════════════════════
      1 · THE PROBLEM
 ══════════════════════════════════════════════════════════ -->
 <section>
@@ -851,7 +965,7 @@ claude --version</code></pre>
     </p>
     <div class="callout tip" style="margin-top:0.1em;">
       <span class="callout-icon">🚀</span>
-      <span><strong>No install?</strong> Open <strong>claude.ai → New Project</strong>, upload your file. Covers 90% of today's demos.</span>
+      <span><strong>No install?</strong> Open <strong>claude.ai → New Project</strong>, upload your file. Works for Demos 4 &amp; 7 live. The <code>/skill</code> demos need the CLI.</span>
     </div>
     <div class="down-hint">↓ Codex &amp; Gemini CLI · prerequisites</div>
   </section>
@@ -873,7 +987,7 @@ gemini --version</code></pre>
     </div>
     <div class="callout tip" style="margin-top:0.35em;">
       <span class="callout-icon">💡</span>
-      <span>All three CLIs follow the same pattern: install via npm, authenticate via browser, run from your project folder. The commands on the demo slides work with any of them — just replace <code>claude</code> with <code>codex</code> or <code>gemini</code>.</span>
+      <span>All three CLIs follow the same pattern: install via npm, authenticate via browser, run from your project folder. <strong>Note:</strong> the <code>/skill-name</code> shortcuts in the demos use Claude Code's skills system — the underlying task prompts work in any CLI, but the <code>/</code>-shortcut syntax is Claude Code-specific.</span>
     </div>
   </section>
 
