@@ -485,7 +485,7 @@ body.light .ba-col.after   { background: rgba(52,211,153,0.08);  border-color: r
   <div class="title-meta">
     60-minute hands-on workshop &nbsp;·&nbsp; No programming experience required<br><br>
     Navigate with <kbd>→</kbd> for next topic &nbsp;·&nbsp; <kbd>↓</kbd> for detail on any topic<br>
-    Press <kbd>O</kbd> to browse all slides at once
+    Press <kbd>O</kbd> (letter&nbsp;O, not zero) to browse all slides at once
   </div>
 </section>
 
@@ -609,12 +609,12 @@ body.light .ba-col.after   { background: rgba(52,211,153,0.08);  border-color: r
     <table style="font-size:0.46em;">
       <thead><tr><th></th><th>Claude Code (Anthropic)</th><th>Codex CLI (OpenAI)</th><th>Gemini CLI (Google)</th></tr></thead>
       <tbody>
-        <tr><td>Models</td><td>Haiku 4.5 / Sonnet 4.6 / Opus 4.7</td><td>GPT-4.1 / GPT-5.5</td><td>Gemini 2.5 Flash / 2.5 Pro</td></tr>
+        <tr><td>Models</td><td>Haiku 4.5 / Sonnet 4.6 / Opus 4.7</td><td>GPT-5.5 / GPT-5.4 / GPT-5.3-Codex</td><td>Gemini 2.5 Flash / Gemini 3 / 3.1 Pro</td></tr>
         <tr><td>Context window</td><td>200K tokens</td><td>128K tokens</td><td><strong style="color:#34d399">1M tokens</strong></td></tr>
         <tr><td>Runs locally</td><td><strong style="color:#34d399">Yes</strong> — reads &amp; writes your files</td><td><strong style="color:#34d399">Yes</strong> — CLI + cloud exec for parallel tasks</td><td><strong style="color:#34d399">Yes</strong> — CLI on your machine</td></tr>
         <tr><td>Plan mode</td><td><code>--plan</code></td><td><code>--approval-mode full</code></td><td>Interactive (approve each step)</td></tr>
         <tr><td>Memory file</td><td><code>CLAUDE.md</code></td><td><code>AGENTS.md</code></td><td><code>GEMINI.md</code></td></tr>
-        <tr><td>Plans</td><td>Pro $20 / Max $100 / Max $200 (20×)</td><td>Plus $20 / Pro $200</td><td>Free tier / AI Premium $20</td></tr>
+        <tr><td>Plans</td><td>Pro $20 / Max $100 / Max $200 (20×)</td><td>Free / Plus $20 / Pro $100–200</td><td>Free / AI Pro $20 / AI Ultra $250</td></tr>
         <tr><td>Best for</td><td>Long files, local data, research pipelines</td><td>Rapid async code generation</td><td>Largest context, multimodal (PDFs, audio)</td></tr>
       </tbody>
     </table>
@@ -759,7 +759,7 @@ body.light .ba-col.after   { background: rgba(52,211,153,0.08);  border-color: r
         <tr><td>Claude Sonnet 4.6</td><td>Balanced</td><td>Mid</td><td>Most research tasks — <strong>workshop default</strong></td></tr>
         <tr><td>Claude Opus 4.7</td><td>Slow</td><td>High</td><td>Complex, ambiguous problems</td></tr>
         <tr><td>GPT-5.5</td><td>Fast</td><td>Mid</td><td>Agentic coding, general tasks (Codex default)</td></tr>
-        <tr><td>codex-mini-latest</td><td>Very fast</td><td>Low</td><td>Rapid iteration, lighter coding tasks</td></tr>
+        <tr><td>GPT-5.4-mini</td><td>Very fast</td><td>Low</td><td>Rapid iteration, higher usage limits (Codex)</td></tr>
       </tbody>
     </table>
     <div class="callout tip" style="margin-top:0.4em;">
@@ -1328,6 +1328,31 @@ function copyCode(btn) {
     setTimeout(() => { btn.textContent = 'Copy'; btn.classList.remove('ok'); }, 2000);
   }).catch(() => {});
 }
+
+// Overview mode: shift grid to eliminate blank space at top-left.
+// Reveal.js centers the overview on the current slide, which places the entire
+// grid in the lower-right quadrant when starting from slide (0,0). This hook
+// fires after Reveal finishes setup (setTimeout 120ms), reads the actual screen
+// position of the first slide, and shifts the grid so it starts near (20, 20).
+// Math: Δscreen = totalScale × Δtranslate, where totalScale = product of all
+// scale() factors (e.g. 1.2 presentation × 0.2 overview = 0.24).
+Reveal.on('overviewshown', () => {
+  setTimeout(() => {
+    const slides = document.querySelector('.reveal .slides');
+    const t = slides.style.transform || '';
+    const firstSlide = slides.querySelector('section');
+    if (!firstSlide) return;
+    const { left, top } = firstSlide.getBoundingClientRect();
+    const pad = 20;
+    const dxScreen = pad - left;
+    const dyScreen = pad - top;
+    const allScales = [...t.matchAll(/scale\(([\d.]+)\)/g)].map(m => parseFloat(m[1]));
+    const totalScale = allScales.reduce((a, b) => a * b, 1) || 1;
+    slides.style.transform = t
+      .replace(/translateX\(([-\d.]+)px\)/, (_, x) => `translateX(${+x + dxScreen / totalScale}px)`)
+      .replace(/translateY\(([-\d.]+)px\)/, (_, y) => `translateY(${+y + dyScreen / totalScale}px)`);
+  }, 120);
+});
 
 // Clickable checklist items
 document.querySelectorAll('.checklist li').forEach(li => {
